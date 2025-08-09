@@ -5,20 +5,9 @@ import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
 
-const nav = [
-  { to: "/services", label: "Services" },
-  { to: "/owners", label: "Owners" },
-  { to: "/leasing", label: "Leasing" },
-  { to: "/maintenance", label: "Maintenance" },
-  { to: "/pricing", label: "Pricing" },
-  { to: "/service-areas", label: "Service Areas" },
-  { to: "/blog", label: "Blog" },
-  { to: "/resources", label: "Resources" },
-  { to: "/about", label: "About" },
-  { to: "/team", label: "Our Team" },
-  { to: "/contact", label: "Contact" },
-];
+// simplified navigation handled inline with NavigationMenu
 
 export const SiteLayout = () => {
   const [open, setOpen] = useState(false);
@@ -28,29 +17,76 @@ export const SiteLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/90 border-b">
-        <div className="container flex h-16 items-center justify-between">
+        <div className="container flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center gap-2" aria-label="Home">
-            <img src={logo} alt="Peak Properties logo" className="h-8 w-auto" loading="eager" />
+            <img src={logo} alt="Peak Properties logo" className="h-12 w-auto" loading="eager" />
           </Link>
 
-          <nav className="hidden md:flex gap-6 items-center">
-            {nav.map((n) => (
-              <NavLink
-                key={n.to}
-                to={n.to}
-                className={({ isActive }) =>
-                  `text-sm ${isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}`
-                }
-              >
-                {n.label}
-              </NavLink>
-            ))}
-            <Button asChild variant="outline">
-              <Link to="/owner-portal">Owner Portal</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/resident-portal">Resident Portal</Link>
-            </Button>
+          <nav className="hidden md:flex items-center gap-6">
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 p-4 w-56">
+                      <li>
+                        <NavLink to="/service-areas" className="block rounded-md p-2 hover:bg-accent" end>
+                          Service Areas
+                        </NavLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>I'm an Owner</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 p-4 w-64">
+                      <li>
+                        <NavLink to="/owner-faq" className="block rounded-md p-2 hover:bg-accent" end>
+                          Owner FAQs
+                        </NavLink>
+                      </li>
+                      <li>
+                        <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block rounded-md p-2 hover:bg-accent">
+                          Owner Portal Login
+                        </a>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavigationMenuTrigger>I'm a Renter</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid gap-2 p-4 w-64">
+                      <li>
+                        <NavLink to="/renter-faq" className="block rounded-md p-2 hover:bg-accent" end>
+                          Renter FAQ
+                        </NavLink>
+                      </li>
+                      <li>
+                        <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="block rounded-md p-2 hover:bg-accent">
+                          Renters Portal
+                        </a>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavLink to="/availability" className={({ isActive }) => `text-sm ${isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}`} end>
+                    Availability
+                  </NavLink>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavLink to="/about" className={({ isActive }) => `text-sm ${isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}`} end>
+                    About Us
+                  </NavLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
@@ -61,15 +97,30 @@ export const SiteLayout = () => {
         {open && (
           <div className="md:hidden border-t animate-slide-in-right">
             <div className="container py-4 grid gap-3">
-              {nav.map((n) => (
-                <NavLink key={n.to} to={n.to} onClick={() => setOpen(false)} className="py-2">
-                  {n.label}
+              <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">
+                Services
+              </NavLink>
+              <div className="pl-4">
+                <NavLink to="/service-areas" onClick={() => setOpen(false)} className="py-2">
+                  Service Areas
                 </NavLink>
-              ))}
-              <div className="flex gap-2 pt-2">
-                <Button asChild variant="outline" className="flex-1"><Link to="/owner-portal" onClick={() => setOpen(false)}>Owner Portal</Link></Button>
-                <Button asChild className="flex-1"><Link to="/resident-portal" onClick={() => setOpen(false)}>Resident Portal</Link></Button>
               </div>
+
+              <div className="pt-2 font-medium">I'm an Owner</div>
+              <div className="pl-4 grid">
+                <NavLink to="/owner-faq" onClick={() => setOpen(false)} className="py-2">Owner FAQs</NavLink>
+                <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="py-2">Owner Portal Login</a>
+              </div>
+
+              <div className="pt-2 font-medium">I'm a Renter</div>
+              <div className="pl-4 grid">
+                <NavLink to="/renter-faq" onClick={() => setOpen(false)} className="py-2">Renter FAQ</NavLink>
+                <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="py-2">Renters Portal</a>
+              </div>
+
+              <NavLink to="/availability" onClick={() => setOpen(false)} className="py-2">Availability</NavLink>
+              <NavLink to="/about" onClick={() => setOpen(false)} className="py-2">About Us</NavLink>
+
               <Button variant="hero" onClick={() => { setOpen(false); setLeadOpen(true); }}>Get Rent Estimate</Button>
             </div>
           </div>

@@ -19,6 +19,9 @@ import Resources from "./pages/Resources";
 import Contact from "./pages/Contact";
 import OwnerPortal from "./pages/OwnerPortal";
 import ResidentPortal from "./pages/ResidentPortal";
+import OwnerFAQ from "./pages/OwnerFAQ";
+import RenterFAQ from "./pages/RenterFAQ";
+import Availability from "./pages/Availability";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
 const queryClient = new QueryClient();
@@ -34,6 +37,7 @@ const App = () => (
             <Route index element={<Index />} />
             <Route path="services" element={<Services />} />
             <Route path="owners" element={<Owners />} />
+            <Route path="availability" element={<Availability />} />
             <Route path="leasing" element={<Leasing />} />
             <Route path="maintenance" element={<Maintenance />} />
             <Route path="pricing" element={<Pricing />} />
@@ -45,6 +49,8 @@ const App = () => (
             <Route path="resources" element={<Resources />} />
             <Route path="contact" element={<Contact />} />
             <Route path="owner-portal" element={<OwnerPortal />} />
+            <Route path="owner-faq" element={<OwnerFAQ />} />
+            <Route path="renter-faq" element={<RenterFAQ />} />
             <Route path="resident-portal" element={<ResidentPortal />} />
           </Route>
           {/* Catch-all */}
