@@ -1,5 +1,6 @@
 import { SEO } from "@/components/SEO";
 import { FAQ } from "@/pages/partials/FAQ";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const Leasing = () => (
   <>
@@ -12,6 +13,18 @@ const Leasing = () => (
         <div className="rounded-lg border bg-card p-5">Online scheduling and prompt follow‑up</div>
         <div className="rounded-lg border bg-card p-5">Application, screening, and lease preparation</div>
       </div>
+    </section>
+    <section className="container py-12">
+      <h2 className="font-head text-2xl mb-4">Browse Available Rentals</h2>
+      <AspectRatio ratio={16 / 9}>
+        <iframe
+          src="https://portal.getaptly.com/search/grWTDBRgQ4gjJXBa3/"
+          title="Peak Properties rental search"
+          className="h-full w-full rounded-lg border"
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        />
+      </AspectRatio>
     </section>
     <FAQ title="Leasing FAQs" items={[
       { q: 'How are showings handled?', a: 'Self‑tour tech where appropriate plus hosted tours for premium homes.' },

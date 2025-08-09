@@ -29,9 +29,8 @@ export const SiteLayout = () => {
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/90 border-b">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2" aria-label="Home">
             <img src={logo} alt="Peak Properties logo" className="h-8 w-auto" loading="eager" />
-            <span className="font-head text-lg">Peak Properties</span>
           </Link>
 
           <nav className="hidden md:flex gap-6 items-center">
