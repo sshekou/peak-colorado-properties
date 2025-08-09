@@ -17,14 +17,14 @@ export const SiteLayout = () => {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/90 border-b">
-        <div className="container flex h-20 items-center justify-between">
+        <div className="container flex h-[95px] items-center justify-between">
           <Link to="/" className="flex items-center gap-2" aria-label="Home">
             <img src={logo} alt="Peak Properties logo" className="h-12 w-auto" loading="eager" />
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
             <NavigationMenu>
-              <NavigationMenuList>
+              <NavigationMenuList className="gap-8">
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Services</NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -75,13 +75,13 @@ export const SiteLayout = () => {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavLink to="/availability" className={({ isActive }) => `text-sm ${isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}`} end>
+                  <NavLink to="/availability" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
                     Availability
                   </NavLink>
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
-                  <NavLink to="/about" className={({ isActive }) => `text-sm ${isActive ? "text-primary" : "text-foreground/70 hover:text-foreground"}`} end>
+                  <NavLink to="/about" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
                     About Us
                   </NavLink>
                 </NavigationMenuItem>
