@@ -57,17 +57,18 @@ export const TestimonialCard = ({ quote, name }: { quote: string; name: string }
 
 export const LocationCard = ({ name, blurb, to, slug }: { name: string; blurb: string; to: string; slug?: string }) => (
   <a href={to} className="block rounded-lg border bg-card hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden">
-    <div className="flex">
+    <div className="grid grid-cols-[120px_1fr] items-stretch">
       {slug && cityThumbnails[slug] && (
-        <div className="w-24 h-20 flex-shrink-0">
+        <div className="relative h-full">
           <img 
             src={cityThumbnails[slug]} 
-            alt={`${name} cityscape`}
-            className="w-full h-full object-cover"
+            alt={`${name} city thumbnail`}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       )}
-      <div className="p-5 flex-1">
+      <div className="p-5">
         <h3 className="font-medium">{name}</h3>
         <p className="text-sm text-muted-foreground mt-1">{blurb}</p>
       </div>

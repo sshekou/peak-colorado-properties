@@ -37,6 +37,7 @@ const ServiceAreasMap = () => {
   const GOOGLE_MAPS_MAP_ID = '84ff254c08985d6bbe4ce6bf';
   const [mapStyleId, setMapStyleId] = useState<string>(GOOGLE_MAPS_MAP_ID);
   const [pendingMapId, setPendingMapId] = useState<string>('');
+  const [mapError, setMapError] = useState<string | null>(null);
 
   const loadGoogleMapsScript = () => {
     if (window.google) {
@@ -48,6 +49,10 @@ const ServiceAreasMap = () => {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=weekly&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
+    script.onerror = () => {
+      setMapError('Unable to load Google Maps. Please verify API key and referer restrictions.');
+      setMapLoaded(true);
+    };
     
     window.initMap = initializeMap;
     
@@ -57,27 +62,32 @@ const ServiceAreasMap = () => {
   const initializeMap = () => {
     if (!mapContainer.current || !window.google) return;
 
-    const options: any = {
-      center: { lat: 40.0150, lng: -105.1317 }, // Centered on Boulder County
-      zoom: 11,
-      styles: [
-        {
-          featureType: "administrative.locality",
-          elementType: "labels",
-          stylers: [{ visibility: "on" }]
-        }
-      ]
-    };
-
-    if (mapStyleId) {
-      options.mapId = mapStyleId;
+    try {
+      const options: any = {
+        center: { lat: 40.0150, lng: -105.1317 }, // Centered on Boulder County
+        zoom: 11,
+        styles: [
+          {
+            featureType: "administrative.locality",
+            elementType: "labels",
+            stylers: [{ visibility: "on" }]
+          }
+        ]
+      };
+  
+      if (mapStyleId) {
+        options.mapId = mapStyleId;
+      }
+  
+      map.current = new window.google.maps.Map(mapContainer.current, options);
+  
+      addCityBoundaries();
+      addLocationMarkers();
+      setMapLoaded(true);
+    } catch (err: any) {
+      setMapError(err?.message || 'Failed to initialize Google Map');
+      setMapLoaded(true);
     }
-
-    map.current = new window.google.maps.Map(mapContainer.current, options);
-
-    addCityBoundaries();
-    addLocationMarkers();
-    setMapLoaded(true);
   };
 
   const addCityBoundaries = () => {
@@ -248,9 +258,18 @@ const ServiceAreasMap = () => {
         </Card>
       )}
       
-      {!mapLoaded && (
+      {!mapLoaded && !mapError && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded-lg flex items-center justify-center">
           <p className="text-muted-foreground">Loading Google Maps...</p>
+        </div>
+      )}
+
+      {mapError && (
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-6 text-center">
+          <div>
+            <p className="font-medium mb-2">{mapError}</p>
+            <p className="text-sm text-muted-foreground">Tip: Ensure your API key is unrestricted for this domain and your Map Style has LOCALITY/SUBLOCALITY Feature Layers enabled.</p>
+          </div>
         </div>
       )}
     </div>
