@@ -69,119 +69,13 @@ const ServiceAreasMap = () => {
 
   const addServiceAreaPolygons = async () => {
     if (!map.current) return;
-
-    try {
-      // Add Mapbox administrative boundaries tileset as source
-      map.current.addSource('admin-boundaries', {
-        type: 'vector',
-        url: 'mapbox://mapbox.boundaries-adm-v3'
-      });
-
-      // Add layer for administrative boundaries
-      map.current.addLayer({
-        id: 'admin-fill',
-        type: 'fill',
-        source: 'admin-boundaries',
-        'source-layer': 'boundaries_admin_3',
-        filter: [
-          'all',
-          ['==', 'admin_level', 8], // City level
-          ['==', 'iso_3166_1', 'US'],
-          ['==', 'iso_3166_2', 'US-CO'],
-          ['in', 'name', ...Object.values(cityNames)]
-        ],
-        paint: {
-          'fill-color': '#ff6b6b',
-          'fill-opacity': 0.3
-        }
-      });
-
-      // Add border layer
-      map.current.addLayer({
-        id: 'admin-border',
-        type: 'line',
-        source: 'admin-boundaries',
-        'source-layer': 'boundaries_admin_3',
-        filter: [
-          'all',
-          ['==', 'admin_level', 8],
-          ['==', 'iso_3166_1', 'US'],
-          ['==', 'iso_3166_2', 'US-CO'],
-          ['in', 'name', ...Object.values(cityNames)]
-        ],
-        paint: {
-          'line-color': '#ff4757',
-          'line-width': 2,
-          'line-opacity': 0.8
-        }
-      });
-
-      // Add hover effects
-      map.current.on('mouseenter', 'admin-fill', (e) => {
-        map.current!.getCanvas().style.cursor = 'pointer';
-        
-        // Highlight hovered feature
-        if (e.features && e.features[0]) {
-          map.current!.setFilter('admin-fill', [
-            'all',
-            ['==', 'admin_level', 8],
-            ['==', 'iso_3166_1', 'US'], 
-            ['==', 'iso_3166_2', 'US-CO'],
-            ['in', 'name', ...Object.values(cityNames)],
-            ['!=', ['get', 'name'], e.features[0].properties?.name]
-          ]);
-          
-          map.current!.addLayer({
-            id: 'admin-fill-hover',
-            type: 'fill',
-            source: 'admin-boundaries',
-            'source-layer': 'boundaries_admin_3',
-            filter: ['==', 'name', e.features[0].properties?.name],
-            paint: {
-              'fill-color': '#ff6b6b',
-              'fill-opacity': 0.5
-            }
-          });
-        }
-      });
-
-      map.current.on('mouseleave', 'admin-fill', () => {
-        map.current!.getCanvas().style.cursor = '';
-        
-        // Remove hover layer and restore original filter
-        if (map.current!.getLayer('admin-fill-hover')) {
-          map.current!.removeLayer('admin-fill-hover');
-        }
-        
-        map.current!.setFilter('admin-fill', [
-          'all',
-          ['==', 'admin_level', 8],
-          ['==', 'iso_3166_1', 'US'],
-          ['==', 'iso_3166_2', 'US-CO'],
-          ['in', 'name', ...Object.values(cityNames)]
-        ]);
-      });
-
-      // Add click handler
-      map.current.on('click', 'admin-fill', (e) => {
-        if (e.features && e.features[0]) {
-          const cityName = e.features[0].properties?.name;
-          const location = locations.find(loc => cityNames[loc.slug] === cityName);
-          if (location) {
-            navigate(`/service-areas/${location.slug}`);
-          }
-        }
-      });
-
-    } catch (error) {
-      console.error('Error loading administrative boundaries:', error);
-      // Fallback to manual polygons if boundaries fail
-      addFallbackPolygons();
-    }
+    
+    // Use manual polygons since Mapbox boundaries API is not working
+    addFallbackPolygons();
   };
 
   const addFallbackPolygons = () => {
-    // Fallback to original manual boundaries if Mapbox boundaries fail
+    // Manual boundaries for all service areas
     const fallbackBoundaries: Record<string, number[][][]> = {
       boulder: [[
         [-105.3050, 40.0941],
@@ -200,8 +94,63 @@ const ServiceAreasMap = () => {
         [-105.3167, 40.0567],
         [-105.3121, 40.0789],
         [-105.3050, 40.0941]
+      ]],
+      longmont: [[
+        [-105.1419, 40.2072],
+        [-105.0619, 40.2072],
+        [-105.0619, 40.1272],
+        [-105.1419, 40.1272],
+        [-105.1419, 40.2072]
+      ]],
+      louisville: [[
+        [-105.1717, 39.9978],
+        [-105.0917, 39.9978],
+        [-105.0917, 39.9578],
+        [-105.1717, 39.9578],
+        [-105.1717, 39.9978]
+      ]],
+      lafayette: [[
+        [-105.1294, 40.0136],
+        [-105.0494, 40.0136],
+        [-105.0494, 39.9736],
+        [-105.1294, 39.9736],
+        [-105.1294, 40.0136]
+      ]],
+      superior: [[
+        [-105.2086, 39.9728],
+        [-105.1286, 39.9728],
+        [-105.1286, 39.9328],
+        [-105.2086, 39.9328],
+        [-105.2086, 39.9728]
+      ]],
+      broomfield: [[
+        [-105.1267, 39.9405],
+        [-105.0467, 39.9405],
+        [-105.0467, 39.9005],
+        [-105.1267, 39.9005],
+        [-105.1267, 39.9405]
+      ]],
+      erie: [[
+        [-105.0898, 40.0702],
+        [-105.0098, 40.0702],
+        [-105.0098, 40.0302],
+        [-105.0898, 40.0302],
+        [-105.0898, 40.0702]
+      ]],
+      niwot: [[
+        [-105.2061, 40.1156],
+        [-105.1261, 40.1156],
+        [-105.1261, 40.0756],
+        [-105.2061, 40.0756],
+        [-105.2061, 40.1156]
+      ]],
+      gunbarrel: [[
+        [-105.2494, 40.0897],
+        [-105.1694, 40.0897],
+        [-105.1694, 40.0497],
+        [-105.2494, 40.0497],
+        [-105.2494, 40.0897]
       ]]
-      // Add other fallback boundaries as needed
     };
 
     locations.forEach((location) => {
@@ -242,6 +191,20 @@ const ServiceAreasMap = () => {
           'line-width': 2,
           'line-opacity': 0.8
         }
+      });
+
+      // Add hover effects
+      map.current!.on('mouseenter', `${location.slug}-fill`, () => {
+        map.current!.getCanvas().style.cursor = 'pointer';
+      });
+
+      map.current!.on('mouseleave', `${location.slug}-fill`, () => {
+        map.current!.getCanvas().style.cursor = '';
+      });
+
+      // Add click handler
+      map.current!.on('click', `${location.slug}-fill`, () => {
+        navigate(`/service-areas/${location.slug}`);
       });
     });
   };
@@ -304,6 +267,11 @@ const ServiceAreasMap = () => {
         }
       });
 
+      // Add click handler
+      markerEl.addEventListener('click', () => {
+        navigate(`/service-areas/${location.slug}`);
+      });
+
       // Create and add marker
       const marker = new mapboxgl.Marker(markerEl)
         .setLngLat(coords)
@@ -329,9 +297,8 @@ const ServiceAreasMap = () => {
         <Card
           className="absolute pointer-events-none z-10 p-4 min-w-64 max-w-80 shadow-lg bg-white/95 backdrop-blur-sm"
           style={{
-            left: Math.min(Math.max(mousePosition.x - 128, 16), window.innerWidth - 336),
-            top: Math.max(mousePosition.y - 120, 16),
-            transform: mousePosition.x > window.innerWidth / 2 ? 'translateX(-100%)' : 'translateX(0)',
+            left: Math.min(Math.max(mousePosition.x + 10, 10), 320),
+            top: Math.min(Math.max(mousePosition.y - 80, 10), 500),
           }}
         >
           <h4 className="font-semibold text-lg">{hoveredLocation.name}</h4>
