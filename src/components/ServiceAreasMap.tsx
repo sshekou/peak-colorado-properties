@@ -251,6 +251,11 @@ const ServiceAreasMap = () => {
     initializeMap();
   }, [mapStyleId]);
 
+  // Keep input in sync with active Map ID
+  useEffect(() => {
+    setPendingMapId(mapStyleId || '');
+  }, [mapStyleId]);
+
   const applyMapId = () => {
     if (!pendingMapId.trim()) return;
     setMapStyleId(pendingMapId.trim());
@@ -277,19 +282,19 @@ const ServiceAreasMap = () => {
         <Button size="sm" variant="secondary" onClick={refreshMap}>Refresh Map</Button>
       </div>
 
-      {!mapStyleId && (
-        <div className="absolute top-3 left-3 z-20 bg-background/90 backdrop-blur-sm border rounded-md p-3 shadow">
-          <div className="text-sm mb-2">Add Google Map ID to enable precise city boundaries.</div>
+        <div className="absolute top-3 left-3 z-20 bg-background/90 backdrop-blur-sm border rounded-md p-3 shadow max-w-sm">
+          <div className="text-xs mb-2 leading-snug">
+            Data‑Driven Boundaries require a Vector Map ID with Feature Layers → Boundaries → Locality enabled. Update Map ID and click Refresh.
+          </div>
           <div className="flex gap-2">
             <Input
               value={pendingMapId}
               onChange={(e) => setPendingMapId(e.target.value)}
-              placeholder="Map ID (e.g. 8b12a3cdef...)"
+              placeholder={`Map ID (current: ${mapStyleId || 'none'})`}
             />
             <Button size="sm" onClick={applyMapId}>Apply</Button>
           </div>
         </div>
-      )}
       
       
       {/* Hover tooltip */}
