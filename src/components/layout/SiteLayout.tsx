@@ -24,77 +24,71 @@ export const SiteLayout = () => {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
-            <NavigationMenu>
-              <NavigationMenuList className="gap-8">
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-2 p-4 w-56">
-                      <li>
-                        <NavLink to="/service-areas" className="block rounded-md p-2 hover:bg-accent" end>
-                          Service Areas
-                        </NavLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+            <div className="flex items-center gap-8">
+              {/* Services dropdown */}
+              <div className="relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>Services</DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" sideOffset={8}>
+                    <DropdownMenuItem asChild>
+                      <NavLink to="/service-areas" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
+                        Service Areas
+                      </NavLink>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>I'm an Owner</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-2 p-4 w-64">
-                      <li>
-                        <NavLink to="/owner-faq" className="block rounded-md p-2 hover:bg-accent" end>
-                          Owner FAQs
-                        </NavLink>
-                      </li>
-                      <li>
-                        <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block rounded-md p-2 hover:bg-accent">
-                          Owner Portal Login
-                        </a>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+              {/* I'm an Owner dropdown */}
+              <div className="relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm an Owner</DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" sideOffset={8}>
+                    <DropdownMenuItem asChild>
+                      <NavLink to="/owner-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
+                        Owner FAQs
+                      </NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
+                        Owner Portal Login
+                      </a>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-                {/* I'm a Renter dropdown aligned to its trigger */}
-                <div className="relative">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm a Renter</DropdownMenuTrigger>
-                    <DropdownMenuContent align="start" sideOffset={8}>
-                      <DropdownMenuItem asChild>
-                        <NavLink to="/renter-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
-                          Renter FAQ
-                        </NavLink>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem asChild>
-                        <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
-                          Renters Portal
-                        </a>
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+              {/* I'm a Renter dropdown aligned to its trigger */}
+              <div className="relative">
+                <DropdownMenu>
+                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm a Renter</DropdownMenuTrigger>
+                  <DropdownMenuContent align="start" sideOffset={8}>
+                    <DropdownMenuItem asChild>
+                      <NavLink to="/renter-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
+                        Renter FAQ
+                      </NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
+                        Renters Portal
+                      </a>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
 
-                <NavigationMenuItem>
-                  <NavLink to="/availability" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
-                    Availability
-                  </NavLink>
-                </NavigationMenuItem>
+              <NavLink to="/availability" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
+                Availability
+              </NavLink>
 
-                <NavigationMenuItem>
-                  <NavLink to="/about" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
-                    About Us
-                  </NavLink>
-                </NavigationMenuItem>
+              <NavLink to="/about" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
+                About Us
+              </NavLink>
 
-                <NavigationMenuItem>
-                  <NavLink to="/contact" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
-                    Contact
-                  </NavLink>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
+              <NavLink to="/contact" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
+                Contact
+              </NavLink>
+            </div>
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
