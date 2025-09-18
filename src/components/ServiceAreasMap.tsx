@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { locations, LocationInfo } from '@/data/locations';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 // Boulder County coordinates for each city
@@ -32,6 +34,9 @@ const ServiceAreasMap = () => {
   const markersRef = useRef<any[]>([]);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
+  const GOOGLE_MAPS_MAP_ID = '';
+  const [mapStyleId, setMapStyleId] = useState<string>(GOOGLE_MAPS_MAP_ID);
+  const [pendingMapId, setPendingMapId] = useState<string>('');
 
   const loadGoogleMapsScript = () => {
     if (window.google) {
@@ -52,7 +57,7 @@ const ServiceAreasMap = () => {
   const initializeMap = () => {
     if (!mapContainer.current || !window.google) return;
 
-    map.current = new window.google.maps.Map(mapContainer.current, {
+    const options: any = {
       center: { lat: 40.0150, lng: -105.1317 }, // Centered on Boulder County
       zoom: 11,
       styles: [
@@ -62,7 +67,13 @@ const ServiceAreasMap = () => {
           stylers: [{ visibility: "on" }]
         }
       ]
-    });
+    };
+
+    if (mapStyleId) {
+      options.mapId = mapStyleId;
+    }
+
+    map.current = new window.google.maps.Map(mapContainer.current, options);
 
     addCityBoundaries();
     addLocationMarkers();
@@ -75,6 +86,12 @@ const ServiceAreasMap = () => {
     const allowedLocalities = new Set<string>(
       locations.map((l) => l.name.toLowerCase())
     );
+
+    // Require Map ID for FeatureLayer boundaries
+    if (!mapStyleId) {
+      console.warn('Google Map ID required for DDS boundaries. Configure a Map ID with the LOCALITY Feature Layer enabled.');
+      return;
+    }
 
     // Use Google Maps Feature Layer for precise city boundaries
     const localityLayer = map.current.getFeatureLayer('LOCALITY');
@@ -183,9 +200,35 @@ const ServiceAreasMap = () => {
     };
   }, []);
 
+  // Reinitialize map when Map ID changes to enable boundaries
+  useEffect(() => {
+    if (!window.google || !mapContainer.current) return;
+    initializeMap();
+  }, [mapStyleId]);
+
+  const applyMapId = () => {
+    if (!pendingMapId.trim()) return;
+    setMapStyleId(pendingMapId.trim());
+  };
+
   return (
     <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
       <div ref={mapContainer} className="absolute inset-0" />
+
+      {!mapStyleId && (
+        <div className="absolute top-3 left-3 z-20 bg-background/90 backdrop-blur-sm border rounded-md p-3 shadow">
+          <div className="text-sm mb-2">Add Google Map ID to enable precise city boundaries.</div>
+          <div className="flex gap-2">
+            <Input
+              value={pendingMapId}
+              onChange={(e) => setPendingMapId(e.target.value)}
+              placeholder="Map ID (e.g. 8b12a3cdef...)"
+            />
+            <Button size="sm" onClick={applyMapId}>Apply</Button>
+          </div>
+        </div>
+      )}
+      
       
       {/* Hover tooltip */}
       {hoveredLocation && (
