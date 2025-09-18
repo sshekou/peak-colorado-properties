@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { locations, LocationInfo } from '@/data/locations';
 import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 // Boulder County coordinates for each city
@@ -28,21 +26,21 @@ declare global {
 const ServiceAreasMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<any>(null);
-  const [apiKey, setApiKey] = useState('');
   const [mapLoaded, setMapLoaded] = useState(false);
   const [hoveredLocation, setHoveredLocation] = useState<LocationInfo | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const markersRef = useRef<any[]>([]);
   const navigate = useNavigate();
+  const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
 
-  const loadGoogleMapsScript = (key: string) => {
+  const loadGoogleMapsScript = () => {
     if (window.google) {
       initializeMap();
       return;
     }
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
     
@@ -197,51 +195,12 @@ const ServiceAreasMap = () => {
     });
   };
 
-  const handleApiKeySubmit = () => {
-    if (apiKey.trim()) {
-      loadGoogleMapsScript(apiKey.trim());
-    }
-  };
-
   useEffect(() => {
+    loadGoogleMapsScript();
     return () => {
       markersRef.current.forEach(marker => marker?.setMap(null));
     };
   }, []);
-
-  if (!mapLoaded && !apiKey) {
-    return (
-      <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg bg-muted flex flex-col items-center justify-center p-8">
-        <div className="max-w-md w-full space-y-4 text-center">
-          <h3 className="text-lg font-semibold">Google Maps API Key Required</h3>
-          <p className="text-sm text-muted-foreground">
-            To display the service area map, please enter your Google Maps API key. 
-            You can get one from the{' '}
-            <a 
-              href="https://console.cloud.google.com/apis/credentials" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-primary hover:underline"
-            >
-              Google Cloud Console
-            </a>
-          </p>
-          <div className="space-y-2">
-            <Input
-              type="text"
-              placeholder="Enter your Google Maps API key"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleApiKeySubmit()}
-            />
-            <Button onClick={handleApiKeySubmit} className="w-full">
-              Load Map
-            </Button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
@@ -262,7 +221,7 @@ const ServiceAreasMap = () => {
         </Card>
       )}
       
-      {!mapLoaded && apiKey && (
+      {!mapLoaded && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded-lg flex items-center justify-center">
           <p className="text-muted-foreground">Loading Google Maps...</p>
         </div>
