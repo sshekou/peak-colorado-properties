@@ -39,6 +39,7 @@ const ServiceAreasMap = () => {
   const markersRef = useRef<any[]>([]);
   const boundariesStyledRef = useRef<boolean>(false);
   const styleHitCountRef = useRef<number>(0);
+  const scriptLoadingRef = useRef<boolean>(false);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
   const GOOGLE_MAPS_MAP_ID = '84ff254c08985d6bbe4ce6bf';
@@ -54,16 +55,29 @@ const ServiceAreasMap = () => {
       return;
     }
 
+    if (scriptLoadingRef.current) {
+      return;
+    }
+
+    // Prevent duplicate script tags
+    if (document.querySelector('script[src*="maps.googleapis.com/maps/api/js"]')) {
+      scriptLoadingRef.current = true;
+    }
+
     const script = document.createElement('script');
     script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
     script.onerror = () => {
+      scriptLoadingRef.current = false;
       setMapError('Unable to load Google Maps. Please verify API key and referer restrictions.');
       setMapLoaded(true);
     };
     
-    window.initMap = initializeMap;
+    window.initMap = () => {
+      scriptLoadingRef.current = false;
+      initializeMap();
+    };
     
     document.head.appendChild(script);
   };
@@ -123,7 +137,8 @@ const ServiceAreasMap = () => {
     try {
       console.debug('[Map] addCityBoundaries: applying styles for LOCALITY with Map ID:', mapStyleId);
       // LOCALITY (cities and towns)
-      const locality = map.current.getFeatureLayer(window.google.maps.FeatureType.LOCALITY);
+      const ft = window.google?.maps?.FeatureType?.LOCALITY ?? 'LOCALITY';
+      const locality = map.current.getFeatureLayer(ft);
       
       locality.style = (opts: any) => {
         const feature = opts?.feature;
@@ -282,7 +297,12 @@ const ServiceAreasMap = () => {
       setApiKey(newKey);
       try { localStorage.setItem('googleMapsApiKey', newKey); } catch {}
     }
-    reloadMapsScript();
+    // If API script is already loaded, just re-init the map with the new Map ID.
+    if ((window as any).google) {
+      refreshMap();
+    } else {
+      loadGoogleMapsScript();
+    }
   };
 
   const reloadMapsScript = () => {
