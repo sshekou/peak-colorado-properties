@@ -40,7 +40,7 @@ const ServiceAreasMap = () => {
     }
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=places&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=weekly&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
     
@@ -72,56 +72,37 @@ const ServiceAreasMap = () => {
   const addCityBoundaries = () => {
     if (!map.current || !window.google) return;
 
-    locations.forEach((location) => {
-      // Create city boundary using Google Maps Data Layer
-      const cityName = location.name + ', CO, USA';
-      
-      const geocoder = new window.google.maps.Geocoder();
-      geocoder.geocode({ address: cityName }, (results: any, status: any) => {
-        if (status === 'OK' && results[0]) {
-          const bounds = results[0].geometry.bounds || results[0].geometry.viewport;
-          
-          // Create a polygon for the city boundary
-          const cityPolygon = new window.google.maps.Polygon({
-            paths: [
-              bounds.getNorthEast(),
-              { lat: bounds.getNorthEast().lat(), lng: bounds.getSouthWest().lng() },
-              bounds.getSouthWest(),
-              { lat: bounds.getSouthWest().lat(), lng: bounds.getNorthEast().lng() }
-            ],
-            strokeColor: '#ff4757',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#ff6b6b',
-            fillOpacity: 0.3,
-            clickable: true
-          });
+    const allowedLocalities = new Set<string>(
+      locations.map((l) => l.name.toLowerCase())
+    );
 
-          cityPolygon.setMap(map.current);
+    // Use Google Maps Feature Layer for precise city boundaries
+    const localityLayer = map.current.getFeatureLayer('LOCALITY');
 
-          // Add click handler
-          cityPolygon.addListener('click', () => {
-            navigate(`/service-areas/${location.slug}`);
-          });
+    localityLayer.style = (options: any) => {
+      const name = options?.feature?.displayName?.toLowerCase?.();
+      if (name && allowedLocalities.has(name)) {
+        return {
+          strokeColor: '#ff4757',
+          strokeOpacity: 0.9,
+          strokeWeight: 2,
+          fillColor: '#ff6b6b',
+          fillOpacity: 0.25,
+          visible: true,
+        };
+      }
+      return { visible: false };
+    };
 
-          // Add hover effects
-          cityPolygon.addListener('mouseover', () => {
-            cityPolygon.setOptions({
-              fillOpacity: 0.5,
-              strokeWeight: 3
-            });
-            map.current.setOptions({ cursor: 'pointer' });
-          });
-
-          cityPolygon.addListener('mouseout', () => {
-            cityPolygon.setOptions({
-              fillOpacity: 0.3,
-              strokeWeight: 2
-            });
-            map.current.setOptions({ cursor: 'default' });
-          });
-        }
-      });
+    // Click to navigate to service area detail
+    localityLayer.addListener('click', (e: any) => {
+      const feature = e?.features?.[0];
+      const displayName = feature?.displayName as string | undefined;
+      if (!displayName) return;
+      const loc = locations.find(
+        (l) => l.name.toLowerCase() === displayName.toLowerCase()
+      );
+      if (loc) navigate(`/service-areas/${loc.slug}`);
     });
   };
 
