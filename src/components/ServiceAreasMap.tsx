@@ -18,6 +18,11 @@ const locationCoordinates: Record<string, { lat: number; lng: number }> = {
   gunbarrel: { lat: 40.0697, lng: -105.2094 }
 };
 
+// Known Google Place IDs for Locality features
+const localityPlaceIds: Record<string, string> = {
+  boulder: 'ChIJ06-NJ06Na4cRWIAboHw7Ocg', // Boulder, CO
+};
+
 declare global {
   interface Window {
     google: any;
@@ -100,7 +105,9 @@ const ServiceAreasMap = () => {
   const addCityBoundaries = () => {
     if (!map.current || !window.google) return;
 
-    const allowed = new Set<string>(locations.map((l) => l.name.toLowerCase()));
+    const allowedNames = new Set<string>(locations.map((l) => l.name.toLowerCase()));
+    const placeIdToSlug: Record<string, string> = { ...localityPlaceIds };
+    const allowedPlaceIds = new Set<string>(Object.values(localityPlaceIds));
 
     if (!mapStyleId) {
       console.warn('Google Map ID required for DDS boundaries. Configure a Map ID with LOCALITY feature layer enabled.');
@@ -112,9 +119,12 @@ const ServiceAreasMap = () => {
       const locality = map.current.getFeatureLayer(window.google.maps.FeatureType.LOCALITY);
       
       locality.style = (opts: any) => {
-        const name = opts?.feature?.displayName?.toLowerCase?.() || '';
-        const match = Array.from(allowed).some((a) => name === a || name.includes(a));
-        if (match) {
+        const feature = opts?.feature;
+        const pid: string | undefined = feature?.placeId;
+        const name = feature?.displayName?.toLowerCase?.() || '';
+        const nameMatch = Array.from(allowedNames).some((a) => name === a || name.includes(a));
+        const idMatch = pid ? allowedPlaceIds.has(pid) : false;
+        if (idMatch || nameMatch) {
           return {
             strokeColor: '#ff4757',
             strokeOpacity: 0.9,
@@ -128,7 +138,13 @@ const ServiceAreasMap = () => {
       };
 
       locality.addListener('click', (e: any) => {
-        const displayName = e?.features?.[0]?.displayName;
+        const feature = e?.features?.[0];
+        const pid: string | undefined = feature?.placeId;
+        if (pid && placeIdToSlug[pid]) {
+          navigate(`/service-areas/${placeIdToSlug[pid]}`);
+          return;
+        }
+        const displayName: string | undefined = feature?.displayName;
         if (!displayName) return;
         const loc = locations.find((l) => displayName.toLowerCase().includes(l.name.toLowerCase()));
         if (loc) navigate(`/service-areas/${loc.slug}`);
