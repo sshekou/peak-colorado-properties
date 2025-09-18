@@ -109,7 +109,7 @@ const ServiceAreasMap = () => {
 
     try {
       // LOCALITY (cities and towns)
-      const locality = map.current.getFeatureLayer('LOCALITY');
+      const locality = map.current.getFeatureLayer(window.google.maps.FeatureType.LOCALITY);
       
       locality.style = (opts: any) => {
         const name = opts?.feature?.displayName?.toLowerCase?.() || '';
