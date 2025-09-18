@@ -22,7 +22,7 @@ const locationCoordinates: Record<string, [number, number]> = {
 const ServiceAreasMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [mapboxToken, setMapboxToken] = useState('');
+  const [mapboxToken] = useState('pk.eyJ1Ijoic3NoZWtvdSIsImEiOiJjbWZwcDFycGswOTNkMmpwbXcxdXltOHdhIn0.cvbUOhH0VSpUWBD04p2XbA');
   const [mapInitialized, setMapInitialized] = useState(false);
   const [hoveredLocation, setHoveredLocation] = useState<LocationInfo | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -106,31 +106,11 @@ const ServiceAreasMap = () => {
   };
 
   useEffect(() => {
+    initializeMap();
     return () => {
       map.current?.remove();
     };
   }, []);
-
-  if (!mapInitialized && !mapboxToken) {
-    return (
-      <div className="w-full h-96 bg-muted rounded-lg flex flex-col items-center justify-center p-6 space-y-4">
-        <h3 className="text-lg font-semibold">Boulder County Service Areas Map</h3>
-        <p className="text-sm text-muted-foreground text-center">
-          Enter your Mapbox public token to view the interactive map.<br />
-          Get your token at <a href="https://mapbox.com/" target="_blank" rel="noopener" className="text-primary hover:underline">mapbox.com</a>
-        </p>
-        <div className="flex gap-2 w-full max-w-md">
-          <Input
-            placeholder="Enter Mapbox public token"
-            value={mapboxToken}
-            onChange={(e) => setMapboxToken(e.target.value)}
-            className="flex-1"
-          />
-          <Button onClick={initializeMap}>Load Map</Button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative w-full h-96 rounded-lg overflow-hidden shadow-lg">
@@ -151,7 +131,7 @@ const ServiceAreasMap = () => {
         </Card>
       )}
       
-      {!mapInitialized && mapboxToken && (
+      {!mapInitialized && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded-lg flex items-center justify-center">
           <p className="text-muted-foreground">Loading map...</p>
         </div>
