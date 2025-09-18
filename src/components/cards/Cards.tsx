@@ -55,27 +55,23 @@ export const TestimonialCard = ({ quote, name }: { quote: string; name: string }
   </Card>
 );
 
-export const LocationCard = ({ name, blurb, to, slug }: { name: string; blurb: string; to: string; slug?: string }) => {
-  const isLouisville = slug === 'louisville';
-  
-  return (
-    <a href={to} className="block rounded-lg border bg-card hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden">
-      <div className={isLouisville ? "relative min-h-[140px]" : "grid grid-cols-[120px_1fr] items-stretch"}>
-        {slug && cityThumbnails[slug] && (
-          <div className={isLouisville ? "absolute inset-0" : "relative h-full"}>
-            <img 
-              src={cityThumbnails[slug]} 
-              alt={`${name} city thumbnail`}
-              className="absolute inset-0 w-full h-full object-cover"
-              loading="lazy"
-            />
-          </div>
-        )}
-        <div className={isLouisville ? "relative z-10 p-5 bg-gradient-to-r from-background/90 to-transparent" : "p-5"}>
-          <h3 className="font-medium">{name}</h3>
-          <p className="text-sm text-muted-foreground mt-1">{blurb}</p>
+export const LocationCard = ({ name, blurb, to, slug }: { name: string; blurb: string; to: string; slug?: string }) => (
+  <a href={to} className="block rounded-lg border bg-card hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden">
+    <div className="grid grid-cols-[120px_1fr] items-stretch min-h-[100px]">
+      {slug && cityThumbnails[slug] && (
+        <div className="relative">
+          <img 
+            src={cityThumbnails[slug]} 
+            alt={`${name} city thumbnail`}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
+      )}
+      <div className="p-5 flex flex-col justify-center">
+        <h3 className="font-medium">{name}</h3>
+        <p className="text-sm text-muted-foreground mt-1">{blurb}</p>
       </div>
-    </a>
-  );
-};
+    </div>
+  </a>
+);
