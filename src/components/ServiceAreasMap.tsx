@@ -45,6 +45,8 @@ const ServiceAreasMap = () => {
   const [mapStyleId, setMapStyleId] = useState<string>(GOOGLE_MAPS_MAP_ID);
   const [pendingMapId, setPendingMapId] = useState<string>('');
   const [mapError, setMapError] = useState<string | null>(null);
+  const [apiKey, setApiKey] = useState<string>(GOOGLE_MAPS_API_KEY);
+  const [pendingApiKey, setPendingApiKey] = useState<string>('');
 
   const loadGoogleMapsScript = () => {
     if (window.google) {
@@ -53,7 +55,7 @@ const ServiceAreasMap = () => {
     }
 
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&v=weekly&libraries=places&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&v=weekly&libraries=places&callback=initMap`;
     script.async = true;
     script.defer = true;
     script.onerror = () => {
@@ -245,6 +247,15 @@ const ServiceAreasMap = () => {
     };
   }, []);
 
+  useEffect(() => {
+    try {
+      const storedKey = localStorage.getItem('googleMapsApiKey');
+      const storedMapId = localStorage.getItem('googleMapsMapId');
+      if (storedKey) setApiKey(storedKey);
+      if (storedMapId) setMapStyleId(storedMapId);
+    } catch {}
+  }, []);
+
   // Reinitialize map when Map ID changes to enable boundaries
   useEffect(() => {
     if (!window.google || !mapContainer.current) return;
@@ -256,9 +267,48 @@ const ServiceAreasMap = () => {
     setPendingMapId(mapStyleId || '');
   }, [mapStyleId]);
 
-  const applyMapId = () => {
-    if (!pendingMapId.trim()) return;
-    setMapStyleId(pendingMapId.trim());
+  useEffect(() => {
+    setPendingApiKey(apiKey || '');
+  }, [apiKey]);
+
+  const applySettings = () => {
+    const newId = pendingMapId.trim();
+    const newKey = pendingApiKey.trim();
+    if (newId) {
+      setMapStyleId(newId);
+      try { localStorage.setItem('googleMapsMapId', newId); } catch {}
+    }
+    if (newKey) {
+      setApiKey(newKey);
+      try { localStorage.setItem('googleMapsApiKey', newKey); } catch {}
+    }
+    reloadMapsScript();
+  };
+
+  const reloadMapsScript = () => {
+    try {
+      boundariesStyledRef.current = false;
+      styleHitCountRef.current = 0;
+      markersRef.current.forEach((m) => m?.setMap?.(null));
+      markersRef.current = [];
+      setMapLoaded(false);
+      setMapError(null);
+      // Remove existing Google Maps scripts
+      document
+        .querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]')
+        .forEach((s) => s.parentNode?.removeChild(s));
+      // Reset global google object
+      // @ts-ignore
+      if ((window as any).google) {
+        // @ts-ignore
+        delete (window as any).google;
+      }
+      window.initMap = initializeMap;
+      loadGoogleMapsScript();
+    } catch (e) {
+      console.error('Reload Maps script failed', e);
+      loadGoogleMapsScript();
+    }
   };
 
   const refreshMap = () => {
@@ -284,15 +334,23 @@ const ServiceAreasMap = () => {
 
         <div className="absolute top-3 left-3 z-20 bg-background/90 backdrop-blur-sm border rounded-md p-3 shadow max-w-sm">
           <div className="text-xs mb-2 leading-snug">
-            Data‑Driven Boundaries require a Vector Map ID with Feature Layers → Boundaries → Locality enabled. Update Map ID and click Refresh.
+            Data‑Driven Boundaries require a Vector Map ID with Feature Layers → Boundaries → Locality enabled. Also ensure your API key and Map ID are in the same Google Cloud project.
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2">
             <Input
-              value={pendingMapId}
-              onChange={(e) => setPendingMapId(e.target.value)}
-              placeholder={`Map ID (current: ${mapStyleId || 'none'})`}
+              type="password"
+              value={pendingApiKey}
+              onChange={(e) => setPendingApiKey(e.target.value)}
+              placeholder={`API Key (${apiKey ? 'set' : 'enter key'})`}
             />
-            <Button size="sm" onClick={applyMapId}>Apply</Button>
+            <div className="flex gap-2">
+              <Input
+                value={pendingMapId}
+                onChange={(e) => setPendingMapId(e.target.value)}
+                placeholder={`Map ID (current: ${mapStyleId || 'none'})`}
+              />
+              <Button size="sm" onClick={applySettings}>Apply</Button>
+            </div>
           </div>
         </div>
       
@@ -322,7 +380,7 @@ const ServiceAreasMap = () => {
         <div className="absolute inset-0 bg-background/90 backdrop-blur-sm rounded-lg flex items-center justify-center p-6 text-center">
           <div>
             <p className="font-medium mb-2">{mapError}</p>
-            <p className="text-sm text-muted-foreground">Tip: Ensure your API key is unrestricted for this domain and your Map Style has LOCALITY/SUBLOCALITY Feature Layers enabled.</p>
+            <p className="text-sm text-muted-foreground">Tip: Use a browser API key from the same project as your Map ID, allow this domain in HTTP referrers, and enable Boundaries → Locality in the Map Style.</p>
           </div>
         </div>
       )}
