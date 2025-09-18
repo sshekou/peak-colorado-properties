@@ -96,44 +96,40 @@ const ServiceAreasMap = () => {
     const allowed = new Set<string>(locations.map((l) => l.name.toLowerCase()));
 
     if (!mapStyleId) {
-      console.warn('Google Map ID required for DDS boundaries. Configure a Map ID with LOCALITY/SUBLOCALITY feature layers enabled.');
+      console.warn('Google Map ID required for DDS boundaries. Configure a Map ID with LOCALITY feature layer enabled.');
       return;
     }
 
-    const styleFor = (featureType: string) => (opts: any) => {
-      const name = opts?.feature?.displayName?.toLowerCase?.();
-      if (name && allowed.has(name)) {
-        return {
-          strokeColor: '#ff4757',
-          strokeOpacity: 0.9,
-          strokeWeight: 2,
-          fillColor: '#ff6b6b',
-          fillOpacity: 0.2,
-          visible: true,
-        };
-      }
-      return { visible: false };
-    };
+    try {
+      // LOCALITY (cities and towns)
+      const locality = map.current.getFeatureLayer('LOCALITY');
+      
+      locality.style = (opts: any) => {
+        const name = opts?.feature?.displayName?.toLowerCase?.();
+        if (name && allowed.has(name)) {
+          return {
+            strokeColor: '#ff4757',
+            strokeOpacity: 0.9,
+            strokeWeight: 2,
+            fillColor: '#ff6b6b',
+            fillOpacity: 0.25,
+            visible: true,
+          };
+        }
+        return { visible: false };
+      };
 
-    // LOCALITY (cities)
-    const locality = map.current.getFeatureLayer('LOCALITY');
-    locality.style = styleFor('LOCALITY');
-    locality.addListener('click', (e: any) => {
-      const displayName = e?.features?.[0]?.displayName;
-      if (!displayName) return;
-      const loc = locations.find((l) => l.name.toLowerCase() === String(displayName).toLowerCase());
-      if (loc) navigate(`/service-areas/${loc.slug}`);
-    });
+      locality.addListener('click', (e: any) => {
+        const displayName = e?.features?.[0]?.displayName;
+        if (!displayName) return;
+        const loc = locations.find((l) => l.name.toLowerCase() === String(displayName).toLowerCase());
+        if (loc) navigate(`/service-areas/${loc.slug}`);
+      });
 
-    // SUBLOCALITY (CDPs/communities like Gunbarrel/Niwot)
-    const sublocality = map.current.getFeatureLayer('SUBLOCALITY');
-    sublocality.style = styleFor('SUBLOCALITY');
-    sublocality.addListener('click', (e: any) => {
-      const displayName = e?.features?.[0]?.displayName;
-      if (!displayName) return;
-      const loc = locations.find((l) => l.name.toLowerCase() === String(displayName).toLowerCase());
-      if (loc) navigate(`/service-areas/${loc.slug}`);
-    });
+    } catch (err: any) {
+      console.error('Error setting up city boundaries:', err);
+      setMapError(`Boundary error: ${err.message}`);
+    }
   };
 
   const addLocationMarkers = () => {
