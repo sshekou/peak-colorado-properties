@@ -32,6 +32,7 @@ const ServiceAreasMap = () => {
   const [hoveredLocation, setHoveredLocation] = useState<LocationInfo | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const markersRef = useRef<any[]>([]);
+  const boundariesStyledRef = useRef<boolean>(false);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
   const GOOGLE_MAPS_MAP_ID = '84ff254c08985d6bbe4ce6bf';
@@ -79,11 +80,17 @@ const ServiceAreasMap = () => {
         options.mapId = mapStyleId;
       }
   
-      map.current = new window.google.maps.Map(mapContainer.current, options);
-  
-      addCityBoundaries();
-      addLocationMarkers();
-      setMapLoaded(true);
+    map.current = new window.google.maps.Map(mapContainer.current, options);
+
+    // Wait for map to be idle to ensure style is applied before styling FeatureLayers
+    map.current.addListener('idle', () => {
+      if (!boundariesStyledRef.current) {
+        addCityBoundaries();
+      }
+    });
+
+    addLocationMarkers();
+    setMapLoaded(true);
     } catch (err: any) {
       setMapError(err?.message || 'Failed to initialize Google Map');
       setMapLoaded(true);
@@ -105,8 +112,9 @@ const ServiceAreasMap = () => {
       const locality = map.current.getFeatureLayer('LOCALITY');
       
       locality.style = (opts: any) => {
-        const name = opts?.feature?.displayName?.toLowerCase?.();
-        if (name && allowed.has(name)) {
+        const name = opts?.feature?.displayName?.toLowerCase?.() || '';
+        const match = Array.from(allowed).some((a) => name === a || name.includes(a));
+        if (match) {
           return {
             strokeColor: '#ff4757',
             strokeOpacity: 0.9,
@@ -122,9 +130,11 @@ const ServiceAreasMap = () => {
       locality.addListener('click', (e: any) => {
         const displayName = e?.features?.[0]?.displayName;
         if (!displayName) return;
-        const loc = locations.find((l) => l.name.toLowerCase() === String(displayName).toLowerCase());
+        const loc = locations.find((l) => displayName.toLowerCase().includes(l.name.toLowerCase()));
         if (loc) navigate(`/service-areas/${loc.slug}`);
       });
+
+      boundariesStyledRef.current = true;
 
     } catch (err: any) {
       console.error('Error setting up city boundaries:', err);
