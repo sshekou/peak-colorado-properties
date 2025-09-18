@@ -1,7 +1,7 @@
 export interface LocationInfo { slug: string; name: string; overview: string; exampleRent: string; }
 
 export const locations: LocationInfo[] = [
-  { slug: 'boulder', name: 'Boulder', overview: 'Iconic Flatirons views, walkable neighborhoods, and strong demand near CU and Pearl Street.', exampleRent: '$2,200–$3,800 2BR' },
+  { slug: 'boulder', name: 'Boulder', overview: 'Iconic Flatirons views and walkable neighborhoods near CU and Pearl Street.', exampleRent: '$2,200–$3,800 2BR' },
   { slug: 'longmont', name: 'Longmont', overview: 'Expanding tech scene and great value across leafy neighborhoods and newer builds.', exampleRent: '$1,800–$2,800 3BR' },
   { slug: 'louisville', name: 'Louisville', overview: 'Charming Old Town vibe with quick access to Boulder and Denver.', exampleRent: '$2,100–$3,000 3BR' },
   { slug: 'lafayette', name: 'Lafayette', overview: 'Parks, trails, and a growing food scene—great for families.', exampleRent: '$1,900–$2,900 3BR' },
