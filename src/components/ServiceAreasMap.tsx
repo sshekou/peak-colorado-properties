@@ -35,7 +35,7 @@ const ServiceAreasMap = () => {
   const boundariesStyledRef = useRef<boolean>(false);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
-  const GOOGLE_MAPS_MAP_ID = '84ff254c08985d6bbe4ce6bf';
+  const GOOGLE_MAPS_MAP_ID = '248f17627f60df1af80f8a4a';
   const [mapStyleId, setMapStyleId] = useState<string>(GOOGLE_MAPS_MAP_ID);
   const [pendingMapId, setPendingMapId] = useState<string>('');
   const [mapError, setMapError] = useState<string | null>(null);
