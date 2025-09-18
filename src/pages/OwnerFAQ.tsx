@@ -75,18 +75,18 @@ const OwnerFAQ = () => {
 
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Stage 1: Prepare */}
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden flex flex-col h-full">
               <div className="relative h-48">
                 <img src={prepareImage} alt="Property preparation and renovation" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Prepare</h3>
               </div>
-              <div className="p-8 text-center">
-                <p className="text-muted-foreground mb-6">
+              <div className="p-8 flex flex-col flex-1">
+                <p className="text-muted-foreground mb-6 text-left">
                   When we onboard your home, we run it through our detailed checklist to coordinate and complete any necessary work to get it ready for market. That way, your home will make the best first impression, rent faster at top dollar, and maintain its value longer.
                 </p>
                 
-                <div className="border-t pt-6">
+                <div className="border-t pt-6 mt-auto">
                   <button 
                     onClick={() => toggleAccordion('prepare')}
                     className="w-full flex items-center justify-between text-left font-medium"
@@ -95,7 +95,7 @@ const OwnerFAQ = () => {
                     <span className={`transform transition-transform ${openAccordion === 'prepare' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'prepare' && (
-                    <div className="mt-4 text-sm text-muted-foreground space-y-3">
+                    <div className="mt-4 text-sm text-muted-foreground space-y-3 text-left">
                       <p>We know upgrades and unexpected repairs can make even the most seasoned investors uneasy. Don't worry, we're always thinking about long-term profits.</p>
                       <p>We do only what's really needed while not letting you trip over dollars to get to pennies. If a repair quote is more than our agreed-upon amount, we'll call you and make a smart decision together.</p>
                       <p>Our network of Boulder County vendors is well-known and highly trusted. Every vendor maintains up-to-date insurance and licensing. If we wouldn't have them in our own homes, they won't be in yours.</p>
@@ -106,18 +106,18 @@ const OwnerFAQ = () => {
             </Card>
 
             {/* Stage 2: Market */}
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden flex flex-col h-full">
               <div className="relative h-48">
                 <img src={marketImage} alt="Property marketing and photography" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Market</h3>
               </div>
-              <div className="p-8 text-center">
-                <p className="text-muted-foreground mb-6">
+              <div className="p-8 flex flex-col flex-1">
+                <p className="text-muted-foreground mb-6 text-left">
                   Maximizing exposure is crucial to minimizing vacancy. Our rentals plug into Boulder County's most effective marketing strategies, taking advantage of local networks and seasonal demand patterns.
                 </p>
                 
-                <div className="border-t pt-6">
+                <div className="border-t pt-6 mt-auto">
                   <button 
                     onClick={() => toggleAccordion('market')}
                     className="w-full flex items-center justify-between text-left font-medium"
@@ -126,7 +126,7 @@ const OwnerFAQ = () => {
                     <span className={`transform transition-transform ${openAccordion === 'market' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'market' && (
-                    <div className="mt-4 text-sm text-muted-foreground space-y-3">
+                    <div className="mt-4 text-sm text-muted-foreground space-y-3 text-left">
                       <p>We treat your investment property with the same care as our premium listings. Every rental receives professional photography and is marketed across multiple channels.</p>
                       <p>Every rental home is entered into the MLS, syndicated to Zillow, Trulia, and other major sites, plus promoted through our extensive Boulder County network.</p>
                       <p>We screen carefully - criminal background checks, credit evaluation, income verification, and landlord references. Detailed vetting leads to quality tenants and fewer surprises.</p>
@@ -137,18 +137,18 @@ const OwnerFAQ = () => {
             </Card>
 
             {/* Stage 3: Profit */}
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden flex flex-col h-full">
               <div className="relative h-48">
                 <img src={profitImage} alt="Property investment profits and returns" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Profit</h3>
               </div>
-              <div className="p-8 text-center">
-                <p className="text-muted-foreground mb-6">
+              <div className="p-8 flex flex-col flex-1">
+                <p className="text-muted-foreground mb-6 text-left">
                   We take our responsibility for helping you reach your real estate goals seriously. Track your progress with detailed monthly and year-end reports while maximizing your Boulder County investment returns.
                 </p>
                 
-                <div className="border-t pt-6">
+                <div className="border-t pt-6 mt-auto">
                   <button 
                     onClick={() => toggleAccordion('profit')}
                     className="w-full flex items-center justify-between text-left font-medium"
@@ -157,7 +157,7 @@ const OwnerFAQ = () => {
                     <span className={`transform transition-transform ${openAccordion === 'profit' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'profit' && (
-                    <div className="mt-4 text-sm text-muted-foreground space-y-3">
+                    <div className="mt-4 text-sm text-muted-foreground space-y-3 text-left">
                       <p>Whether you're maximizing ROI on your current Boulder County portfolio or identifying new properties with potential, we can help with our local market expertise.</p>
                       <p>We craft your monthly owner statement into a concise snapshot of income and expenses. Access past reports from your dashboard anytime.</p>
                       <p>At year-end, we provide 1099s and itemized profit/loss statements for your tax professional, making tax time straightforward.</p>
