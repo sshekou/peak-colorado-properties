@@ -34,7 +34,7 @@ const ServiceAreasMap = () => {
   const markersRef = useRef<any[]>([]);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
-  const GOOGLE_MAPS_MAP_ID = '';
+  const GOOGLE_MAPS_MAP_ID = '84ff254c08985d6bbe4ce6bf';
   const [mapStyleId, setMapStyleId] = useState<string>(GOOGLE_MAPS_MAP_ID);
   const [pendingMapId, setPendingMapId] = useState<string>('');
 
