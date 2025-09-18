@@ -5,7 +5,8 @@ import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent } from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 
 // simplified navigation handled inline with NavigationMenu
 
@@ -56,23 +57,24 @@ export const SiteLayout = () => {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
 
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger>I'm a Renter</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid gap-2 p-4 w-64">
-                      <li>
-                        <NavLink to="/renter-faq" className="block rounded-md p-2 hover:bg-accent" end>
+                {/* I'm a Renter dropdown aligned to its trigger */}
+                <div className="relative">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm a Renter</DropdownMenuTrigger>
+                    <DropdownMenuContent align="start" sideOffset={8}>
+                      <DropdownMenuItem asChild>
+                        <NavLink to="/renter-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
                           Renter FAQ
                         </NavLink>
-                      </li>
-                      <li>
-                        <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="block rounded-md p-2 hover:bg-accent">
+                      </DropdownMenuItem>
+                      <DropdownMenuItem asChild>
+                        <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
                           Renters Portal
                         </a>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
 
                 <NavigationMenuItem>
                   <NavLink to="/availability" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
