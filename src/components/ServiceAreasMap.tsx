@@ -18,240 +18,17 @@ const locationCoordinates: Record<string, [number, number]> = {
   gunbarrel: [-105.2094, 40.0697]
 };
 
-// Service area boundary polygons (more accurate city boundaries)
-const locationBoundaries: Record<string, number[][][]> = {
-  boulder: [[
-    [-105.3050, 40.0941],
-    [-105.2987, 40.0712],
-    [-105.2654, 40.0589],
-    [-105.2398, 40.0478],
-    [-105.2289, 40.0234],
-    [-105.2156, 39.9987],
-    [-105.2234, 39.9876],
-    [-105.2445, 39.9823],
-    [-105.2767, 39.9745],
-    [-105.2934, 39.9834],
-    [-105.3087, 39.9923],
-    [-105.3145, 40.0123],
-    [-105.3198, 40.0345],
-    [-105.3167, 40.0567],
-    [-105.3121, 40.0789],
-    [-105.3050, 40.0941]
-  ]],
-  longmont: [[
-    [-105.1456, 40.2134],
-    [-105.1234, 40.2089],
-    [-105.0987, 40.2012],
-    [-105.0765, 40.1934],
-    [-105.0543, 40.1823],
-    [-105.0456, 40.1645],
-    [-105.0398, 40.1456],
-    [-105.0387, 40.1234],
-    [-105.0445, 40.1023],
-    [-105.0567, 40.0834],
-    [-105.0789, 40.0756],
-    [-105.1012, 40.0723],
-    [-105.1234, 40.0789],
-    [-105.1456, 40.0891],
-    [-105.1567, 40.1023],
-    [-105.1623, 40.1234],
-    [-105.1589, 40.1456],
-    [-105.1534, 40.1678],
-    [-105.1489, 40.1901],
-    [-105.1456, 40.2134]
-  ]],
-  louisville: [[
-    [-105.1789, 40.0234],
-    [-105.1645, 40.0189],
-    [-105.1456, 40.0134],
-    [-105.1234, 40.0089],
-    [-105.1012, 40.0034],
-    [-105.0834, 39.9989],
-    [-105.0789, 39.9834],
-    [-105.0823, 39.9678],
-    [-105.0891, 39.9523],
-    [-105.0989, 39.9389],
-    [-105.1123, 39.9323],
-    [-105.1289, 39.9289],
-    [-105.1456, 39.9323],
-    [-105.1623, 39.9389],
-    [-105.1734, 39.9523],
-    [-105.1801, 39.9678],
-    [-105.1823, 39.9834],
-    [-105.1801, 39.9989],
-    [-105.1789, 40.0234]
-  ]],
-  lafayette: [[
-    [-105.1389, 40.0423],
-    [-105.1234, 40.0389],
-    [-105.1089, 40.0334],
-    [-105.0923, 40.0289],
-    [-105.0789, 40.0234],
-    [-105.0678, 40.0178],
-    [-105.0567, 40.0089],
-    [-105.0456, 39.9989],
-    [-105.0423, 39.9834],
-    [-105.0456, 39.9678],
-    [-105.0523, 39.9523],
-    [-105.0634, 39.9389],
-    [-105.0789, 39.9323],
-    [-105.0956, 39.9289],
-    [-105.1123, 39.9323],
-    [-105.1289, 39.9389],
-    [-105.1423, 39.9523],
-    [-105.1489, 39.9678],
-    [-105.1512, 39.9834],
-    [-105.1489, 39.9989],
-    [-105.1456, 40.0134],
-    [-105.1423, 40.0289],
-    [-105.1389, 40.0423]
-  ]],
-  superior: [[
-    [-105.2156, 40.0123],
-    [-105.2012, 40.0089],
-    [-105.1867, 40.0034],
-    [-105.1723, 39.9989],
-    [-105.1589, 39.9934],
-    [-105.1456, 39.9878],
-    [-105.1334, 39.9823],
-    [-105.1234, 39.9756],
-    [-105.1156, 39.9678],
-    [-105.1089, 39.9589],
-    [-105.1056, 39.9489],
-    [-105.1089, 39.9389],
-    [-105.1156, 39.9289],
-    [-105.1234, 39.9201],
-    [-105.1334, 39.9134],
-    [-105.1456, 39.9089],
-    [-105.1589, 39.9056],
-    [-105.1723, 39.9089],
-    [-105.1867, 39.9134],
-    [-105.2012, 39.9201],
-    [-105.2123, 39.9289],
-    [-105.2189, 39.9389],
-    [-105.2223, 39.9489],
-    [-105.2189, 39.9589],
-    [-105.2156, 39.9678],
-    [-105.2123, 39.9756],
-    [-105.2089, 39.9834],
-    [-105.2123, 39.9912],
-    [-105.2156, 40.0123]
-  ]],
-  broomfield: [[
-    [-105.1389, 39.9723],
-    [-105.1234, 39.9689],
-    [-105.1089, 39.9634],
-    [-105.0923, 39.9589],
-    [-105.0789, 39.9534],
-    [-105.0678, 39.9478],
-    [-105.0567, 39.9389],
-    [-105.0456, 39.9289],
-    [-105.0423, 39.9134],
-    [-105.0456, 39.8978],
-    [-105.0523, 39.8823],
-    [-105.0634, 39.8689],
-    [-105.0789, 39.8623],
-    [-105.0956, 39.8589],
-    [-105.1123, 39.8623],
-    [-105.1289, 39.8689],
-    [-105.1423, 39.8823],
-    [-105.1489, 39.8978],
-    [-105.1512, 39.9134],
-    [-105.1489, 39.9289],
-    [-105.1456, 39.9434],
-    [-105.1423, 39.9589],
-    [-105.1389, 39.9723]
-  ]],
-  erie: [[
-    [-105.0923, 40.1034],
-    [-105.0789, 40.0989],
-    [-105.0645, 40.0934],
-    [-105.0512, 40.0878],
-    [-105.0389, 40.0823],
-    [-105.0278, 40.0756],
-    [-105.0189, 40.0678],
-    [-105.0123, 40.0589],
-    [-105.0089, 40.0489],
-    [-105.0123, 40.0389],
-    [-105.0189, 40.0289],
-    [-105.0278, 40.0201],
-    [-105.0389, 40.0134],
-    [-105.0512, 40.0089],
-    [-105.0645, 40.0056],
-    [-105.0789, 40.0089],
-    [-105.0923, 40.0134],
-    [-105.1034, 40.0201],
-    [-105.1123, 40.0289],
-    [-105.1189, 40.0389],
-    [-105.1223, 40.0489],
-    [-105.1189, 40.0589],
-    [-105.1123, 40.0678],
-    [-105.1034, 40.0756],
-    [-105.0956, 40.0823],
-    [-105.0923, 40.0878],
-    [-105.0923, 40.1034]
-  ]],
-  niwot: [[
-    [-105.2123, 40.1234],
-    [-105.1989, 40.1189],
-    [-105.1856, 40.1134],
-    [-105.1723, 40.1089],
-    [-105.1589, 40.1034],
-    [-105.1456, 40.0978],
-    [-105.1334, 40.0923],
-    [-105.1234, 40.0856],
-    [-105.1156, 40.0778],
-    [-105.1089, 40.0689],
-    [-105.1056, 40.0589],
-    [-105.1089, 40.0489],
-    [-105.1156, 40.0389],
-    [-105.1234, 40.0301],
-    [-105.1334, 40.0234],
-    [-105.1456, 40.0189],
-    [-105.1589, 40.0156],
-    [-105.1723, 40.0189],
-    [-105.1856, 40.0234],
-    [-105.1989, 40.0301],
-    [-105.2089, 40.0389],
-    [-105.2156, 40.0489],
-    [-105.2189, 40.0589],
-    [-105.2156, 40.0689],
-    [-105.2123, 40.0778],
-    [-105.2089, 40.0856],
-    [-105.2123, 40.0934],
-    [-105.2123, 40.1012],
-    [-105.2123, 40.1234]
-  ]],
-  gunbarrel: [[
-    [-105.2456, 40.0978],
-    [-105.2334, 40.0934],
-    [-105.2223, 40.0889],
-    [-105.2123, 40.0834],
-    [-105.2034, 40.0778],
-    [-105.1956, 40.0712],
-    [-105.1889, 40.0634],
-    [-105.1834, 40.0545],
-    [-105.1789, 40.0445],
-    [-105.1789, 40.0345],
-    [-105.1834, 40.0245],
-    [-105.1889, 40.0156],
-    [-105.1956, 40.0078],
-    [-105.2034, 40.0012],
-    [-105.2123, 39.9956],
-    [-105.2223, 39.9923],
-    [-105.2334, 39.9956],
-    [-105.2456, 40.0012],
-    [-105.2567, 40.0078],
-    [-105.2645, 40.0156],
-    [-105.2689, 40.0245],
-    [-105.2712, 40.0345],
-    [-105.2689, 40.0445],
-    [-105.2645, 40.0545],
-    [-105.2567, 40.0634],
-    [-105.2456, 40.0712],
-    [-105.2456, 40.0778],
-    [-105.2456, 40.0978]
-  ]]
+// City names for boundary lookup
+const cityNames: Record<string, string> = {
+  boulder: 'Boulder',
+  longmont: 'Longmont',
+  louisville: 'Louisville', 
+  lafayette: 'Lafayette',
+  superior: 'Superior',
+  broomfield: 'Broomfield',
+  erie: 'Erie',
+  niwot: 'Niwot',
+  gunbarrel: 'Gunbarrel'
 };
 
 const ServiceAreasMap = () => {
@@ -290,14 +67,147 @@ const ServiceAreasMap = () => {
     });
   };
 
-  const addServiceAreaPolygons = () => {
+  const addServiceAreaPolygons = async () => {
     if (!map.current) return;
 
+    try {
+      // Add Mapbox administrative boundaries tileset as source
+      map.current.addSource('admin-boundaries', {
+        type: 'vector',
+        url: 'mapbox://mapbox.boundaries-adm-v3'
+      });
+
+      // Add layer for administrative boundaries
+      map.current.addLayer({
+        id: 'admin-fill',
+        type: 'fill',
+        source: 'admin-boundaries',
+        'source-layer': 'boundaries_admin_3',
+        filter: [
+          'all',
+          ['==', 'admin_level', 8], // City level
+          ['==', 'iso_3166_1', 'US'],
+          ['==', 'iso_3166_2', 'US-CO'],
+          ['in', 'name', ...Object.values(cityNames)]
+        ],
+        paint: {
+          'fill-color': '#ff6b6b',
+          'fill-opacity': 0.3
+        }
+      });
+
+      // Add border layer
+      map.current.addLayer({
+        id: 'admin-border',
+        type: 'line',
+        source: 'admin-boundaries',
+        'source-layer': 'boundaries_admin_3',
+        filter: [
+          'all',
+          ['==', 'admin_level', 8],
+          ['==', 'iso_3166_1', 'US'],
+          ['==', 'iso_3166_2', 'US-CO'],
+          ['in', 'name', ...Object.values(cityNames)]
+        ],
+        paint: {
+          'line-color': '#ff4757',
+          'line-width': 2,
+          'line-opacity': 0.8
+        }
+      });
+
+      // Add hover effects
+      map.current.on('mouseenter', 'admin-fill', (e) => {
+        map.current!.getCanvas().style.cursor = 'pointer';
+        
+        // Highlight hovered feature
+        if (e.features && e.features[0]) {
+          map.current!.setFilter('admin-fill', [
+            'all',
+            ['==', 'admin_level', 8],
+            ['==', 'iso_3166_1', 'US'], 
+            ['==', 'iso_3166_2', 'US-CO'],
+            ['in', 'name', ...Object.values(cityNames)],
+            ['!=', ['get', 'name'], e.features[0].properties?.name]
+          ]);
+          
+          map.current!.addLayer({
+            id: 'admin-fill-hover',
+            type: 'fill',
+            source: 'admin-boundaries',
+            'source-layer': 'boundaries_admin_3',
+            filter: ['==', 'name', e.features[0].properties?.name],
+            paint: {
+              'fill-color': '#ff6b6b',
+              'fill-opacity': 0.5
+            }
+          });
+        }
+      });
+
+      map.current.on('mouseleave', 'admin-fill', () => {
+        map.current!.getCanvas().style.cursor = '';
+        
+        // Remove hover layer and restore original filter
+        if (map.current!.getLayer('admin-fill-hover')) {
+          map.current!.removeLayer('admin-fill-hover');
+        }
+        
+        map.current!.setFilter('admin-fill', [
+          'all',
+          ['==', 'admin_level', 8],
+          ['==', 'iso_3166_1', 'US'],
+          ['==', 'iso_3166_2', 'US-CO'],
+          ['in', 'name', ...Object.values(cityNames)]
+        ]);
+      });
+
+      // Add click handler
+      map.current.on('click', 'admin-fill', (e) => {
+        if (e.features && e.features[0]) {
+          const cityName = e.features[0].properties?.name;
+          const location = locations.find(loc => cityNames[loc.slug] === cityName);
+          if (location) {
+            navigate(`/service-areas/${location.slug}`);
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error('Error loading administrative boundaries:', error);
+      // Fallback to manual polygons if boundaries fail
+      addFallbackPolygons();
+    }
+  };
+
+  const addFallbackPolygons = () => {
+    // Fallback to original manual boundaries if Mapbox boundaries fail
+    const fallbackBoundaries: Record<string, number[][][]> = {
+      boulder: [[
+        [-105.3050, 40.0941],
+        [-105.2987, 40.0712],
+        [-105.2654, 40.0589],
+        [-105.2398, 40.0478],
+        [-105.2289, 40.0234],
+        [-105.2156, 39.9987],
+        [-105.2234, 39.9876],
+        [-105.2445, 39.9823],
+        [-105.2767, 39.9745],
+        [-105.2934, 39.9834],
+        [-105.3087, 39.9923],
+        [-105.3145, 40.0123],
+        [-105.3198, 40.0345],
+        [-105.3167, 40.0567],
+        [-105.3121, 40.0789],
+        [-105.3050, 40.0941]
+      ]]
+      // Add other fallback boundaries as needed
+    };
+
     locations.forEach((location) => {
-      const boundaries = locationBoundaries[location.slug];
+      const boundaries = fallbackBoundaries[location.slug];
       if (!boundaries) return;
 
-      // Add source for this service area
       map.current!.addSource(`${location.slug}-area`, {
         type: 'geojson',
         data: {
@@ -313,7 +223,6 @@ const ServiceAreasMap = () => {
         }
       });
 
-      // Add fill layer
       map.current!.addLayer({
         id: `${location.slug}-fill`,
         type: 'fill',
@@ -324,7 +233,6 @@ const ServiceAreasMap = () => {
         }
       });
 
-      // Add border layer
       map.current!.addLayer({
         id: `${location.slug}-border`,
         type: 'line',
@@ -334,22 +242,6 @@ const ServiceAreasMap = () => {
           'line-width': 2,
           'line-opacity': 0.8
         }
-      });
-
-      // Add hover effects
-      map.current!.on('mouseenter', `${location.slug}-fill`, () => {
-        map.current!.getCanvas().style.cursor = 'pointer';
-        map.current!.setPaintProperty(`${location.slug}-fill`, 'fill-opacity', 0.5);
-      });
-
-      map.current!.on('mouseleave', `${location.slug}-fill`, () => {
-        map.current!.getCanvas().style.cursor = '';
-        map.current!.setPaintProperty(`${location.slug}-fill`, 'fill-opacity', 0.3);
-      });
-
-      // Add click handler
-      map.current!.on('click', `${location.slug}-fill`, () => {
-        navigate(`/service-areas/${location.slug}`);
       });
     });
   };
