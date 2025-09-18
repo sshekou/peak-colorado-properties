@@ -70,7 +70,7 @@ const OwnerFAQ = () => {
         <div className="container">
           <div className="text-center mb-16">
             <h2 className="font-head text-4xl md:text-5xl mb-4">What you can expect</h2>
-            <p className="text-xl text-muted-foreground">The 3 stages of property management.</p>
+            <p className="text-xl text-muted-foreground">The three stages of property management.</p>
           </div>
 
           <div className="grid lg:grid-cols-3 gap-12">
