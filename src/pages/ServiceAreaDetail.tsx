@@ -1,11 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { locations } from "@/data/locations";
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
-import { TrendingDown, Building2, Home, Calendar } from "lucide-react";
+import { TrendingDown, Building2, Home, Calendar, ArrowLeft } from "lucide-react";
 
 // Sample data for Boulder - adjust for each location
 const getBoulderMarketData = () => ({
@@ -78,6 +79,29 @@ const ServiceAreaDetail = () => {
       
       <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
         <div className="container py-12">
+          {/* Navigation */}
+          <div className="flex justify-between items-center mb-6">
+            <Link 
+              to="/service-areas" 
+              className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Back to Service Areas Map
+            </Link>
+            <Select defaultValue={slug} onValueChange={(value) => window.location.href = `/service-areas/${value}`}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Choose service area" />
+              </SelectTrigger>
+              <SelectContent>
+                {locations.map((location) => (
+                  <SelectItem key={location.slug} value={location.slug}>
+                    {location.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           {/* Header */}
           <div className="flex justify-between items-start mb-8">
             <div>
@@ -114,10 +138,30 @@ const ServiceAreaDetail = () => {
           {/* Tabs Navigation */}
           <Tabs defaultValue="overview" className="space-y-6">
             <TabsList className="grid w-full grid-cols-4 bg-white/50 backdrop-blur-sm">
-              <TabsTrigger value="overview">Market Overview</TabsTrigger>
-              <TabsTrigger value="owners">For Owners</TabsTrigger>
-              <TabsTrigger value="renters">For Renters</TabsTrigger>
-              <TabsTrigger value="neighborhoods">Neighborhoods</TabsTrigger>
+              <TabsTrigger 
+                value="overview" 
+                className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
+              >
+                Market Overview
+              </TabsTrigger>
+              <TabsTrigger 
+                value="owners"
+                className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
+              >
+                For Owners
+              </TabsTrigger>
+              <TabsTrigger 
+                value="renters"
+                className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
+              >
+                For Renters
+              </TabsTrigger>
+              <TabsTrigger 
+                value="neighborhoods"
+                className="data-[state=active]:bg-red-600 data-[state=active]:text-white"
+              >
+                Neighborhoods
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="overview" className="space-y-6">
