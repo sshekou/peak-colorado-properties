@@ -36,7 +36,7 @@ const OwnerFAQ = () => {
         </div>
         
         <div className="relative z-10 container text-white">
-          <div className="max-w-4xl text-left">
+          <div className="max-w-4xl text-center mx-auto">
             <p className="font-script text-2xl md:text-3xl text-white mb-4">Peak Properties</p>
             <p className="text-lg mb-2 tracking-wide text-white">BOULDER COUNTY PROPERTY MANAGEMENT</p>
             <h1 className="font-head text-4xl md:text-6xl lg:text-7xl mb-6 leading-tight text-white">
@@ -57,15 +57,9 @@ const OwnerFAQ = () => {
           <h2 className="font-head text-4xl md:text-5xl mb-8 text-foreground">
             Chaos is always just a call away.
           </h2>
-          <div className="text-lg text-muted-foreground space-y-4 leading-relaxed">
+          <div className="text-lg text-foreground leading-relaxed">
             <p>
-              Whether you become a landlord by choice or necessity, you need your investment property to pay off. The trouble is, all sorts of things can get in the way.
-            </p>
-            <p className="italic">
-              What if the property sits empty? gets trashed? or monopolizes your time? What if your renter doesn't pay? the market tanks? or you regret your decision?
-            </p>
-            <p>
-              The truth is, rental property ownership is stressful because it requires landlord knowledge you might not have... yet. But here's the good news: We have that knowledge, and we're here to help.
+              Whether you become a landlord by choice or necessity, you need your investment property to pay off. The trouble is, all sorts of things can get in the way. What if the property sits empty? gets trashed? or monopolizes your time? What if your renter doesn't pay? the market tanks? or you regret your decision? The truth is, rental property ownership is stressful because it requires landlord knowledge you might not have... yet. But here's the good news: We have that knowledge, and we're here to help.
             </p>
           </div>
         </div>
@@ -176,6 +170,31 @@ const OwnerFAQ = () => {
         </div>
       </section>
 
+      {/* Testimonials */}
+      <section className="py-16 bg-muted/30">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-head text-3xl md:text-4xl mb-4">Client Testimonials</h2>
+            <p className="text-xl text-muted-foreground">See what Boulder County property owners are saying</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <TestimonialCard 
+              quote="Peak Properties made my first rental experience seamless. They found quality tenants for my Boulder home within two weeks and handle everything professionally."
+              name="Sarah M., Boulder"
+            />
+            <TestimonialCard 
+              quote="The monthly reports are detailed and transparent. I always know exactly where my Longmont property stands financially. Highly recommend their services."
+              name="Mike R., Longmont"
+            />
+            <TestimonialCard 
+              quote="After a bad experience with another company, Peak Properties restored my confidence in property management. Their local Boulder County expertise is unmatched."
+              name="Jennifer L., Louisville"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Testimonial Video Section */}
       <section className="py-16 bg-muted/30">
         <div className="container">
@@ -195,53 +214,6 @@ const OwnerFAQ = () => {
                 Your browser does not support the video tag.
               </video>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Solutions */}
-      <section className="py-16">
-        <div className="container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-head text-3xl md:text-4xl mb-6">Smart tech solutions</h2>
-              <h3 className="text-2xl mb-6 text-primary">Work smarter, not harder.</h3>
-              <p className="text-muted-foreground text-lg leading-relaxed">
-                We use advanced technology to maximize efficiency and minimize costly mistakes. Our inspection software combines high-resolution photos and videos to document properties comprehensively, creating an irrefutable reference for all parties.
-              </p>
-            </div>
-            <div className="relative">
-              <img 
-                src={lockImage} 
-                alt="Smart lock technology for property security" 
-                className="rounded-lg shadow-lg w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-16 bg-muted/30">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="font-head text-3xl md:text-4xl mb-4">Client testimonials</h2>
-            <p className="text-xl text-muted-foreground">See what Boulder County property owners are saying</p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <TestimonialCard 
-              quote="Peak Properties made my first rental experience seamless. They found quality tenants for my Boulder home within two weeks and handle everything professionally."
-              name="Sarah M., Boulder"
-            />
-            <TestimonialCard 
-              quote="The monthly reports are detailed and transparent. I always know exactly where my Longmont property stands financially. Highly recommend their services."
-              name="Mike R., Longmont"
-            />
-            <TestimonialCard 
-              quote="After a bad experience with another company, Peak Properties restored my confidence in property management. Their local Boulder County expertise is unmatched."
-              name="Jennifer L., Louisville"
-            />
           </div>
         </div>
       </section>
@@ -303,7 +275,7 @@ const OwnerFAQ = () => {
             <Button size="lg" variant="secondary">
               Let's Connect
             </Button>
-            <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
+            <Button size="lg" variant="secondary" className="bg-primary-foreground text-primary hover:bg-primary-foreground/90">
               View Our Pricing
             </Button>
           </div>
