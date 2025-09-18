@@ -1,292 +1,247 @@
 import React, { useEffect, useRef, useState } from 'react';
-import mapboxgl from 'mapbox-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
 import { locations, LocationInfo } from '@/data/locations';
 import { Card } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
 // Boulder County coordinates for each city
-const locationCoordinates: Record<string, [number, number]> = {
-  boulder: [-105.2705, 40.0150],
-  longmont: [-105.1019, 40.1672], 
-  louisville: [-105.1317, 39.9778],
-  lafayette: [-105.0894, 39.9936],
-  superior: [-105.1686, 39.9528],
-  broomfield: [-105.0867, 39.9205],
-  erie: [-105.0498, 40.0502],
-  niwot: [-105.1661, 40.0956],
-  gunbarrel: [-105.2094, 40.0697]
+const locationCoordinates: Record<string, { lat: number; lng: number }> = {
+  boulder: { lat: 40.0150, lng: -105.2705 },
+  longmont: { lat: 40.1672, lng: -105.1019 }, 
+  louisville: { lat: 39.9778, lng: -105.1317 },
+  lafayette: { lat: 39.9936, lng: -105.0894 },
+  superior: { lat: 39.9528, lng: -105.1686 },
+  broomfield: { lat: 39.9205, lng: -105.0867 },
+  erie: { lat: 40.0502, lng: -105.0498 },
+  niwot: { lat: 40.0956, lng: -105.1661 },
+  gunbarrel: { lat: 40.0697, lng: -105.2094 }
 };
 
-// City names for boundary lookup
-const cityNames: Record<string, string> = {
-  boulder: 'Boulder',
-  longmont: 'Longmont',
-  louisville: 'Louisville', 
-  lafayette: 'Lafayette',
-  superior: 'Superior',
-  broomfield: 'Broomfield',
-  erie: 'Erie',
-  niwot: 'Niwot',
-  gunbarrel: 'Gunbarrel'
-};
+declare global {
+  interface Window {
+    google: any;
+    initMap: () => void;
+  }
+}
 
 const ServiceAreasMap = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
-  const map = useRef<mapboxgl.Map | null>(null);
-  const [mapboxToken] = useState('pk.eyJ1Ijoic3NoZWtvdSIsImEiOiJjbWZwcDFycGswOTNkMmpwbXcxdXltOHdhIn0.cvbUOhH0VSpUWBD04p2XbA');
-  const [mapInitialized, setMapInitialized] = useState(false);
+  const map = useRef<any>(null);
+  const [apiKey, setApiKey] = useState('');
+  const [mapLoaded, setMapLoaded] = useState(false);
   const [hoveredLocation, setHoveredLocation] = useState<LocationInfo | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const markersRef = useRef<mapboxgl.Marker[]>([]);
+  const markersRef = useRef<any[]>([]);
   const navigate = useNavigate();
 
+  const loadGoogleMapsScript = (key: string) => {
+    if (window.google) {
+      initializeMap();
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&libraries=places&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    
+    window.initMap = initializeMap;
+    
+    document.head.appendChild(script);
+  };
+
   const initializeMap = () => {
-    if (!mapContainer.current || !mapboxToken.trim()) return;
+    if (!mapContainer.current || !window.google) return;
 
-    mapboxgl.accessToken = mapboxToken;
-    
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/outdoors-v12',
-      center: [-105.1317, 40.0150], // Centered on Boulder County
-      zoom: 10,
-      pitch: 0,
+    map.current = new window.google.maps.Map(mapContainer.current, {
+      center: { lat: 40.0150, lng: -105.1317 }, // Centered on Boulder County
+      zoom: 11,
+      styles: [
+        {
+          featureType: "administrative.locality",
+          elementType: "labels",
+          stylers: [{ visibility: "on" }]
+        }
+      ]
     });
 
-    // Add navigation controls
-    map.current.addControl(
-      new mapboxgl.NavigationControl(),
-      'top-right'
-    );
-
-    map.current.on('load', () => {
-      addServiceAreaPolygons();
-      addLocationMarkers();
-      setMapInitialized(true);
-    });
+    addCityBoundaries();
+    addLocationMarkers();
+    setMapLoaded(true);
   };
 
-  const addServiceAreaPolygons = async () => {
-    if (!map.current) return;
-    
-    // Use manual polygons since Mapbox boundaries API is not working
-    addFallbackPolygons();
-  };
-
-  const addFallbackPolygons = () => {
-    // Manual boundaries for all service areas
-    const fallbackBoundaries: Record<string, number[][][]> = {
-      boulder: [[
-        [-105.3050, 40.0941],
-        [-105.2987, 40.0712],
-        [-105.2654, 40.0589],
-        [-105.2398, 40.0478],
-        [-105.2289, 40.0234],
-        [-105.2156, 39.9987],
-        [-105.2234, 39.9876],
-        [-105.2445, 39.9823],
-        [-105.2767, 39.9745],
-        [-105.2934, 39.9834],
-        [-105.3087, 39.9923],
-        [-105.3145, 40.0123],
-        [-105.3198, 40.0345],
-        [-105.3167, 40.0567],
-        [-105.3121, 40.0789],
-        [-105.3050, 40.0941]
-      ]],
-      longmont: [[
-        [-105.1419, 40.2072],
-        [-105.0619, 40.2072],
-        [-105.0619, 40.1272],
-        [-105.1419, 40.1272],
-        [-105.1419, 40.2072]
-      ]],
-      louisville: [[
-        [-105.1717, 39.9978],
-        [-105.0917, 39.9978],
-        [-105.0917, 39.9578],
-        [-105.1717, 39.9578],
-        [-105.1717, 39.9978]
-      ]],
-      lafayette: [[
-        [-105.1294, 40.0136],
-        [-105.0494, 40.0136],
-        [-105.0494, 39.9736],
-        [-105.1294, 39.9736],
-        [-105.1294, 40.0136]
-      ]],
-      superior: [[
-        [-105.2086, 39.9728],
-        [-105.1286, 39.9728],
-        [-105.1286, 39.9328],
-        [-105.2086, 39.9328],
-        [-105.2086, 39.9728]
-      ]],
-      broomfield: [[
-        [-105.1267, 39.9405],
-        [-105.0467, 39.9405],
-        [-105.0467, 39.9005],
-        [-105.1267, 39.9005],
-        [-105.1267, 39.9405]
-      ]],
-      erie: [[
-        [-105.0898, 40.0702],
-        [-105.0098, 40.0702],
-        [-105.0098, 40.0302],
-        [-105.0898, 40.0302],
-        [-105.0898, 40.0702]
-      ]],
-      niwot: [[
-        [-105.2061, 40.1156],
-        [-105.1261, 40.1156],
-        [-105.1261, 40.0756],
-        [-105.2061, 40.0756],
-        [-105.2061, 40.1156]
-      ]],
-      gunbarrel: [[
-        [-105.2494, 40.0897],
-        [-105.1694, 40.0897],
-        [-105.1694, 40.0497],
-        [-105.2494, 40.0497],
-        [-105.2494, 40.0897]
-      ]]
-    };
+  const addCityBoundaries = () => {
+    if (!map.current || !window.google) return;
 
     locations.forEach((location) => {
-      const boundaries = fallbackBoundaries[location.slug];
-      if (!boundaries) return;
+      // Create city boundary using Google Maps Data Layer
+      const cityName = location.name + ', CO, USA';
+      
+      const geocoder = new window.google.maps.Geocoder();
+      geocoder.geocode({ address: cityName }, (results: any, status: any) => {
+        if (status === 'OK' && results[0]) {
+          const bounds = results[0].geometry.bounds || results[0].geometry.viewport;
+          
+          // Create a polygon for the city boundary
+          const cityPolygon = new window.google.maps.Polygon({
+            paths: [
+              bounds.getNorthEast(),
+              { lat: bounds.getNorthEast().lat(), lng: bounds.getSouthWest().lng() },
+              bounds.getSouthWest(),
+              { lat: bounds.getSouthWest().lat(), lng: bounds.getNorthEast().lng() }
+            ],
+            strokeColor: '#ff4757',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#ff6b6b',
+            fillOpacity: 0.3,
+            clickable: true
+          });
 
-      map.current!.addSource(`${location.slug}-area`, {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          properties: {
-            slug: location.slug,
-            name: location.name
-          },
-          geometry: {
-            type: 'Polygon',
-            coordinates: boundaries
-          }
+          cityPolygon.setMap(map.current);
+
+          // Add click handler
+          cityPolygon.addListener('click', () => {
+            navigate(`/service-areas/${location.slug}`);
+          });
+
+          // Add hover effects
+          cityPolygon.addListener('mouseover', () => {
+            cityPolygon.setOptions({
+              fillOpacity: 0.5,
+              strokeWeight: 3
+            });
+            map.current.setOptions({ cursor: 'pointer' });
+          });
+
+          cityPolygon.addListener('mouseout', () => {
+            cityPolygon.setOptions({
+              fillOpacity: 0.3,
+              strokeWeight: 2
+            });
+            map.current.setOptions({ cursor: 'default' });
+          });
         }
-      });
-
-      map.current!.addLayer({
-        id: `${location.slug}-fill`,
-        type: 'fill',
-        source: `${location.slug}-area`,
-        paint: {
-          'fill-color': '#ff6b6b',
-          'fill-opacity': 0.3
-        }
-      });
-
-      map.current!.addLayer({
-        id: `${location.slug}-border`,
-        type: 'line',
-        source: `${location.slug}-area`,
-        paint: {
-          'line-color': '#ff4757',
-          'line-width': 2,
-          'line-opacity': 0.8
-        }
-      });
-
-      // Add hover effects
-      map.current!.on('mouseenter', `${location.slug}-fill`, () => {
-        map.current!.getCanvas().style.cursor = 'pointer';
-      });
-
-      map.current!.on('mouseleave', `${location.slug}-fill`, () => {
-        map.current!.getCanvas().style.cursor = '';
-      });
-
-      // Add click handler
-      map.current!.on('click', `${location.slug}-fill`, () => {
-        navigate(`/service-areas/${location.slug}`);
       });
     });
   };
 
   const addLocationMarkers = () => {
-    if (!map.current) return;
+    if (!map.current || !window.google) return;
 
     // Clear existing markers
-    markersRef.current.forEach(marker => marker.remove());
+    markersRef.current.forEach(marker => marker.setMap(null));
     markersRef.current = [];
 
     locations.forEach((location) => {
       const coords = locationCoordinates[location.slug];
       if (!coords) return;
 
-      // Create marker element
-      const markerEl = document.createElement('div');
-      markerEl.className = 'marker';
-      markerEl.style.cssText = `
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: hsl(var(--primary));
-        border: 3px solid white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        cursor: pointer;
-        transition: all 0.2s ease;
-      `;
+      // Create custom marker
+      const marker = new window.google.maps.Marker({
+        position: coords,
+        map: map.current,
+        title: location.name,
+        icon: {
+          path: window.google.maps.SymbolPath.CIRCLE,
+          scale: 8,
+          fillColor: '#ff4757',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 3
+        }
+      });
 
       // Add hover effects
-      markerEl.addEventListener('mouseenter', (e) => {
-        markerEl.style.transform = 'scale(1.3)';
-        markerEl.style.background = 'hsl(var(--primary-foreground))';
+      marker.addListener('mouseover', (e: any) => {
+        marker.setIcon({
+          path: window.google.maps.SymbolPath.CIRCLE,
+          scale: 12,
+          fillColor: '#ff6b6b',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 3
+        });
+        
         setHoveredLocation(location);
         
-        // Get position relative to map container
+        // Get mouse position for tooltip
         const mapRect = mapContainer.current?.getBoundingClientRect();
-        if (mapRect) {
+        if (mapRect && e.domEvent) {
           setMousePosition({ 
-            x: e.clientX - mapRect.left, 
-            y: e.clientY - mapRect.top 
+            x: e.domEvent.clientX - mapRect.left, 
+            y: e.domEvent.clientY - mapRect.top 
           });
         }
       });
 
-      markerEl.addEventListener('mouseleave', () => {
-        markerEl.style.transform = 'scale(1)';
-        markerEl.style.background = 'hsl(var(--primary))';
+      marker.addListener('mouseout', () => {
+        marker.setIcon({
+          path: window.google.maps.SymbolPath.CIRCLE,
+          scale: 8,
+          fillColor: '#ff4757',
+          fillOpacity: 1,
+          strokeColor: '#ffffff',
+          strokeWeight: 3
+        });
         setHoveredLocation(null);
       });
 
-      markerEl.addEventListener('mousemove', (e) => {
-        // Get position relative to map container
-        const mapRect = mapContainer.current?.getBoundingClientRect();
-        if (mapRect) {
-          setMousePosition({ 
-            x: e.clientX - mapRect.left, 
-            y: e.clientY - mapRect.top 
-          });
-        }
-      });
-
       // Add click handler
-      markerEl.addEventListener('click', () => {
+      marker.addListener('click', () => {
         navigate(`/service-areas/${location.slug}`);
       });
-
-      // Create and add marker
-      const marker = new mapboxgl.Marker(markerEl)
-        .setLngLat(coords)
-        .addTo(map.current!);
 
       markersRef.current.push(marker);
     });
   };
 
+  const handleApiKeySubmit = () => {
+    if (apiKey.trim()) {
+      loadGoogleMapsScript(apiKey.trim());
+    }
+  };
+
   useEffect(() => {
-    initializeMap();
     return () => {
-      map.current?.remove();
+      markersRef.current.forEach(marker => marker?.setMap(null));
     };
   }, []);
+
+  if (!mapLoaded && !apiKey) {
+    return (
+      <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg bg-muted flex flex-col items-center justify-center p-8">
+        <div className="max-w-md w-full space-y-4 text-center">
+          <h3 className="text-lg font-semibold">Google Maps API Key Required</h3>
+          <p className="text-sm text-muted-foreground">
+            To display the service area map, please enter your Google Maps API key. 
+            You can get one from the{' '}
+            <a 
+              href="https://console.cloud.google.com/apis/credentials" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              Google Cloud Console
+            </a>
+          </p>
+          <div className="space-y-2">
+            <Input
+              type="text"
+              placeholder="Enter your Google Maps API key"
+              value={apiKey}
+              onChange={(e) => setApiKey(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleApiKeySubmit()}
+            />
+            <Button onClick={handleApiKeySubmit} className="w-full">
+              Load Map
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
@@ -307,9 +262,9 @@ const ServiceAreasMap = () => {
         </Card>
       )}
       
-      {!mapInitialized && (
+      {!mapLoaded && apiKey && (
         <div className="absolute inset-0 bg-muted animate-pulse rounded-lg flex items-center justify-center">
-          <p className="text-muted-foreground">Loading map...</p>
+          <p className="text-muted-foreground">Loading Google Maps...</p>
         </div>
       )}
     </div>
