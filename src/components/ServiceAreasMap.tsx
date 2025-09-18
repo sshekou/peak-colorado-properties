@@ -256,9 +256,26 @@ const ServiceAreasMap = () => {
     setMapStyleId(pendingMapId.trim());
   };
 
+  const refreshMap = () => {
+    try {
+      boundariesStyledRef.current = false;
+      styleHitCountRef.current = 0;
+      // Clear markers
+      markersRef.current.forEach((m) => m?.setMap?.(null));
+      markersRef.current = [];
+      console.debug('[Map] Manual refresh triggered');
+      initializeMap();
+    } catch (e) {
+      console.error('Refresh map failed', e);
+    }
+  };
   return (
     <div className="relative w-full h-[600px] rounded-lg overflow-hidden shadow-lg">
       <div ref={mapContainer} className="absolute inset-0" />
+
+      <div className="absolute top-3 right-3 z-20">
+        <Button size="sm" variant="secondary" onClick={refreshMap}>Refresh Map</Button>
+      </div>
 
       {!mapStyleId && (
         <div className="absolute top-3 left-3 z-20 bg-background/90 backdrop-blur-sm border rounded-md p-3 shadow">
