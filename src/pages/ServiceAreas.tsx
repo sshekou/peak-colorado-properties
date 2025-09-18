@@ -17,7 +17,7 @@ const ServiceAreas = () => (
       <div className="mt-12">
         <h2 className="font-head text-2xl mb-6">Our Markets</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {locations.map((l) => <LocationCard key={l.slug} name={l.name} blurb={l.overview} to={`/service-areas/${l.slug}`} />)}
+          {locations.map((l) => <LocationCard key={l.slug} name={l.name} blurb={l.overview} to={`/service-areas/${l.slug}`} slug={l.slug} />)}
         </div>
       </div>
     </section>

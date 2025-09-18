@@ -1,4 +1,25 @@
 import { ReactNode } from "react";
+import boulderThumbnail from "@/assets/boulder-residential.jpg";
+import longmontThumbnail from "@/assets/longmont-thumbnail.jpg";
+import louisvilleThumbnail from "@/assets/louisville-thumbnail.jpg";
+import lafayetteThumbnail from "@/assets/lafayette-thumbnail.jpg";
+import superiorThumbnail from "@/assets/superior-thumbnail.jpg";
+import broomfieldThumbnail from "@/assets/broomfield-thumbnail.jpg";
+import erieThumbnail from "@/assets/erie-thumbnail.jpg";
+import niwotThumbnail from "@/assets/niwot-thumbnail.jpg";
+import gunbarrelThumbnail from "@/assets/gunbarrel-thumbnail.jpg";
+
+const cityThumbnails: Record<string, string> = {
+  boulder: boulderThumbnail,
+  longmont: longmontThumbnail,
+  louisville: louisvilleThumbnail,
+  lafayette: lafayetteThumbnail,
+  superior: superiorThumbnail,
+  broomfield: broomfieldThumbnail,
+  erie: erieThumbnail,
+  niwot: niwotThumbnail,
+  gunbarrel: gunbarrelThumbnail,
+};
 
 export const Card = ({ children }: { children: ReactNode }) => (
   <div className="rounded-lg border bg-card p-6 shadow-elevated">{children}</div>
@@ -34,9 +55,22 @@ export const TestimonialCard = ({ quote, name }: { quote: string; name: string }
   </Card>
 );
 
-export const LocationCard = ({ name, blurb, to }: { name: string; blurb: string; to: string }) => (
-  <a href={to} className="block rounded-lg border bg-card p-5 hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
-    <h3 className="font-medium">{name}</h3>
-    <p className="text-sm text-muted-foreground mt-1">{blurb}</p>
+export const LocationCard = ({ name, blurb, to, slug }: { name: string; blurb: string; to: string; slug?: string }) => (
+  <a href={to} className="block rounded-lg border bg-card hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden">
+    <div className="flex">
+      {slug && cityThumbnails[slug] && (
+        <div className="w-24 h-20 flex-shrink-0">
+          <img 
+            src={cityThumbnails[slug]} 
+            alt={`${name} cityscape`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      <div className="p-5 flex-1">
+        <h3 className="font-medium">{name}</h3>
+        <p className="text-sm text-muted-foreground mt-1">{blurb}</p>
+      </div>
+    </div>
   </a>
 );
