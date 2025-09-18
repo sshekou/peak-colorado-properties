@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { TestimonialCard } from "@/components/cards/Cards";
 import { useState } from "react";
+import { Home, Camera, TrendingUp } from "lucide-react";
 import heroImage from "@/assets/realtor-client-hero.jpg";
 import lockImage from "@/assets/lock-door.png";
 import prepareImage from "@/assets/prepare-property.jpg";
@@ -73,25 +74,28 @@ const OwnerFAQ = () => {
             <p className="text-xl text-muted-foreground">The three stages of property management.</p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-12">
+          <div className="space-y-16">
             {/* Stage 1: Prepare */}
-            <Card className="overflow-hidden flex flex-col h-full">
-              <div className="relative h-48">
-                <img src={prepareImage} alt="Property preparation and renovation" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Prepare</h3>
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <p className="text-muted-foreground mb-6 text-left">
-                  When we onboard your home, we run it through our detailed checklist to coordinate and complete any necessary work to get it ready for market. That way, your home will make the best first impression, rent faster at top dollar, and maintain its value longer.
-                </p>
+            <div className="flex flex-col lg:flex-row items-center gap-12 border-b border-muted pb-16">
+              <div className="flex-1">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <Home className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-head text-3xl mb-4">Prepare</h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      When we onboard your home, we run it through our detailed checklist to coordinate and complete any necessary work to get it ready for market. That way, your home will make the best first impression, rent faster at top dollar, and maintain its value longer.
+                    </p>
+                  </div>
+                </div>
                 
-                <div className="border-t pt-6 mt-auto">
+                <div className="border-t pt-6">
                   <button 
                     onClick={() => toggleAccordion('prepare')}
                     className="w-full flex items-center justify-between text-left font-medium"
                   >
-                    <span>How We Handle Maintenance & Upgrades</span>
+                    <span>HOW WE HANDLE MAINTENANCE & UPGRADES</span>
                     <span className={`transform transition-transform ${openAccordion === 'prepare' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'prepare' && (
@@ -103,26 +107,32 @@ const OwnerFAQ = () => {
                   )}
                 </div>
               </div>
-            </Card>
+              <div className="lg:w-80">
+                <img src={prepareImage} alt="Property preparation and renovation" className="w-full h-64 object-cover rounded-lg shadow-lg" />
+              </div>
+            </div>
 
             {/* Stage 2: Market */}
-            <Card className="overflow-hidden flex flex-col h-full">
-              <div className="relative h-48">
-                <img src={marketImage} alt="Property marketing and photography" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Market</h3>
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <p className="text-muted-foreground mb-6 text-left">
-                  Maximizing exposure is crucial to minimizing vacancy. Our rentals plug into Boulder County's most effective marketing strategies, taking advantage of local networks and seasonal demand patterns.
-                </p>
+            <div className="flex flex-col lg:flex-row items-center gap-12 border-b border-muted pb-16">
+              <div className="flex-1">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <Camera className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-head text-3xl mb-4">Market</h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      Maximizing exposure is crucial to minimizing vacancy. Our rentals plug into Boulder County's most effective marketing strategies, taking advantage of local networks and seasonal demand patterns.
+                    </p>
+                  </div>
+                </div>
                 
-                <div className="border-t pt-6 mt-auto">
+                <div className="border-t pt-6">
                   <button 
                     onClick={() => toggleAccordion('market')}
                     className="w-full flex items-center justify-between text-left font-medium"
                   >
-                    <span>How We Market & Screen</span>
+                    <span>HOW WE MARKET & SCREEN</span>
                     <span className={`transform transition-transform ${openAccordion === 'market' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'market' && (
@@ -134,26 +144,32 @@ const OwnerFAQ = () => {
                   )}
                 </div>
               </div>
-            </Card>
+              <div className="lg:w-80">
+                <img src={marketImage} alt="Property marketing and photography" className="w-full h-64 object-cover rounded-lg shadow-lg" />
+              </div>
+            </div>
 
             {/* Stage 3: Profit */}
-            <Card className="overflow-hidden flex flex-col h-full">
-              <div className="relative h-48">
-                <img src={profitImage} alt="Property investment profits and returns" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                <h3 className="absolute bottom-4 left-4 font-head text-3xl text-white">Profit</h3>
-              </div>
-              <div className="p-8 flex flex-col flex-1">
-                <p className="text-muted-foreground mb-6 text-left">
-                  We take our responsibility for helping you reach your real estate goals seriously. Track your progress with detailed monthly and year-end reports while maximizing your Boulder County investment returns.
-                </p>
+            <div className="flex flex-col lg:flex-row items-center gap-12">
+              <div className="flex-1">
+                <div className="flex items-start gap-4 mb-6">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <TrendingUp className="h-8 w-8 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-head text-3xl mb-4">Profit</h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      We take our responsibility for helping you reach your real estate goals seriously. Track your progress with detailed monthly and year-end reports while maximizing your Boulder County investment returns.
+                    </p>
+                  </div>
+                </div>
                 
-                <div className="border-t pt-6 mt-auto">
+                <div className="border-t pt-6">
                   <button 
                     onClick={() => toggleAccordion('profit')}
                     className="w-full flex items-center justify-between text-left font-medium"
                   >
-                    <span>How We Help You Reach Your Goals</span>
+                    <span>HOW WE HELP YOU REACH YOUR GOALS</span>
                     <span className={`transform transition-transform ${openAccordion === 'profit' ? 'rotate-180' : ''}`}>↓</span>
                   </button>
                   {openAccordion === 'profit' && (
@@ -165,7 +181,10 @@ const OwnerFAQ = () => {
                   )}
                 </div>
               </div>
-            </Card>
+              <div className="lg:w-80">
+                <img src={profitImage} alt="Property investment profits and returns" className="w-full h-64 object-cover rounded-lg shadow-lg" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
