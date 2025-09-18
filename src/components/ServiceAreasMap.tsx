@@ -72,17 +72,19 @@ const ServiceAreasMap = () => {
       const options: any = {
         center: { lat: 40.0150, lng: -105.1317 }, // Centered on Boulder County
         zoom: 11,
-        styles: [
+      };
+
+      if (mapStyleId) {
+        options.mapId = mapStyleId;
+      } else {
+        // Fallback inline styles only when no Map ID is provided
+        options.styles = [
           {
             featureType: "administrative.locality",
             elementType: "labels",
-            stylers: [{ visibility: "on" }]
-          }
-        ]
-      };
-  
-      if (mapStyleId) {
-        options.mapId = mapStyleId;
+            stylers: [{ visibility: "on" }],
+          },
+        ];
       }
   
     map.current = new window.google.maps.Map(mapContainer.current, options);
@@ -115,6 +117,7 @@ const ServiceAreasMap = () => {
     }
 
     try {
+      console.debug('[Map] addCityBoundaries: applying styles for LOCALITY with Map ID:', mapStyleId);
       // LOCALITY (cities and towns)
       const locality = map.current.getFeatureLayer(window.google.maps.FeatureType.LOCALITY);
       
