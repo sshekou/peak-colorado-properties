@@ -57,9 +57,9 @@ export const TestimonialCard = ({ quote, name }: { quote: string; name: string }
 
 export const LocationCard = ({ name, blurb, to, slug }: { name: string; blurb: string; to: string; slug?: string }) => (
   <a href={to} className="block rounded-lg border bg-card hover-scale focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring overflow-hidden">
-    <div className="grid grid-cols-[120px_1fr] items-stretch min-h-[100px]">
+    <div className="grid grid-cols-[120px_1fr] h-full">
       {slug && cityThumbnails[slug] && (
-        <div className="relative">
+        <div className="relative h-full min-h-[100px]">
           <img 
             src={cityThumbnails[slug]} 
             alt={`${name} city thumbnail`}
