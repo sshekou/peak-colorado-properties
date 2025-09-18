@@ -85,6 +85,12 @@ export const SiteLayout = () => {
                     About Us
                   </NavLink>
                 </NavigationMenuItem>
+
+                <NavigationMenuItem>
+                  <NavLink to="/contact" className={({ isActive }) => `text-sm ${isActive ? "text-foreground" : "text-foreground/70 hover:text-foreground"}`} end>
+                    Contact
+                  </NavLink>
+                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </nav>
@@ -120,6 +126,7 @@ export const SiteLayout = () => {
 
               <NavLink to="/availability" onClick={() => setOpen(false)} className="py-2">Availability</NavLink>
               <NavLink to="/about" onClick={() => setOpen(false)} className="py-2">About Us</NavLink>
+              <NavLink to="/contact" onClick={() => setOpen(false)} className="py-2">Contact</NavLink>
 
               <Button variant="hero" onClick={() => { setOpen(false); setLeadOpen(true); }}>Get Rent Estimate</Button>
             </div>
