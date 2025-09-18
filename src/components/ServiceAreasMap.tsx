@@ -38,6 +38,7 @@ const ServiceAreasMap = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const markersRef = useRef<any[]>([]);
   const boundariesStyledRef = useRef<boolean>(false);
+  const styleHitCountRef = useRef<number>(0);
   const navigate = useNavigate();
   const GOOGLE_MAPS_API_KEY = 'AIzaSyBLG02Pr8lIYRkwhvaAH799_bSpDk71xaM';
   const GOOGLE_MAPS_MAP_ID = '248f17627f60df1af80f8a4a';
@@ -89,11 +90,12 @@ const ServiceAreasMap = () => {
   
     map.current = new window.google.maps.Map(mapContainer.current, options);
 
-    // Wait for map to be idle to ensure style is applied before styling FeatureLayers
+    // Ensure feature layers are ready; apply on style load and idle fallback
+    map.current.addListener('styledata_changed', () => {
+      addCityBoundaries();
+    });
     map.current.addListener('idle', () => {
-      if (!boundariesStyledRef.current) {
-        addCityBoundaries();
-      }
+      addCityBoundaries();
     });
 
     addLocationMarkers();
@@ -127,7 +129,12 @@ const ServiceAreasMap = () => {
         const name = feature?.displayName?.toLowerCase?.() || '';
         const nameMatch = Array.from(allowedNames).some((a) => name === a || name.includes(a));
         const idMatch = pid ? allowedPlaceIds.has(pid) : false;
-        if (idMatch || nameMatch) {
+        const matched = idMatch || nameMatch;
+        if (matched && styleHitCountRef.current < 5) {
+          console.debug('[Map] Styling LOCALITY boundary', { name, pid });
+          styleHitCountRef.current += 1;
+        }
+        if (matched) {
           return {
             strokeColor: '#ff4757',
             strokeOpacity: 0.9,
