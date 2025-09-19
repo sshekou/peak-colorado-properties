@@ -21,6 +21,7 @@ import OwnerPortal from "./pages/OwnerPortal";
 import ResidentPortal from "./pages/ResidentPortal";
 import OwnerFAQ from "./pages/OwnerFAQ";
 import RenterFAQ from "./pages/RenterFAQ";
+import ApplyingFAQs from "./pages/ApplyingFAQs";
 import Availability from "./pages/Availability";
 import RentVsSellCalculator from "./pages/RentVsSellCalculator";
 import { SiteLayout } from "@/components/layout/SiteLayout";
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="owner-faq" element={<OwnerFAQ />} />
             <Route path="rent-vs-sell-calculator" element={<RentVsSellCalculator />} />
             <Route path="renter-faq" element={<RenterFAQ />} />
+            <Route path="applying-faqs" element={<ApplyingFAQs />} />
             <Route path="resident-portal" element={<ResidentPortal />} />
           </Route>
           {/* Catch-all */}
