@@ -5,6 +5,7 @@ import lifestyleWorkFromHome from "@/assets/lifestyle-work-from-home.jpg";
 import lifestyleFamilyUnpacking from "@/assets/lifestyle-family-unpacking.jpg";
 import lifestyleCooking from "@/assets/lifestyle-cooking.jpg";
 import lifestyleCoupleP from "@/assets/lifestyle-couple-planning.jpg";
+import lifestyleCoupleRelaxing from "@/assets/lifestyle-couple-relaxing.jpg";
 
 const ApplyingFAQs = () => {
   const faqItems = [
@@ -120,6 +121,13 @@ const ApplyingFAQs = () => {
                   <img 
                     src={lifestyleWorkFromHome} 
                     alt="Professional woman working from home on laptop in apartment"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={lifestyleCoupleRelaxing} 
+                    alt="Happy couple relaxing together on couch in contemporary rental apartment"
                     className="w-full h-full object-cover"
                   />
                 </div>
