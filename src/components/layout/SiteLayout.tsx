@@ -233,6 +233,11 @@ export const SiteLayout = () => {
                   <Link to="/applying-faqs" className="w-full">Applying FAQs</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
+                  <a href="https://portal.getaptly.com/grWTDBRgQ4gjJXBa3/applicant/home/login" target="_blank" rel="noopener noreferrer" className="w-full">
+                    Apply Now
+                  </a>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="w-full">
                     Tenant Portal
                   </a>
@@ -293,6 +298,7 @@ export const SiteLayout = () => {
               <div className="pl-4 grid">
                 <NavLink to="/renter-faq" onClick={() => setOpen(false)} className="py-2">Renter FAQ</NavLink>
                 <NavLink to="/applying-faqs" onClick={() => setOpen(false)} className="py-2">Applying FAQs</NavLink>
+                <a href="https://portal.getaptly.com/grWTDBRgQ4gjJXBa3/applicant/home/login" target="_blank" rel="noopener noreferrer" className="py-2">Apply Now</a>
                 <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="py-2">Tenant Portal</a>
               </div>
 
