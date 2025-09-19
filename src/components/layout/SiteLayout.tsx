@@ -5,6 +5,7 @@ import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
+import handshakeImage from "@/assets/handshake.jpg";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { ChevronDown, Users, BarChart3, DollarSign, Calendar, ArrowRight } from "lucide-react";
 
@@ -140,8 +141,19 @@ export const SiteLayout = () => {
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
                 Owners <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-[700px] p-6">
-                <div className="grid grid-cols-[200px_1fr] gap-8">
+              <DropdownMenuContent align="start" className="w-[700px] p-6 relative overflow-hidden">
+                {/* Background Image with fade effect */}
+                <div 
+                  className="absolute bottom-0 left-0 w-48 h-32 opacity-50 pointer-events-none"
+                  style={{
+                    backgroundImage: `url(${handshakeImage})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    maskImage: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%)',
+                    WebkitMaskImage: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%)'
+                  }}
+                />
+                <div className="grid grid-cols-[200px_1fr] gap-8 relative z-10">
                   {/* Left Column - Links */}
                   <div className="space-y-3">
                     <h4 className="text-sm font-semibold mb-3 text-primary">Prospective Tenants</h4>
