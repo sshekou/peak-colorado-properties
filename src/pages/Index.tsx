@@ -38,7 +38,7 @@ const Index = () => {
             <p className="text-lg text-white/90 mb-6">We lease, care for, and optimize Boulder‑area rentals with clear communication and modern tools.</p>
             <div className="flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg"><Link to="/pricing">See pricing</Link></Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-black"><Link to="/contact">Schedule a consultation</Link></Button>
+              <Button asChild variant="outline" size="lg" className="bg-white text-black border-white hover:bg-white/90"><Link to="/contact">Schedule a consultation</Link></Button>
             </div>
             <div className="mt-6 grid grid-cols-3 gap-4 text-sm">
               <div><strong className="block text-lg text-white">48 hrs</strong><span className="text-white/80">Avg. maintenance response</span></div>
