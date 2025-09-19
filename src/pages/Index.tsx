@@ -1,4 +1,4 @@
-import hero from "@/assets/hero-flatirons.jpg";
+import hero from "@/assets/flatirons-boulder-colorado.avif";
 import { Button } from "@/components/ui/button";
 import { TestimonialCard } from "@/components/cards/Cards";
 import { ServiceCard } from "@/components/cards/Cards";
@@ -28,23 +28,23 @@ const Index = () => {
       />
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
-        <div className="container grid md:grid-cols-2 gap-10 items-center py-16">
-          <div>
-            <h1 className="font-head text-4xl md:text-5xl leading-tight mb-4">Property management that feels local—and performs like a pro.</h1>
-            <p className="text-lg text-muted-foreground mb-6">We lease, care for, and optimize Boulder‑area rentals with clear communication and modern tools.</p>
+      <section className="relative overflow-hidden min-h-[80vh] flex items-center" style={{ backgroundImage: `url(${hero})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40"></div>
+        
+        <div className="container relative z-10 py-16">
+          <div className="max-w-2xl">
+            <h1 className="font-head text-4xl md:text-5xl leading-tight mb-4 text-white">Property management that feels local—and performs like a pro.</h1>
+            <p className="text-lg text-white/90 mb-6">We lease, care for, and optimize Boulder‑area rentals with clear communication and modern tools.</p>
             <div className="flex flex-wrap gap-3">
               <Button asChild variant="hero" size="lg"><Link to="/pricing">See pricing</Link></Button>
-              <Button asChild variant="outline" size="lg"><Link to="/contact">Schedule a consultation</Link></Button>
+              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-black"><Link to="/contact">Schedule a consultation</Link></Button>
             </div>
             <div className="mt-6 grid grid-cols-3 gap-4 text-sm">
-              <div><strong className="block text-lg">48 hrs</strong><span className="text-muted-foreground">Avg. maintenance response</span></div>
-              <div><strong className="block text-lg">7 days</strong><span className="text-muted-foreground">Typical on‑market time</span></div>
-              <div><strong className="block text-lg">4.8★</strong><span className="text-muted-foreground">Owner satisfaction</span></div>
+              <div><strong className="block text-lg text-white">48 hrs</strong><span className="text-white/80">Avg. maintenance response</span></div>
+              <div><strong className="block text-lg text-white">7 days</strong><span className="text-white/80">Typical on‑market time</span></div>
+              <div><strong className="block text-lg text-white">4.8★</strong><span className="text-white/80">Owner satisfaction</span></div>
             </div>
-          </div>
-          <div className="relative rounded-xl overflow-hidden shadow-elevated">
-            <img src={hero} alt="Flatirons over Boulder with modern homes" className="w-full h-full object-cover" loading="eager" />
           </div>
         </div>
       </section>
