@@ -1,5 +1,5 @@
 import { SEO } from "@/components/SEO";
-import boulderFlatirons from "@/assets/boulder-flatirons-sunrise.jpg";
+import boulderFlatirons from "@/assets/about-hero-flatirons.jpg";
 import pearlStreet from "@/assets/pearl-street-mall.jpg";
 import boulderResidential from "@/assets/boulder-residential.jpg";
 
