@@ -144,7 +144,7 @@ export const SiteLayout = () => {
               <DropdownMenuContent align="start" className="w-[700px] p-6 relative overflow-hidden">
                 {/* Background Image with fade effect */}
                 <div 
-                  className="absolute bottom-0 left-0 w-120 h-72 opacity-50 pointer-events-none"
+                  className="absolute inset-0 opacity-50 pointer-events-none"
                   style={{
                     backgroundImage: `url(${handshakeImage})`,
                     backgroundSize: 'cover',
@@ -153,82 +153,66 @@ export const SiteLayout = () => {
                     WebkitMaskImage: 'linear-gradient(135deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%)'
                   }}
                 />
-                <div className="grid grid-cols-[200px_1fr] gap-8 relative z-10">
-                  {/* Left Column - Links */}
-                  <div className="space-y-3">
-                    <h4 className="text-sm font-semibold mb-3 text-primary">Prospective Tenants</h4>
-                    <div className="space-y-2">
-                      <button onClick={() => setLeadOpen(true)} className="block text-sm hover:text-primary transition-colors text-left">
-                        Rent to Income Calculator
-                      </button>
-                      <Link to="/rent-vs-sell-calculator" className="block text-sm hover:text-primary transition-colors">
-                        Rent vs. Sell Calculator
-                      </Link>
+                <div className="grid grid-cols-3 gap-4 relative z-10">
+                  <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Owner Portal</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
                     </div>
-                  </div>
+                    <p className="text-xs text-muted-foreground">
+                      Access your owner portal
+                    </p>
+                  </a>
 
-                  {/* Right Column - Cards Grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Owner Portal</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Access your owner portal
-                      </p>
-                    </a>
+                  <Link to="/owner-faq" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Owner FAQ</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Check out our Frequently Asked Questions
+                    </p>
+                  </Link>
 
-                    <Link to="/owner-faq" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Owner FAQ</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Check out our Frequently Asked Questions
-                      </p>
-                    </Link>
+                  <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Tools & Resources</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Free tools, expert tips
+                    </p>
+                  </Link>
 
-                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Tools & Resources</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Free tools, expert tips
-                      </p>
-                    </Link>
+                  <button onClick={() => setLeadOpen(true)} className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group text-left w-full">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Vacancy Calculator</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Discover the best price for your rental
+                    </p>
+                  </button>
 
-                    <button onClick={() => setLeadOpen(true)} className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group text-left w-full">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Vacancy Calculator</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Discover the best price for your rental
-                      </p>
-                    </button>
+                  <button onClick={() => setLeadOpen(true)} className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group text-left w-full">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Rent to Income Calculator</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Calculate affordability ratios
+                    </p>
+                  </button>
 
-                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Landlord Checklist</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Check out our complete landlord checklist
-                      </p>
-                    </Link>
-
-                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="text-sm font-medium">Client Guide</div>
-                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Download our Client Guide
-                      </p>
-                    </Link>
-                  </div>
+                  <Link to="/rent-vs-sell-calculator" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-sm font-medium">Rent vs. Sell Calculator</div>
+                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    </div>
+                    <p className="text-xs text-muted-foreground">
+                      Compare renting vs selling your property
+                    </p>
+                  </Link>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
