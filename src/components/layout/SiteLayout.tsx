@@ -5,9 +5,8 @@ import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, navigationMenuTriggerStyle, NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { ChevronDown, Users, BarChart3, DollarSign, Calendar, ArrowRight, Phone } from "lucide-react";
+import { ChevronDown, Users, BarChart3, DollarSign, Calendar, ArrowRight } from "lucide-react";
 
 // simplified navigation handled inline with NavigationMenu
 
@@ -24,231 +23,164 @@ export const SiteLayout = () => {
             <img src={logo} alt="Peak Properties logo" className="h-12 w-auto" loading="eager" />
           </Link>
 
-          <NavigationMenu className="hidden lg:flex">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
-                  About <ChevronDown className="h-4 w-4" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 w-80">
-                  <div className="grid gap-3">
-                    <NavigationMenuLink asChild>
-                      <Link to="/about" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">About Us</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Learn about our company and mission
-                        </p>
+          <nav className="hidden lg:flex items-center space-x-8">
+            {/* About */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                About <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/about" className="w-full">About Us</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/team" className="w-full">Our Team</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Services - Mega Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                Services <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-[600px] p-6">
+                <div className="grid grid-cols-3 gap-6">
+                  {/* Left Column - Navigation Links */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold mb-3">Services</h4>
+                    <div className="space-y-2">
+                      <Link to="/services" className="block text-sm hover:text-primary transition-colors">
+                        Our Process
                       </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/team" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Our Team</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Meet the Peak Properties team
-                        </p>
+                      <Link to="/service-areas" className="block text-sm hover:text-primary transition-colors">
+                        Areas We Serve
                       </Link>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
-                  Services <ChevronDown className="h-4 w-4" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-6 w-[800px]">
-                  <div className="grid grid-cols-3 gap-6">
-                    {/* Left Column - Navigation Links */}
-                    <div className="space-y-3">
-                      <h4 className="text-sm font-medium text-muted-foreground mb-3">Our Services</h4>
-                      <NavigationMenuLink asChild>
-                        <Link to="/services" className="block text-sm font-medium hover:text-primary transition-colors">
-                          Our Process
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link to="/service-areas" className="block text-sm font-medium hover:text-primary transition-colors">
-                          Areas We Serve
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link to="/leasing" className="block text-sm font-medium hover:text-primary transition-colors">
-                          Leasing Services
-                        </Link>
-                      </NavigationMenuLink>
-                      <NavigationMenuLink asChild>
-                        <Link to="/maintenance" className="block text-sm font-medium hover:text-primary transition-colors">
-                          Maintenance Management
-                        </Link>
-                      </NavigationMenuLink>
-                    </div>
-
-                    {/* Right Columns - Service Cards */}
-                    <div className="col-span-2 grid grid-cols-2 gap-4">
-                      <NavigationMenuLink asChild>
-                        <Link to="/leasing" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
-                          <div className="flex items-center justify-between mb-2">
-                            <Users className="h-5 w-5 text-primary" />
-                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <div className="text-sm font-medium leading-none mb-1">Tenant Placement</div>
-                          <p className="text-xs text-muted-foreground line-clamp-2">
-                            Get help placing a tenant in your rental.
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-
-                      <NavigationMenuLink asChild>
-                        <button onClick={() => setLeadOpen(true)} className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group text-left w-full">
-                          <div className="flex items-center justify-between mb-2">
-                            <BarChart3 className="h-5 w-5 text-primary" />
-                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <div className="text-sm font-medium leading-none mb-1">Rent Analysis</div>
-                          <p className="text-xs text-muted-foreground line-clamp-2">
-                            Get your instant Rent Estimate
-                          </p>
-                        </button>
-                      </NavigationMenuLink>
-
-                      <NavigationMenuLink asChild>
-                        <Link to="/pricing" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
-                          <div className="flex items-center justify-between mb-2">
-                            <DollarSign className="h-5 w-5 text-primary" />
-                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <div className="text-sm font-medium leading-none mb-1">Pricing</div>
-                          <p className="text-xs text-muted-foreground line-clamp-2">
-                            Our transparent pricing structure
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-
-                      <NavigationMenuLink asChild>
-                        <Link to="/contact" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
-                          <div className="flex items-center justify-between mb-2">
-                            <Calendar className="h-5 w-5 text-primary" />
-                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                          </div>
-                          <div className="text-sm font-medium leading-none mb-1">Schedule a Call</div>
-                          <p className="text-xs text-muted-foreground line-clamp-2">
-                            Schedule a free consultation
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
+                      <Link to="/leasing" className="block text-sm hover:text-primary transition-colors">
+                        Multi-Family Management
+                      </Link>
+                      <Link to="/maintenance" className="block text-sm hover:text-primary transition-colors">
+                        Military Partnership
+                      </Link>
                     </div>
                   </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
-                  Resources <ChevronDown className="h-4 w-4" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 w-80">
-                  <div className="grid gap-3">
-                    <NavigationMenuLink asChild>
-                      <Link to="/blog" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Blog</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Latest property management insights
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/resources" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Resources</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Helpful guides and resources
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
+                  {/* Right Columns - Service Cards */}
+                  <div className="col-span-2 grid grid-cols-2 gap-4">
+                    <Link to="/leasing" className="block p-4 rounded-lg border hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <Users className="h-5 w-5 text-primary" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="text-sm font-medium mb-1">Tenant Placement</div>
+                      <p className="text-xs text-muted-foreground">
+                        Get help placing a tenant in your rental.
+                      </p>
+                    </Link>
+
+                    <button onClick={() => setLeadOpen(true)} className="block p-4 rounded-lg border hover:border-primary/50 hover:bg-accent transition-all group text-left w-full">
+                      <div className="flex items-center justify-between mb-2">
+                        <BarChart3 className="h-5 w-5 text-primary" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="text-sm font-medium mb-1">Rent Analysis</div>
+                      <p className="text-xs text-muted-foreground">
+                        Get your instant Rent Estimate
+                      </p>
+                    </button>
+
+                    <Link to="/pricing" className="block p-4 rounded-lg border hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <DollarSign className="h-5 w-5 text-primary" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="text-sm font-medium mb-1">Pricing</div>
+                      <p className="text-xs text-muted-foreground">
+                        Our Pricing
+                      </p>
+                    </Link>
+
+                    <Link to="/contact" className="block p-4 rounded-lg border hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <Calendar className="h-5 w-5 text-primary" />
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <div className="text-sm font-medium mb-1">Schedule a Call</div>
+                      <p className="text-xs text-muted-foreground">
+                        Schedule a free consultation
+                      </p>
+                    </Link>
                   </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link to="/availability" className={navigationMenuTriggerStyle()}>
-                    Vacancies
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
+            {/* Resources */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                Resources <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/blog" className="w-full">Blog</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/resources" className="w-full">Resources</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
-                  Owners <ChevronDown className="h-4 w-4" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 w-80">
-                  <div className="grid gap-3">
-                    <NavigationMenuLink asChild>
-                      <Link to="/owner-faq" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Management Services</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Learn about our management approach
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <Link to="/rent-vs-sell-calculator" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Rent vs. Sell Calculator</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Calculate your best financial option
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Owner Portal Login</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Access your owner dashboard
-                        </p>
-                      </a>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+            {/* Vacancies */}
+            <Link to="/availability" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              Vacancies
+            </Link>
 
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
-                  Tenants <ChevronDown className="h-4 w-4" />
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="p-4 w-80">
-                  <div className="grid gap-3">
-                    <NavigationMenuLink asChild>
-                      <Link to="/renter-faq" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Renter FAQ</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Common renter questions answered
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                    <NavigationMenuLink asChild>
-                      <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
-                        <div className="text-sm font-medium leading-none">Tenant Portal</div>
-                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
-                          Access your tenant dashboard
-                        </p>
-                      </a>
-                    </NavigationMenuLink>
-                  </div>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+            {/* Owners */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                Owners <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-56">
+                <DropdownMenuItem asChild>
+                  <Link to="/owner-faq" className="w-full">Management Services</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/rent-vs-sell-calculator" className="w-full">Rent vs. Sell Calculator</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="w-full">
+                    Owner Portal Login
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link to="/contact" className={navigationMenuTriggerStyle()}>
-                    Contact
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+            {/* Tenants */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
+                Tenants <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                <DropdownMenuItem asChild>
+                  <Link to="/renter-faq" className="w-full">Renter FAQ</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="w-full">
+                    Tenant Portal
+                  </a>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-          {/* Phone number for larger screens */}
-          <div className="hidden xl:flex items-center gap-2 text-sm font-medium">
-            <Phone className="h-4 w-4" />
-            <span>(303) 555-PEAK</span>
+            {/* Contact */}
+            <Link to="/contact" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
+              Contact
+            </Link>
+          </nav>
+
+          {/* Phone number */}
+          <div className="hidden xl:flex items-center text-sm font-medium">
+            (303) 555-PEAK
           </div>
 
           <div className="lg:hidden flex items-center gap-2">
