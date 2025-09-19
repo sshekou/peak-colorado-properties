@@ -144,7 +144,7 @@ export const SiteLayout = () => {
               <DropdownMenuContent align="start" className="w-[700px] p-6 relative overflow-hidden">
                 {/* Background Image with fade effect */}
                 <div 
-                  className="absolute bottom-0 left-0 w-48 h-32 opacity-50 pointer-events-none"
+                  className="absolute bottom-0 left-0 w-80 h-48 opacity-50 pointer-events-none"
                   style={{
                     backgroundImage: `url(${handshakeImage})`,
                     backgroundSize: 'cover',
