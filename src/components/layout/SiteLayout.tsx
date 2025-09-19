@@ -140,18 +140,84 @@ export const SiteLayout = () => {
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
                 Owners <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-56">
-                <DropdownMenuItem asChild>
-                  <Link to="/owner-faq" className="w-full">Management Services</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/rent-vs-sell-calculator" className="w-full">Rent vs. Sell Calculator</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="w-full">
-                    Owner Portal Login
-                  </a>
-                </DropdownMenuItem>
+              <DropdownMenuContent align="start" className="w-[700px] p-6">
+                <div className="grid grid-cols-[200px_1fr] gap-8">
+                  {/* Left Column - Links */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold mb-3 text-primary">Prospective Tenants</h4>
+                    <div className="space-y-2">
+                      <button onClick={() => setLeadOpen(true)} className="block text-sm hover:text-primary transition-colors text-left">
+                        Rent to Income Calculator
+                      </button>
+                      <Link to="/rent-vs-sell-calculator" className="block text-sm hover:text-primary transition-colors">
+                        Rent vs. Sell Calculator
+                      </Link>
+                    </div>
+                  </div>
+
+                  {/* Right Column - Cards Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Owner Portal</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Access your owner portal
+                      </p>
+                    </a>
+
+                    <Link to="/owner-faq" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Owner FAQ</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Check out our Frequently Asked Questions
+                      </p>
+                    </Link>
+
+                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Tools & Resources</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Free tools, expert tips
+                      </p>
+                    </Link>
+
+                    <button onClick={() => setLeadOpen(true)} className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group text-left w-full">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Vacancy Calculator</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Discover the best price for your rental
+                      </p>
+                    </button>
+
+                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Landlord Checklist</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Check out our complete landlord checklist
+                      </p>
+                    </Link>
+
+                    <Link to="/resources" className="block p-4 rounded-lg border bg-card hover:border-primary/50 hover:bg-accent transition-all group">
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="text-sm font-medium">Client Guide</div>
+                        <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Download our Client Guide
+                      </p>
+                    </Link>
+                  </div>
+                </div>
               </DropdownMenuContent>
             </DropdownMenu>
 
