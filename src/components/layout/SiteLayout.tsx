@@ -5,8 +5,9 @@ import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
+import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, navigationMenuTriggerStyle, NavigationMenuLink } from "@/components/ui/navigation-menu";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { ChevronDown, Users, BarChart3, DollarSign, Calendar, ArrowRight, Phone } from "lucide-react";
 
 // simplified navigation handled inline with NavigationMenu
 
@@ -23,111 +24,276 @@ export const SiteLayout = () => {
             <img src={logo} alt="Peak Properties logo" className="h-12 w-auto" loading="eager" />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-6">
-            <div className="flex items-center gap-8">
-              {/* Services dropdown */}
-              <div className="relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>Services</DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" sideOffset={8}>
-                    <DropdownMenuItem asChild>
-                      <NavLink to="/service-areas" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
-                        Service Areas
-                      </NavLink>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+          <NavigationMenu className="hidden lg:flex">
+            <NavigationMenuList>
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
+                  About <ChevronDown className="h-4 w-4" />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-4 w-80">
+                  <div className="grid gap-3">
+                    <NavigationMenuLink asChild>
+                      <Link to="/about" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">About Us</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Learn about our company and mission
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/team" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Our Team</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Meet the Peak Properties team
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-              {/* I'm an Owner dropdown */}
-              <div className="relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm an Owner</DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" sideOffset={8}>
-                    <DropdownMenuItem asChild>
-                      <NavLink to="/owner-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
-                        Management Services
-                      </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <NavLink to="/rent-vs-sell-calculator" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
-                        Rent vs. Sell Calculator
-                      </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
-                        Owner Portal Login
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
+                  Services <ChevronDown className="h-4 w-4" />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-6 w-[800px]">
+                  <div className="grid grid-cols-3 gap-6">
+                    {/* Left Column - Navigation Links */}
+                    <div className="space-y-3">
+                      <h4 className="text-sm font-medium text-muted-foreground mb-3">Our Services</h4>
+                      <NavigationMenuLink asChild>
+                        <Link to="/services" className="block text-sm font-medium hover:text-primary transition-colors">
+                          Our Process
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link to="/service-areas" className="block text-sm font-medium hover:text-primary transition-colors">
+                          Areas We Serve
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link to="/leasing" className="block text-sm font-medium hover:text-primary transition-colors">
+                          Leasing Services
+                        </Link>
+                      </NavigationMenuLink>
+                      <NavigationMenuLink asChild>
+                        <Link to="/maintenance" className="block text-sm font-medium hover:text-primary transition-colors">
+                          Maintenance Management
+                        </Link>
+                      </NavigationMenuLink>
+                    </div>
+
+                    {/* Right Columns - Service Cards */}
+                    <div className="col-span-2 grid grid-cols-2 gap-4">
+                      <NavigationMenuLink asChild>
+                        <Link to="/leasing" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
+                          <div className="flex items-center justify-between mb-2">
+                            <Users className="h-5 w-5 text-primary" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                          <div className="text-sm font-medium leading-none mb-1">Tenant Placement</div>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            Get help placing a tenant in your rental.
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <button onClick={() => setLeadOpen(true)} className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group text-left w-full">
+                          <div className="flex items-center justify-between mb-2">
+                            <BarChart3 className="h-5 w-5 text-primary" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                          <div className="text-sm font-medium leading-none mb-1">Rent Analysis</div>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            Get your instant Rent Estimate
+                          </p>
+                        </button>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link to="/pricing" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
+                          <div className="flex items-center justify-between mb-2">
+                            <DollarSign className="h-5 w-5 text-primary" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                          <div className="text-sm font-medium leading-none mb-1">Pricing</div>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            Our transparent pricing structure
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+
+                      <NavigationMenuLink asChild>
+                        <Link to="/contact" className="block select-none rounded-lg border p-4 leading-none no-underline outline-none transition-all hover:bg-accent hover:border-primary/50 group">
+                          <div className="flex items-center justify-between mb-2">
+                            <Calendar className="h-5 w-5 text-primary" />
+                            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                          </div>
+                          <div className="text-sm font-medium leading-none mb-1">Schedule a Call</div>
+                          <p className="text-xs text-muted-foreground line-clamp-2">
+                            Schedule a free consultation
+                          </p>
+                        </Link>
+                      </NavigationMenuLink>
+                    </div>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
+                  Resources <ChevronDown className="h-4 w-4" />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-4 w-80">
+                  <div className="grid gap-3">
+                    <NavigationMenuLink asChild>
+                      <Link to="/blog" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Blog</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Latest property management insights
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/resources" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Resources</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Helpful guides and resources
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/availability" className={navigationMenuTriggerStyle()}>
+                    Vacancies
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
+                  Owners <ChevronDown className="h-4 w-4" />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-4 w-80">
+                  <div className="grid gap-3">
+                    <NavigationMenuLink asChild>
+                      <Link to="/owner-faq" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Management Services</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Learn about our management approach
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <Link to="/rent-vs-sell-calculator" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Rent vs. Sell Calculator</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Calculate your best financial option
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Owner Portal Login</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Access your owner dashboard
+                        </p>
                       </a>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-              {/* I'm a Renter dropdown aligned to its trigger */}
-              <div className="relative">
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={navigationMenuTriggerStyle()}>I'm a Renter</DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" sideOffset={8}>
-                    <DropdownMenuItem asChild>
-                      <NavLink to="/renter-faq" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
-                        Renter FAQ
-                      </NavLink>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
-                        Renters Portal
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="flex items-center gap-1 text-sm font-medium">
+                  Tenants <ChevronDown className="h-4 w-4" />
+                </NavigationMenuTrigger>
+                <NavigationMenuContent className="p-4 w-80">
+                  <div className="grid gap-3">
+                    <NavigationMenuLink asChild>
+                      <Link to="/renter-faq" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Renter FAQ</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Common renter questions answered
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                    <NavigationMenuLink asChild>
+                      <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="block select-none rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground">
+                        <div className="text-sm font-medium leading-none">Tenant Portal</div>
+                        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-1">
+                          Access your tenant dashboard
+                        </p>
                       </a>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+                    </NavigationMenuLink>
+                  </div>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
 
-              <NavLink to="/availability" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
-                Availability
-              </NavLink>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link to="/contact" className={navigationMenuTriggerStyle()}>
+                    Contact
+                  </Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
 
-              <NavLink to="/about" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
-                About Us
-              </NavLink>
+          {/* Phone number for larger screens */}
+          <div className="hidden xl:flex items-center gap-2 text-sm font-medium">
+            <Phone className="h-4 w-4" />
+            <span>(303) 555-PEAK</span>
+          </div>
 
-              <NavLink to="/contact" className={({ isActive }) => `text-sm font-medium transition-colors hover:text-foreground ${isActive ? "text-foreground" : "text-foreground/70"}`} end>
-                Contact
-              </NavLink>
-            </div>
-          </nav>
-
-          <div className="md:hidden flex items-center gap-2">
+          <div className="lg:hidden flex items-center gap-2">
             <Button variant="outline" onClick={() => setOpen(true)} aria-label="Open menu">Menu</Button>
           </div>
         </div>
-        {/* Simple mobile drawer */}
+        {/* Mobile drawer */}
         {open && (
-          <div className="md:hidden border-t animate-slide-in-right">
+          <div className="lg:hidden border-t animate-slide-in-right">
             <div className="container py-4 grid gap-3">
-              <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">
-                Services
-              </NavLink>
-              <div className="pl-4">
-                <NavLink to="/service-areas" onClick={() => setOpen(false)} className="py-2">
-                  Service Areas
-                </NavLink>
+              <div className="pt-2 font-medium">About</div>
+              <div className="pl-4 grid">
+                <NavLink to="/about" onClick={() => setOpen(false)} className="py-2">About Us</NavLink>
+                <NavLink to="/team" onClick={() => setOpen(false)} className="py-2">Our Team</NavLink>
               </div>
 
-              <div className="pt-2 font-medium">I'm an Owner</div>
+              <div className="pt-2 font-medium">Services</div>
+              <div className="pl-4 grid">
+                <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">Our Process</NavLink>
+                <NavLink to="/service-areas" onClick={() => setOpen(false)} className="py-2">Areas We Serve</NavLink>
+                <NavLink to="/leasing" onClick={() => setOpen(false)} className="py-2">Leasing Services</NavLink>
+                <NavLink to="/maintenance" onClick={() => setOpen(false)} className="py-2">Maintenance Management</NavLink>
+              </div>
+
+              <div className="pt-2 font-medium">Resources</div>
+              <div className="pl-4 grid">
+                <NavLink to="/blog" onClick={() => setOpen(false)} className="py-2">Blog</NavLink>
+                <NavLink to="/resources" onClick={() => setOpen(false)} className="py-2">Resources</NavLink>
+              </div>
+
+              <NavLink to="/availability" onClick={() => setOpen(false)} className="py-2">Vacancies</NavLink>
+
+              <div className="pt-2 font-medium">Owners</div>
               <div className="pl-4 grid">
                 <NavLink to="/owner-faq" onClick={() => setOpen(false)} className="py-2">Management Services</NavLink>
                 <NavLink to="/rent-vs-sell-calculator" onClick={() => setOpen(false)} className="py-2">Rent vs. Sell Calculator</NavLink>
                 <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="py-2">Owner Portal Login</a>
               </div>
 
-              <div className="pt-2 font-medium">I'm a Renter</div>
+              <div className="pt-2 font-medium">Tenants</div>
               <div className="pl-4 grid">
                 <NavLink to="/renter-faq" onClick={() => setOpen(false)} className="py-2">Renter FAQ</NavLink>
-                <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="py-2">Renters Portal</a>
+                <a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer" className="py-2">Tenant Portal</a>
               </div>
 
-              <NavLink to="/availability" onClick={() => setOpen(false)} className="py-2">Availability</NavLink>
-              <NavLink to="/about" onClick={() => setOpen(false)} className="py-2">About Us</NavLink>
               <NavLink to="/contact" onClick={() => setOpen(false)} className="py-2">Contact</NavLink>
 
               <Button variant="hero" onClick={() => { setOpen(false); setLeadOpen(true); }}>Get Rent Estimate</Button>
@@ -143,7 +309,7 @@ export const SiteLayout = () => {
       <Footer />
 
       {/* Sticky mobile CTA */}
-      <div className="md:hidden fixed bottom-4 right-4">
+      <div className="lg:hidden fixed bottom-4 right-4">
         <Button variant="hero" size="lg" onClick={() => setLeadOpen(true)} aria-label="Open rent estimate form">
           Get Rent Estimate
         </Button>
@@ -208,6 +374,3 @@ function Footer() {
     </footer>
   );
 }
-
-function setLeadOpen(v: boolean) {}
-let leadOpen = false;
