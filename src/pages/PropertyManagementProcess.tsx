@@ -1,11 +1,34 @@
 import { SEO } from "@/components/SEO";
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import propertyManagerProfessional from "@/assets/property-manager-professional.jpg";
+import propertyPreparation from "@/assets/property-preparation.jpg";
+import processMarketing from "@/assets/process-marketing.webp";
+import processLeasing from "@/assets/process-leasing.webp";
+import processCollection from "@/assets/process-collection.webp";
+import processSupport from "@/assets/process-support.webp";
+import processMaintenance from "@/assets/process-maintenance.webp";
+import processFinancials from "@/assets/process-financials.webp";
+import processInspection from "@/assets/process-inspection.webp";
+import processRenewal from "@/assets/process-renewal.webp";
+import processMoveout from "@/assets/process-moveout.webp";
 
 const PropertyManagementProcess = () => {
   const [activeStep, setActiveStep] = useState(1);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
+
+  // Image mapping for each process step
+  const stepImages = {
+    1: propertyPreparation,
+    2: processMarketing,
+    3: processLeasing,
+    4: processCollection,
+    5: processSupport,
+    6: processMaintenance,
+    7: processFinancials,
+    8: processInspection,
+    9: processRenewal,
+    10: processMoveout
+  };
 
   const processSteps = [
     { 
@@ -169,60 +192,36 @@ const PropertyManagementProcess = () => {
               
               {/* Timeline Process Flow */}
               <div className="relative mb-16">
-                {/* Timeline line */}
-                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 transform -translate-y-1/2 z-0"></div>
-                <div className="absolute top-1/2 left-0 h-0.5 bg-coral-500 transform -translate-y-1/2 z-10 transition-all duration-500" 
-                     style={{ width: `${(activeStep / processSteps.length) * 100}%` }}></div>
-                
-                {/* Process Steps */}
-                <div className="flex justify-between relative z-20">
-                  {processSteps.slice(0, 7).map((step) => (
-                    <div key={step.id} className="flex flex-col items-center">
-                      <button
-                        onClick={() => setActiveStep(step.id)}
-                        className={`w-12 h-12 rounded-full border-4 transition-all duration-200 mb-2 ${
-                          activeStep === step.id
-                            ? 'bg-coral-500 border-coral-500 text-white'
-                            : activeStep > step.id
-                            ? 'bg-coral-500 border-coral-500 text-white'
-                            : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
-                        }`}
-                      >
-                        {step.id}
-                      </button>
-                      <span className={`text-xs font-medium text-center max-w-20 leading-tight ${
-                        activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
-                      }`}>
-                        {step.title}
-                      </span>
+                  <div className="relative overflow-x-auto">
+                    <div className="flex items-center min-w-max px-4">
+                      {processSteps.map((step, index) => (
+                        <div key={step.id} className="flex items-center">
+                          <button
+                            onClick={() => setActiveStep(step.id)}
+                            className={`flex-shrink-0 w-12 h-12 rounded-full border-4 transition-all duration-200 ${
+                              activeStep === step.id
+                                ? 'bg-coral-500 border-coral-500 text-white'
+                                : activeStep > step.id
+                                ? 'bg-coral-500 border-coral-500 text-white'
+                                : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
+                            }`}
+                          >
+                            {step.id}
+                          </button>
+                          <span className={`ml-2 text-sm font-medium whitespace-nowrap ${
+                            activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
+                          }`}>
+                            {step.title}
+                          </span>
+                          {index < processSteps.length - 1 && (
+                            <div className={`mx-4 h-0.5 w-8 ${
+                              activeStep > step.id ? 'bg-coral-500' : 'bg-gray-300'
+                            }`}></div>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-                
-                {/* Second row for remaining steps */}
-                <div className="flex justify-center gap-8 mt-8">
-                  {processSteps.slice(7).map((step) => (
-                    <div key={step.id} className="flex flex-col items-center">
-                      <button
-                        onClick={() => setActiveStep(step.id)}
-                        className={`w-12 h-12 rounded-full border-4 transition-all duration-200 mb-2 ${
-                          activeStep === step.id
-                            ? 'bg-coral-500 border-coral-500 text-white'
-                            : activeStep > step.id
-                            ? 'bg-coral-500 border-coral-500 text-white'
-                            : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
-                        }`}
-                      >
-                        {step.id}
-                      </button>
-                      <span className={`text-xs font-medium text-center max-w-20 leading-tight ${
-                        activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
-                      }`}>
-                        {step.title}
-                      </span>
-                    </div>
-                  ))}
-                </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -287,8 +286,8 @@ const PropertyManagementProcess = () => {
                   <div className="w-80 h-80 bg-coral-500 rounded-full flex items-center justify-center">
                     <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                       <img 
-                        src={propertyManagerProfessional} 
-                        alt="Professional property manager representing Peak Properties proven process"
+                        src={stepImages[activeStep as keyof typeof stepImages]} 
+                        alt={`Professional representing ${currentStep.title} process`}
                         className="w-full h-full object-cover"
                       />
                     </div>
