@@ -1,16 +1,16 @@
 import { SEO } from "@/components/SEO";
 import { useState } from "react";
 import { Plus } from "lucide-react";
-import propertyPreparation from "@/assets/property-preparation.jpg";
-import processMarketing from "@/assets/process-marketing.webp";
-import processLeasing from "@/assets/process-leasing.webp";
-import processCollection from "@/assets/process-collection.webp";
-import processSupport from "@/assets/process-support.webp";
-import processMaintenance from "@/assets/process-maintenance.webp";
-import processFinancials from "@/assets/process-financials.webp";
-import processInspection from "@/assets/process-inspection.webp";
-import processRenewal from "@/assets/process-renewal.webp";
-import processMoveout from "@/assets/process-moveout.webp";
+import processPreparation from "@/assets/process-preparation-unique.webp";
+import processMarketing from "@/assets/process-marketing-unique.webp";
+import processLeasing from "@/assets/process-leasing-unique.webp";
+import processCollection from "@/assets/process-collection-unique.webp";
+import processSupport from "@/assets/process-support-unique.webp";
+import processMaintenance from "@/assets/process-maintenance-unique.webp";
+import processFinancials from "@/assets/process-financials-unique.webp";
+import processInspection from "@/assets/process-inspection-unique.webp";
+import processRenewal from "@/assets/process-renewal-unique.webp";
+import processMoveout from "@/assets/process-moveout-unique.webp";
 
 const PropertyManagementProcess = () => {
   const [activeStep, setActiveStep] = useState(1);
@@ -18,7 +18,7 @@ const PropertyManagementProcess = () => {
 
   // Image mapping for each process step
   const stepImages = {
-    1: propertyPreparation,
+    1: processPreparation,
     2: processMarketing,
     3: processLeasing,
     4: processCollection,
@@ -186,44 +186,12 @@ const PropertyManagementProcess = () => {
         <section className="bg-slate-100 py-16">
           <div className="container">
             <div className="max-w-6xl mx-auto text-center">
-              <h1 className="font-head text-4xl md:text-5xl lg:text-6xl mb-16 text-gray-800">
+              <h1 className="font-head text-4xl md:text-5xl lg:text-6xl mb-8 text-gray-800">
                 The Peak Properties Process
               </h1>
-              
-              {/* Vertical Timeline Process Flow */}
-              <div className="flex justify-center mb-16">
-                <div className="relative">
-                  {/* Vertical Timeline line */}
-                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300"></div>
-                  <div className="absolute left-6 top-0 w-0.5 bg-coral-500 transition-all duration-500" 
-                       style={{ height: `${(activeStep / processSteps.length) * 100}%` }}></div>
-                  
-                  {/* Process Steps */}
-                  <div className="space-y-6">
-                    {processSteps.map((step) => (
-                      <div key={step.id} className="flex items-center relative z-10">
-                        <button
-                          onClick={() => setActiveStep(step.id)}
-                          className={`w-12 h-12 rounded-full border-4 transition-all duration-200 ${
-                            activeStep === step.id
-                              ? 'bg-coral-500 border-coral-500 text-white'
-                              : activeStep > step.id
-                              ? 'bg-coral-500 border-coral-500 text-white'
-                              : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
-                          }`}
-                        >
-                          {step.id}
-                        </button>
-                        <span className={`ml-4 text-lg font-medium ${
-                          activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
-                        }`}>
-                          {step.title}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our proven 10-step process ensures your property is managed professionally from start to finish.
+              </p>
             </div>
           </div>
         </section>
