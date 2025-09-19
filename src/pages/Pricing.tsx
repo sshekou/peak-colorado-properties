@@ -17,7 +17,7 @@ const Pricing = () => (
     <section className="container py-16">
       <div className="text-center mb-12">
         <h2 className="font-head text-3xl font-bold mb-4">Explore our Property Management Plans and Pricing</h2>
-        <p className="text-lg text-accent font-medium">Find the perfect management plan for your peace of mind.</p>
+        <p className="text-lg text-muted-foreground font-medium">Find the perfect management plan for your peace of mind.</p>
       </div>
 
       {/* Pricing Grid */}
@@ -26,7 +26,7 @@ const Pricing = () => (
         <div className="bg-card rounded-lg border p-8 flex flex-col h-full">
           <div className="text-center mb-6">
             <h3 className="font-head text-2xl font-bold mb-2">Gold Plan</h3>
-            <p className="text-accent font-medium mb-6">Solid Core Management Services</p>
+            <p className="text-muted-foreground font-medium mb-6">Solid Core Management Services</p>
           </div>
           
           {/* Pricing Section - Aligned */}
@@ -107,7 +107,7 @@ const Pricing = () => (
           
           <div className="text-center mb-6">
             <h3 className="font-head text-2xl font-bold mb-2">Platinum Plan</h3>
-            <p className="text-accent font-medium mb-6">Comprehensive Management</p>
+            <p className="text-muted-foreground font-medium mb-6">Comprehensive Management</p>
           </div>
           
           {/* Pricing Section - Aligned */}
@@ -176,7 +176,7 @@ const Pricing = () => (
         <div className="bg-card rounded-lg border p-8 flex flex-col h-full">
           <div className="text-center mb-6">
             <h3 className="font-head text-2xl font-bold mb-2">Total Assurance</h3>
-            <p className="text-accent font-medium mb-6">Complete Peace of Mind</p>
+            <p className="text-muted-foreground font-medium mb-6">Complete Peace of Mind</p>
           </div>
           
           {/* Pricing Section - Aligned */}
