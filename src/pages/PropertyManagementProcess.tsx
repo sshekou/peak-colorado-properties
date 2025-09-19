@@ -4,28 +4,143 @@ import { Plus } from "lucide-react";
 import propertyManagerProfessional from "@/assets/property-manager-professional.jpg";
 
 const PropertyManagementProcess = () => {
+  const [activeStep, setActiveStep] = useState(1);
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
   const processSteps = [
-    { id: 1, title: "Property Preparation", active: true },
-    { id: 2, title: "Property Marketing", active: false },
-    { id: 3, title: "Rent Leasing", active: false },
-    { id: 4, title: "Rent Collection", active: false },
-    { id: 5, title: "Tenant Support", active: false },
-    { id: 6, title: "Property Maintenance", active: false },
-    { id: 7, title: "Financials Documents", active: false },
-    { id: 8, title: "Annual Inspection", active: false },
-    { id: 9, title: "Lease Renewal", active: false },
-    { id: 10, title: "Move Out", active: false },
+    { 
+      id: 1, 
+      title: "Property Preparation",
+      items: [
+        "Initial Walk Through",
+        "Communicate Findings with Owner", 
+        "Coordinate Work Needed",
+        "Complete Painting, Repairs, and Cleaning",
+        "Rent Ready Check"
+      ],
+      description: "The initial step in our established process is getting your property ready to rent. This includes conducting maintenance and performing quality control assurance in our walk throughs.",
+      subtitle: "We prepare your property to be move-in ready"
+    },
+    { 
+      id: 2, 
+      title: "Property Marketing",
+      items: [
+        "Professional Photography",
+        "Create Marketing Materials",
+        "List on Multiple Platforms",
+        "Social Media Promotion",
+        "Schedule Showings"
+      ],
+      description: "We create compelling marketing materials and list your property across multiple platforms to attract qualified tenants quickly.",
+      subtitle: "We market your property to attract quality tenants"
+    },
+    { 
+      id: 3, 
+      title: "Rent Leasing",
+      items: [
+        "Screen Potential Tenants",
+        "Background & Credit Checks",
+        "Income Verification",
+        "Lease Agreement Preparation",
+        "Move-in Coordination"
+      ],
+      description: "Our thorough tenant screening process ensures we find reliable, qualified renters for your property.",
+      subtitle: "We find and screen qualified tenants"
+    },
+    { 
+      id: 4, 
+      title: "Rent Collection",
+      items: [
+        "Online Payment Portal",
+        "Monthly Rent Collection",
+        "Late Payment Follow-up",
+        "Payment Processing",
+        "Financial Reporting"
+      ],
+      description: "We handle all aspects of rent collection with convenient online payment options and proactive follow-up.",
+      subtitle: "We collect rent and manage payments"
+    },
+    { 
+      id: 5, 
+      title: "Tenant Support",
+      items: [
+        "24/7 Emergency Response",
+        "Maintenance Request Portal",
+        "Tenant Communication",
+        "Issue Resolution",
+        "Satisfaction Surveys"
+      ],
+      description: "We provide comprehensive support to tenants, ensuring their needs are met promptly and professionally.",
+      subtitle: "We provide ongoing tenant support"
+    },
+    { 
+      id: 6, 
+      title: "Property Maintenance",
+      items: [
+        "Regular Inspections",
+        "Preventive Maintenance",
+        "Repair Coordination",
+        "Vendor Management",
+        "Quality Assurance"
+      ],
+      description: "We maintain your property through regular inspections, preventive maintenance, and prompt repairs.",
+      subtitle: "We maintain your property's condition"
+    },
+    { 
+      id: 7, 
+      title: "Financials Documents",
+      items: [
+        "Monthly Financial Reports",
+        "Expense Tracking",
+        "Tax Documentation",
+        "Owner Statements",
+        "Profit & Loss Reports"
+      ],
+      description: "We provide detailed financial reporting and documentation to keep you informed about your investment.",
+      subtitle: "We provide detailed financial reporting"
+    },
+    { 
+      id: 8, 
+      title: "Annual Inspection",
+      items: [
+        "Comprehensive Property Review",
+        "Maintenance Assessment",
+        "Safety Compliance Check",
+        "Tenant Interview",
+        "Improvement Recommendations"
+      ],
+      description: "We conduct thorough annual inspections to ensure your property remains in excellent condition.",
+      subtitle: "We conduct comprehensive annual reviews"
+    },
+    { 
+      id: 9, 
+      title: "Lease Renewal",
+      items: [
+        "Lease Renewal Negotiation",
+        "Market Rate Analysis",
+        "Tenant Retention Strategies",
+        "Lease Documentation",
+        "Renewal Coordination"
+      ],
+      description: "We work to retain quality tenants through strategic lease renewals and market-competitive pricing.",
+      subtitle: "We manage lease renewals and retention"
+    },
+    { 
+      id: 10, 
+      title: "Move Out",
+      items: [
+        "Move-out Inspection",
+        "Security Deposit Assessment",
+        "Property Restoration",
+        "Final Documentation",
+        "Transition Preparation"
+      ],
+      description: "We handle the entire move-out process, ensuring your property is ready for the next tenant.",
+      subtitle: "We manage the move-out process"
+    }
   ];
 
-  const processItems = [
-    "Initial Walk Through",
-    "Communicate Findings with Owner", 
-    "Coordinate Work Needed",
-    "Complete Painting, Repairs, and Cleaning",
-    "Rent Ready Check"
-  ];
+  const currentStep = processSteps.find(step => step.id === activeStep) || processSteps[0];
 
   const toggleExpanded = (index: number) => {
     setExpandedItems(prev => 
@@ -49,54 +164,96 @@ const PropertyManagementProcess = () => {
           <div className="container">
             <div className="max-w-6xl mx-auto text-center">
               <h1 className="font-head text-4xl md:text-5xl lg:text-6xl mb-16 text-gray-800">
-                The Peak Properties Proven Process™
+                The Peak Properties Process
               </h1>
               
-              {/* Process Flow */}
-              <div className="flex flex-wrap justify-center gap-2 mb-16">
-                {processSteps.map((step, index) => (
-                  <div key={step.id} className="relative">
-                    <button
-                      className={`px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
-                        step.active
-                          ? 'bg-coral-500 text-white relative'
-                          : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
-                      }`}
-                    >
-                      {step.title}
-                      {step.active && (
-                        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
-                          <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-coral-500"></div>
-                        </div>
-                      )}
-                    </button>
-                  </div>
-                ))}
+              {/* Timeline Process Flow */}
+              <div className="relative mb-16">
+                {/* Timeline line */}
+                <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-300 transform -translate-y-1/2 z-0"></div>
+                <div className="absolute top-1/2 left-0 h-0.5 bg-coral-500 transform -translate-y-1/2 z-10 transition-all duration-500" 
+                     style={{ width: `${(activeStep / processSteps.length) * 100}%` }}></div>
+                
+                {/* Process Steps */}
+                <div className="flex justify-between relative z-20">
+                  {processSteps.slice(0, 7).map((step) => (
+                    <div key={step.id} className="flex flex-col items-center">
+                      <button
+                        onClick={() => setActiveStep(step.id)}
+                        className={`w-12 h-12 rounded-full border-4 transition-all duration-200 mb-2 ${
+                          activeStep === step.id
+                            ? 'bg-coral-500 border-coral-500 text-white'
+                            : activeStep > step.id
+                            ? 'bg-coral-500 border-coral-500 text-white'
+                            : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
+                        }`}
+                      >
+                        {step.id}
+                      </button>
+                      <span className={`text-xs font-medium text-center max-w-20 leading-tight ${
+                        activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
+                      }`}>
+                        {step.title}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* Second row for remaining steps */}
+                <div className="flex justify-center gap-8 mt-8">
+                  {processSteps.slice(7).map((step) => (
+                    <div key={step.id} className="flex flex-col items-center">
+                      <button
+                        onClick={() => setActiveStep(step.id)}
+                        className={`w-12 h-12 rounded-full border-4 transition-all duration-200 mb-2 ${
+                          activeStep === step.id
+                            ? 'bg-coral-500 border-coral-500 text-white'
+                            : activeStep > step.id
+                            ? 'bg-coral-500 border-coral-500 text-white'
+                            : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
+                        }`}
+                      >
+                        {step.id}
+                      </button>
+                      <span className={`text-xs font-medium text-center max-w-20 leading-tight ${
+                        activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
+                      }`}>
+                        {step.title}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Step 1 Details */}
+        {/* Step Details */}
         <section className="container py-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-start">
               <div>
                 <div className="mb-8">
                   <span className="text-gray-600 font-medium text-lg">
-                    Step 1
+                    Step {activeStep}
                   </span>
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6 leading-tight">
-                    We prepare your property to be move-in <span className="text-coral-500">ready</span>
+                    {currentStep.subtitle.split(' ').map((word, index) => 
+                      word === 'ready' || word === 'tenants' || word === 'qualified' || word === 'payments' || word === 'support' || word === 'condition' || word === 'reporting' || word === 'reviews' || word === 'retention' || word === 'process' ? (
+                        <span key={index} className="text-coral-500">{word} </span>
+                      ) : (
+                        word + ' '
+                      )
+                    )}
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed">
-                    The initial step in our established process is getting your property ready to rent. This includes conducting maintenance and performing quality control assurance in our walk throughs. Continue reading the steps below to delve deeper into our process.
+                    {currentStep.description}
                   </p>
                 </div>
 
                 {/* Expandable Items */}
                 <div className="space-y-3">
-                  {processItems.map((item, index) => (
+                  {currentStep.items.map((item, index) => (
                     <div key={index} className="bg-white rounded-lg border border-gray-200 shadow-sm">
                       <button
                         onClick={() => toggleExpanded(index + 1)}
