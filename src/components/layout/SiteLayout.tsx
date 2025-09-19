@@ -220,10 +220,10 @@ export const SiteLayout = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Tenants */}
+            {/* Residents */}
             <DropdownMenu>
               <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-foreground hover:text-primary transition-colors">
-                Tenants <ChevronDown className="h-4 w-4" />
+                Residents <ChevronDown className="h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
                 <DropdownMenuItem asChild>
@@ -289,7 +289,7 @@ export const SiteLayout = () => {
                 <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="py-2">Owner Portal Login</a>
               </div>
 
-              <div className="pt-2 font-medium">Tenants</div>
+              <div className="pt-2 font-medium">Residents</div>
               <div className="pl-4 grid">
                 <NavLink to="/renter-faq" onClick={() => setOpen(false)} className="py-2">Renter FAQ</NavLink>
                 <NavLink to="/applying-faqs" onClick={() => setOpen(false)} className="py-2">Applying FAQs</NavLink>
