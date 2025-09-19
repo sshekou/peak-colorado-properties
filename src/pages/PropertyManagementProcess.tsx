@@ -190,38 +190,39 @@ const PropertyManagementProcess = () => {
                 The Peak Properties Process
               </h1>
               
-              {/* Timeline Process Flow */}
-              <div className="relative mb-16">
-                  <div className="relative overflow-x-auto">
-                    <div className="flex items-center min-w-max px-4">
-                      {processSteps.map((step, index) => (
-                        <div key={step.id} className="flex items-center">
-                          <button
-                            onClick={() => setActiveStep(step.id)}
-                            className={`flex-shrink-0 w-12 h-12 rounded-full border-4 transition-all duration-200 ${
-                              activeStep === step.id
-                                ? 'bg-coral-500 border-coral-500 text-white'
-                                : activeStep > step.id
-                                ? 'bg-coral-500 border-coral-500 text-white'
-                                : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
-                            }`}
-                          >
-                            {step.id}
-                          </button>
-                          <span className={`ml-2 text-sm font-medium whitespace-nowrap ${
-                            activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
-                          }`}>
-                            {step.title}
-                          </span>
-                          {index < processSteps.length - 1 && (
-                            <div className={`mx-4 h-0.5 w-8 ${
-                              activeStep > step.id ? 'bg-coral-500' : 'bg-gray-300'
-                            }`}></div>
-                          )}
-                        </div>
-                      ))}
-                    </div>
+              {/* Vertical Timeline Process Flow */}
+              <div className="flex justify-center mb-16">
+                <div className="relative">
+                  {/* Vertical Timeline line */}
+                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+                  <div className="absolute left-6 top-0 w-0.5 bg-coral-500 transition-all duration-500" 
+                       style={{ height: `${(activeStep / processSteps.length) * 100}%` }}></div>
+                  
+                  {/* Process Steps */}
+                  <div className="space-y-6">
+                    {processSteps.map((step) => (
+                      <div key={step.id} className="flex items-center relative z-10">
+                        <button
+                          onClick={() => setActiveStep(step.id)}
+                          className={`w-12 h-12 rounded-full border-4 transition-all duration-200 ${
+                            activeStep === step.id
+                              ? 'bg-coral-500 border-coral-500 text-white'
+                              : activeStep > step.id
+                              ? 'bg-coral-500 border-coral-500 text-white'
+                              : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
+                          }`}
+                        >
+                          {step.id}
+                        </button>
+                        <span className={`ml-4 text-lg font-medium ${
+                          activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
+                        }`}>
+                          {step.title}
+                        </span>
+                      </div>
+                    ))}
                   </div>
+                </div>
               </div>
             </div>
           </div>
