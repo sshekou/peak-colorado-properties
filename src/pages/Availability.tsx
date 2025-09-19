@@ -16,7 +16,7 @@ const Availability = () => (
         Explore current homes and apartments in Boulder, Longmont, Louisville, Lafayette, Superior, and beyond. Book tours and apply online in minutes.
       </p>
       <div className="flex gap-3 mb-8">
-        <Button asChild variant="outline"><a href="https://aptlysandbox.rentvine.com/portals/resident/" target="_blank" rel="noopener noreferrer">Apply Now</a></Button>
+        <Button asChild variant="outline"><a href="https://portal.getaptly.com/grWTDBRgQ4gjJXBa3/applicant/home/login" target="_blank" rel="noopener noreferrer">Apply Now</a></Button>
         <Button asChild><a href="#listings">View Listings</a></Button>
       </div>
       <div id="listings" />
