@@ -1,5 +1,10 @@
 import { SEO } from "@/components/SEO";
 import { FAQ } from "./partials/FAQ";
+import lifestyleMovingCouple from "@/assets/lifestyle-moving-couple.jpg";
+import lifestyleWorkFromHome from "@/assets/lifestyle-work-from-home.jpg";
+import lifestyleFamilyUnpacking from "@/assets/lifestyle-family-unpacking.jpg";
+import lifestyleCooking from "@/assets/lifestyle-cooking.jpg";
+import lifestyleCoupleP from "@/assets/lifestyle-couple-planning.jpg";
 
 const ApplyingFAQs = () => {
   const faqItems = [
@@ -72,13 +77,52 @@ const ApplyingFAQs = () => {
               <p className="text-xl text-muted-foreground mb-8">
                 Everything you need to know about applying for a rental property with Peak Properties
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <a 
                   href="/availability" 
                   className="inline-flex items-center justify-center rounded-md bg-primary px-8 py-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
                 >
                   View Available Properties
                 </a>
+              </div>
+              
+              {/* Lifestyle Photos */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
+                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={lifestyleMovingCouple} 
+                    alt="Happy couple moving into rental apartment with boxes"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={lifestyleCoupleP} 
+                    alt="Young couple planning and looking at documents in living room"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={lifestyleFamilyUnpacking} 
+                    alt="Family with children unpacking boxes in new rental home"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                  <img 
+                    src={lifestyleCooking} 
+                    alt="Young man cooking in modern rental apartment kitchen"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md lg:col-span-1 col-span-2 md:col-span-1">
+                  <img 
+                    src={lifestyleWorkFromHome} 
+                    alt="Professional woman working from home on laptop in apartment"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </div>
