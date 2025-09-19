@@ -61,10 +61,10 @@ const Index = () => {
 
       {/* Locations */}
       <section className="container py-14">
-        <h2 className="font-head text-3xl mb-6">We serve Boulder County</h2>
+        <h2 className="font-head text-3xl mb-6">Our Markets</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {locations.slice(0,6).map((l) => (
-            <LocationCard key={l.slug} name={l.name} blurb={l.overview} to={`/service-areas/${l.slug}`} />
+          {locations.map((l) => (
+            <LocationCard key={l.slug} name={l.name} blurb={l.overview} to={`/service-areas/${l.slug}`} slug={l.slug} />
           ))}
         </div>
       </section>
