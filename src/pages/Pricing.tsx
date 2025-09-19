@@ -1,10 +1,21 @@
 import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { FAQ } from "@/pages/partials/FAQ";
+import { PricingFormModal } from "@/components/PricingFormModal";
+import { useState } from "react";
 
-const Pricing = () => (
-  <>
-    <SEO title="Pricing | Peak Properties" description="Explore our property management plans and pricing - find the perfect management plan for your peace of mind." canonicalPath="/pricing" type="Service" />
+const Pricing = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
+
+  const openModal = (planName: string) => {
+    setSelectedPlan(planName);
+    setModalOpen(true);
+  };
+
+  return (
+    <>
+      <SEO title="Pricing | Peak Properties" description="Explore our property management plans and pricing - find the perfect management plan for your peace of mind." canonicalPath="/pricing" type="Service" />
     
     {/* Hero Section */}
     <section className="bg-primary text-primary-foreground py-16">
@@ -96,7 +107,7 @@ const Pricing = () => (
           </div>
           
           {/* CTA Button - Always at bottom */}
-          <Button className="w-full">Choose Gold Plan</Button>
+          <Button className="w-full" onClick={() => openModal("Gold Plan")}>Choose Gold Plan</Button>
         </div>
 
         {/* Platinum Plan */}
@@ -169,7 +180,7 @@ const Pricing = () => (
           </div>
           
           {/* CTA Button - Always at bottom */}
-          <Button className="w-full" variant="hero">Choose Platinum Plan</Button>
+          <Button className="w-full" variant="hero" onClick={() => openModal("Platinum Plan")}>Choose Platinum Plan</Button>
         </div>
 
         {/* Total Assurance Plan */}
@@ -238,7 +249,7 @@ const Pricing = () => (
           </div>
           
           {/* CTA Button - Always at bottom */}
-          <Button className="w-full">Choose Total Assurance</Button>
+          <Button className="w-full" onClick={() => openModal("Total Assurance Plan")}>Choose Total Assurance</Button>
         </div>
       </div>
 
@@ -246,8 +257,8 @@ const Pricing = () => (
       <div className="bg-muted/50 rounded-lg p-8 text-center">
         <h3 className="font-head text-xl font-bold mb-2">Need Something Different?</h3>
         <p className="text-muted-foreground mb-4">Have a portfolio of properties or unique requirements? We offer custom solutions tailored to your specific needs.</p>
-        <Button variant="outline" asChild>
-          <a href="/contact">Contact Us for Custom Pricing</a>
+        <Button variant="outline" onClick={() => openModal("Custom Plan")}>
+          Contact Us for Custom Pricing
         </Button>
       </div>
     </section>
@@ -260,7 +271,14 @@ const Pricing = () => (
       { q: 'Are there any setup or cancellation fees?', a: 'No setup fees. Our agreements are month-to-month with 30-day notice for cancellation.' },
       { q: 'What about emergency maintenance costs?', a: 'All plans include 24/7 emergency coordination. You only pay for actual vendor costs with no markup from us.' },
     ]} />
+    
+    <PricingFormModal 
+      open={modalOpen} 
+      onOpenChange={setModalOpen} 
+      planName={selectedPlan}
+    />
   </>
-);
+  );
+};
 
 export default Pricing;
