@@ -21,117 +21,224 @@ const Pricing = () => (
       </div>
 
       {/* Pricing Grid */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+      <div className="grid lg:grid-cols-3 gap-8 mb-16">
         {/* Gold Plan */}
-        <div className="bg-card rounded-lg border p-8 text-center">
-          <h3 className="font-head text-2xl font-bold mb-2">Gold Plan</h3>
-          <p className="text-accent font-medium mb-6">Solid Core Management Services</p>
-          <div className="border-t border-border pt-6 mb-6">
-            <div className="text-4xl font-bold text-primary mb-2">8%</div>
-            <p className="text-sm text-muted-foreground">of gross rents + tax ($120 min)</p>
+        <div className="bg-card rounded-lg border p-8 flex flex-col h-full">
+          <div className="text-center mb-6">
+            <h3 className="font-head text-2xl font-bold mb-2">Gold Plan</h3>
+            <p className="text-accent font-medium mb-6">Solid Core Management Services</p>
           </div>
-          <div className="text-left">
-            <h4 className="font-semibold mb-4">What's Included</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Full Leasing Support (1 month fee)</li>
-              <li>Single Point of Contact</li>
-              <li>Online Rent Collection</li>
-              <li>Marketing Photos and Videos</li>
-              <li>Monthly Financial Reporting</li>
-              <li>Owner Portal Access</li>
-              <li>Direct Deposit for Owner Payments</li>
-              <li>Move-in & Move-out Services</li>
-              <li>Repair Coordination</li>
-              <li>Takeover Inspection</li>
-              <li>24/7 Emergency Response</li>
+          
+          {/* Pricing Section - Aligned */}
+          <div className="text-center border-t border-border pt-6 mb-8">
+            <div className="text-5xl font-bold text-primary mb-2">8%</div>
+            <p className="text-sm text-muted-foreground">of monthly rent ($120 minimum)</p>
+            <p className="text-xs text-muted-foreground mt-1">+ Leasing Fee: 1 month's rent</p>
+          </div>
+          
+          {/* Services List */}
+          <div className="flex-grow mb-8">
+            <h4 className="font-semibold mb-4 text-center">What's Included</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Professional Property Marketing</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Comprehensive Tenant Screening</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Online Rent Collection</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>24/7 Emergency Response</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Property Maintenance Coordination</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Monthly Financial Reporting</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Owner & Tenant Portals</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Direct Deposit Payments</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Move-in & Move-out Services</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Eviction Process Handling</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Single Point of Contact</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-muted-foreground mr-2">•</span>
+                <span className="text-muted-foreground">Annual Inspection ($95 fee)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-muted-foreground mr-2">•</span>
+                <span className="text-muted-foreground">Semi-annual Evaluation ($120 fee)</span>
+              </li>
             </ul>
           </div>
-          <Button className="w-full mt-6">Choose Gold Plan</Button>
+          
+          {/* CTA Button - Always at bottom */}
+          <Button className="w-full">Choose Gold Plan</Button>
         </div>
 
         {/* Platinum Plan */}
-        <div className="bg-card rounded-lg border p-8 text-center">
-          <h3 className="font-head text-2xl font-bold mb-2">Platinum Plan</h3>
-          <p className="text-accent font-medium mb-6">Comprehensive Assistance</p>
-          <div className="border-t border-border pt-6 mb-6">
-            <div className="text-4xl font-bold text-primary mb-2">10%</div>
-            <p className="text-sm text-muted-foreground">of gross rents + tax ($150 min)</p>
+        <div className="bg-card rounded-lg border-2 border-primary p-8 flex flex-col h-full relative">
+          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+            <span className="bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-medium">Most Popular</span>
           </div>
-          <div className="text-left">
-            <h4 className="font-semibold mb-4">What's Included</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Full Leasing Support (1 month fee)</li>
-              <li>Single Point of Contact</li>
-              <li>Online Rent Collection</li>
-              <li>Marketing Photos and Videos</li>
-              <li>Monthly Financial Reporting</li>
-              <li>Owner Portal Access</li>
-              <li>Direct Deposit for Owner Payments</li>
-              <li>Move-in & Move-out Services</li>
-              <li>Repair Coordination</li>
-              <li>Takeover Inspection</li>
-              <li>24/7 Emergency Response</li>
-              <li>Annual Property Inspection</li>
-              <li>Renewal Strategy & Market Analysis</li>
+          
+          <div className="text-center mb-6">
+            <h3 className="font-head text-2xl font-bold mb-2">Platinum Plan</h3>
+            <p className="text-accent font-medium mb-6">Comprehensive Management</p>
+          </div>
+          
+          {/* Pricing Section - Aligned */}
+          <div className="text-center border-t border-border pt-6 mb-8">
+            <div className="text-5xl font-bold text-primary mb-2">10%</div>
+            <p className="text-sm text-muted-foreground">of monthly rent ($150 minimum)</p>
+            <p className="text-xs text-muted-foreground mt-1">+ Leasing Fee: 1 month's rent</p>
+          </div>
+          
+          {/* Services List */}
+          <div className="flex-grow mb-8">
+            <h4 className="font-semibold mb-4 text-center">Everything in Gold Plan, Plus:</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Professional Photography & Virtual Tours</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Enhanced Marketing Strategy</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Annual Property Inspection (Included)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Semi-annual Evaluation (Included)</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Lease Renewal Strategy</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Market Rent Analysis</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Priority Maintenance Response</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Detailed Property Reports</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Capital Improvement Planning</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Advanced Tenant Communication</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Satisfaction Guarantee</span>
+              </li>
             </ul>
           </div>
-          <Button className="w-full mt-6" variant="hero">Choose Platinum Plan</Button>
+          
+          {/* CTA Button - Always at bottom */}
+          <Button className="w-full" variant="hero">Choose Platinum Plan</Button>
         </div>
 
         {/* Total Assurance Plan */}
-        <div className="bg-card rounded-lg border p-8 text-center">
-          <h3 className="font-head text-2xl font-bold mb-2">Total Assurance</h3>
-          <p className="text-accent font-medium mb-6">For Complete Peace of Mind</p>
-          <div className="border-t border-border pt-6 mb-6">
-            <div className="text-4xl font-bold text-primary mb-2">12%</div>
-            <p className="text-sm text-muted-foreground">of gross rents + tax ($180 min)</p>
+        <div className="bg-card rounded-lg border p-8 flex flex-col h-full">
+          <div className="text-center mb-6">
+            <h3 className="font-head text-2xl font-bold mb-2">Total Assurance</h3>
+            <p className="text-accent font-medium mb-6">Complete Peace of Mind</p>
           </div>
-          <div className="text-left">
-            <h4 className="font-semibold mb-4">What's Included</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>Full Leasing Support (1 month fee)</li>
-              <li>Single Point of Contact</li>
-              <li>Online Rent Collection</li>
-              <li>Professional Marketing Photos & Videos</li>
-              <li>Monthly Financial Reporting</li>
-              <li>Owner Portal Access</li>
-              <li>Direct Deposit for Owner Payments</li>
-              <li>Move-in & Move-out Services</li>
-              <li>Priority Repair Coordination</li>
-              <li>Takeover Inspection</li>
-              <li>24/7 Emergency Response</li>
-              <li>Bi-annual Property Inspections</li>
-              <li>Advanced Renewal Strategy</li>
-              <li>Property Protection Plan</li>
-              <li>Tenant Damage Protection</li>
+          
+          {/* Pricing Section - Aligned */}
+          <div className="text-center border-t border-border pt-6 mb-8">
+            <div className="text-5xl font-bold text-primary mb-2">12%</div>
+            <p className="text-sm text-muted-foreground">of monthly rent ($180 minimum)</p>
+            <p className="text-xs text-muted-foreground mt-1">+ Leasing Fee: 1 month's rent</p>
+          </div>
+          
+          {/* Services List */}
+          <div className="flex-grow mb-8">
+            <h4 className="font-semibold mb-4 text-center">Everything in Platinum, Plus:</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>On-Time Rent Guarantee</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Bi-annual Property Inspections</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Property Damage Protection</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Extended Tenant Screening</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Premium Maintenance Network</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Quarterly Property Reports</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Dedicated Account Manager</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Investment Advisory Services</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Tax Preparation Support</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>Legal Protection Plan</span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-primary mr-2">•</span>
+                <span>24/7 Premium Support Hotline</span>
+              </li>
             </ul>
           </div>
-          <Button className="w-full mt-6">Choose Total Assurance</Button>
-        </div>
-
-        {/* Lease Only Plan */}
-        <div className="bg-card rounded-lg border p-8 text-center">
-          <h3 className="font-head text-2xl font-bold mb-2">Lease Only</h3>
-          <p className="text-accent font-medium mb-6">Strictly Leasing Service</p>
-          <div className="border-t border-border pt-6 mb-6">
-            <div className="text-4xl font-bold text-primary mb-2">100%</div>
-            <p className="text-sm text-muted-foreground">of 1st month's rent</p>
-          </div>
-          <div className="text-left">
-            <h4 className="font-semibold mb-4">What's Included</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>In-Person Consultation</li>
-              <li>Set the Ideal Rental Rate</li>
-              <li>List Property on the MLS</li>
-              <li>Professional Photography</li>
-              <li>Comprehensive Marketing</li>
-              <li>Tenant Screening & Selection</li>
-              <li>Lease Preparation & Signing</li>
-              <li>Move-in Coordination</li>
-              <li>Security Deposit Handling</li>
-            </ul>
-          </div>
-          <Button className="w-full mt-6">Choose Lease Only</Button>
+          
+          {/* CTA Button - Always at bottom */}
+          <Button className="w-full">Choose Total Assurance</Button>
         </div>
       </div>
 
