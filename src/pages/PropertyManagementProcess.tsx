@@ -228,92 +228,114 @@ const PropertyManagementProcess = () => {
           </div>
         </section>
 
-        {/* Step Details */}
+        {/* Timeline and Step Details Side by Side */}
         <section className="container py-8">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-start">
-              <div>
-                <div className="mb-8">
-                  <span className="text-gray-600 font-medium text-lg">
-                    Step {activeStep}
-                  </span>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6 leading-tight">
-                    {currentStep.subtitle.split(' ').map((word, index) => 
-                      word === 'ready' || word === 'tenants' || word === 'qualified' || word === 'payments' || word === 'support' || word === 'condition' || word === 'reporting' || word === 'reviews' || word === 'retention' || word === 'process' ? (
-                        <span key={index} className="text-coral-500">{word} </span>
-                      ) : (
-                        word + ' '
-                      )
-                    )}
-                  </h2>
-                  <p className="text-gray-600 text-lg leading-relaxed">
-                    {currentStep.description}
-                  </p>
-                </div>
-
-                {/* Expandable Items */}
-                <div className="space-y-3">
-                  {currentStep.items.map((item, index) => (
-                    <div key={index} className="bg-white rounded-lg border border-gray-200 shadow-sm">
-                      <button
-                        onClick={() => toggleExpanded(index + 1)}
-                        className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
-                      >
-                        <span className="font-medium text-gray-800">
-                          {index + 1}. {item}
+              {/* Left Side - Timeline */}
+              <div className="flex justify-center">
+                <div className="relative">
+                  {/* Vertical Timeline line */}
+                  <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300"></div>
+                  <div className="absolute left-6 top-0 w-0.5 bg-coral-500 transition-all duration-500" 
+                       style={{ height: `${(activeStep / processSteps.length) * 100}%` }}></div>
+                  
+                  {/* Process Steps */}
+                  <div className="space-y-6">
+                    {processSteps.map((step) => (
+                      <div key={step.id} className="flex items-center relative z-10">
+                        <button
+                          onClick={() => setActiveStep(step.id)}
+                          className={`w-12 h-12 rounded-full border-4 transition-all duration-200 ${
+                            activeStep === step.id
+                              ? 'bg-coral-500 border-coral-500 text-white'
+                              : activeStep > step.id
+                              ? 'bg-coral-500 border-coral-500 text-white'
+                              : 'bg-white border-gray-300 text-gray-500 hover:border-coral-400'
+                          }`}
+                        >
+                          {step.id}
+                        </button>
+                        <span className={`ml-4 text-lg font-medium ${
+                          activeStep === step.id ? 'text-coral-600' : 'text-gray-600'
+                        }`}>
+                          {step.title}
                         </span>
-                        <Plus 
-                          className={`h-5 w-5 text-coral-500 transition-transform ${
-                            expandedItems.includes(index + 1) ? 'rotate-45' : ''
-                          }`} 
-                        />
-                      </button>
-                      {expandedItems.includes(index + 1) && (
-                        <div className="px-4 pb-4 border-t border-gray-100">
-                          <p className="text-gray-600 pt-3">
-                            Detailed information about the {item.toLowerCase()} process and what it involves for your property management experience.
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              <div className="relative flex justify-center">
-                {/* Circular Image with Background */}
-                <div className="relative">
-                  {/* Large circular background */}
-                  <div className="w-80 h-80 bg-coral-500 rounded-full flex items-center justify-center">
-                    <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-                      <img 
-                        src={stepImages[activeStep as keyof typeof stepImages]} 
-                        alt={`Professional representing ${currentStep.title} process`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
+              {/* Right Side - Step Details and Image */}
+              <div className="space-y-8">
+                {/* Step Details */}
+                <div>
+                  <div className="mb-8">
+                    <span className="text-gray-600 font-medium text-lg">
+                      Step {activeStep}
+                    </span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6 leading-tight">
+                      {currentStep.subtitle.split(' ').map((word, index) => 
+                        word === 'ready' || word === 'tenants' || word === 'qualified' || word === 'payments' || word === 'support' || word === 'condition' || word === 'reporting' || word === 'reviews' || word === 'retention' || word === 'process' ? (
+                          <span key={index} className="text-coral-500">{word} </span>
+                        ) : (
+                          word + ' '
+                        )
+                      )}
+                    </h2>
+                    <p className="text-gray-600 text-lg leading-relaxed">
+                      {currentStep.description}
+                    </p>
                   </div>
-                  
-                  {/* Decorative dotted circles and elements */}
-                  <div className="absolute -top-8 -right-8 w-16 h-16 border-2 border-dashed border-gray-400 rounded-full"></div>
-                  <div className="absolute -bottom-8 -left-8 w-12 h-12 border-2 border-dashed border-gray-400 rounded-full"></div>
-                  <div className="absolute top-8 -left-12 w-8 h-8 border-2 border-dashed border-gray-400 rounded-full"></div>
-                  
-                  {/* Small decorative dots */}
-                  <div className="absolute top-12 right-16 w-3 h-3 bg-gray-400 rounded-full"></div>
-                  <div className="absolute bottom-16 right-8 w-2 h-2 bg-gray-400 rounded-full"></div>
-                  <div className="absolute bottom-12 left-12 w-4 h-4 bg-gray-400 rounded-full"></div>
-                  
-                  {/* Icon-like decorative elements */}
-                  <div className="absolute top-20 right-12">
-                    <div className="w-8 h-8 border-2 border-gray-400 rounded-lg flex items-center justify-center">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                    </div>
+
+                  {/* Expandable Items */}
+                  <div className="space-y-3">
+                    {currentStep.items.map((item, index) => (
+                      <div key={index} className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                        <button
+                          onClick={() => toggleExpanded(index + 1)}
+                          className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                        >
+                          <span className="font-medium text-gray-800">
+                            {index + 1}. {item}
+                          </span>
+                          <Plus 
+                            className={`h-5 w-5 text-coral-500 transition-transform ${
+                              expandedItems.includes(index + 1) ? 'rotate-45' : ''
+                            }`} 
+                          />
+                        </button>
+                        {expandedItems.includes(index + 1) && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 pt-3">
+                              Detailed information about the {item.toLowerCase()} process and what it involves for your property management experience.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
                   </div>
-                  <div className="absolute bottom-20 left-8">
-                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                </div>
+
+                {/* Process Image */}
+                <div className="relative flex justify-center">
+                  <div className="relative">
+                    {/* Large circular background */}
+                    <div className="w-80 h-80 bg-coral-500 rounded-full flex items-center justify-center">
+                      <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                        <img 
+                          src={stepImages[activeStep as keyof typeof stepImages]} 
+                          alt={`Professional representing ${currentStep.title} process`}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
                     </div>
+                    
+                    {/* Decorative elements */}
+                    <div className="absolute -top-8 -right-8 w-16 h-16 border-2 border-dashed border-gray-400 rounded-full"></div>
+                    <div className="absolute -bottom-8 -left-8 w-12 h-12 border-2 border-dashed border-gray-400 rounded-full"></div>
+                    <div className="absolute top-8 -left-12 w-8 h-8 border-2 border-dashed border-gray-400 rounded-full"></div>
                   </div>
                 </div>
               </div>
