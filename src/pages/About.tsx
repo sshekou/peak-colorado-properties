@@ -1,7 +1,7 @@
 import { SEO } from "@/components/SEO";
 import boulderFlatirons from "@/assets/about-hero-flatirons.jpg";
 import pearlStreet from "@/assets/pearl-street-mall.jpg";
-import boulderResidential from "@/assets/boulder-residential.jpg";
+import pearlStreetDowntown from "@/assets/pearl-street-downtown.webp";
 
 const About = () => (
   <>
@@ -139,8 +139,8 @@ const About = () => (
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative">
             <img 
-              src={boulderResidential} 
-              alt="Residential properties in Boulder Colorado" 
+              src={pearlStreetDowntown} 
+              alt="Pearl Street Mall downtown Boulder Colorado" 
               className="rounded-xl shadow-elevated w-full h-auto"
             />
           </div>
