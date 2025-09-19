@@ -50,6 +50,11 @@ export const SiteLayout = () => {
                       </NavLink>
                     </DropdownMenuItem>
                     <DropdownMenuItem asChild>
+                      <NavLink to="/rent-vs-sell-calculator" className="rounded-md px-2 py-1.5 hover:bg-accent" end>
+                        Rent vs. Sell Calculator
+                      </NavLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
                       <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="rounded-md px-2 py-1.5 hover:bg-accent">
                         Owner Portal Login
                       </a>
@@ -111,6 +116,7 @@ export const SiteLayout = () => {
               <div className="pt-2 font-medium">I'm an Owner</div>
               <div className="pl-4 grid">
                 <NavLink to="/owner-faq" onClick={() => setOpen(false)} className="py-2">Management Services</NavLink>
+                <NavLink to="/rent-vs-sell-calculator" onClick={() => setOpen(false)} className="py-2">Rent vs. Sell Calculator</NavLink>
                 <a href="https://aptlysandbox.rentvine.com/portals/owner/" target="_blank" rel="noopener noreferrer" className="py-2">Owner Portal Login</a>
               </div>
 
