@@ -24,6 +24,7 @@ import RenterFAQ from "./pages/RenterFAQ";
 import ApplyingFAQs from "./pages/ApplyingFAQs";
 import Availability from "./pages/Availability";
 import RentVsSellCalculator from "./pages/RentVsSellCalculator";
+import PropertyManagementProcess from "./pages/PropertyManagementProcess";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/" element={<SiteLayout />}> 
             <Route index element={<Index />} />
             <Route path="services" element={<Services />} />
+            <Route path="property-management-process" element={<PropertyManagementProcess />} />
             <Route path="owners" element={<Owners />} />
             <Route path="availability" element={<Availability />} />
             <Route path="leasing" element={<Leasing />} />

@@ -52,7 +52,10 @@ export const SiteLayout = () => {
                     <h4 className="text-sm font-semibold mb-3">Services</h4>
                     <div className="space-y-2">
                       <Link to="/services" className="block text-sm hover:text-primary transition-colors">
-                        Our Process
+                        Property Management Services
+                      </Link>
+                      <Link to="/property-management-process" className="block text-sm hover:text-primary transition-colors">
+                        Our Proven Process
                       </Link>
                       <Link to="/service-areas" className="block text-sm hover:text-primary transition-colors">
                         Areas We Serve
@@ -264,7 +267,8 @@ export const SiteLayout = () => {
 
               <div className="pt-2 font-medium">Services</div>
               <div className="pl-4 grid">
-                <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">Our Process</NavLink>
+                <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">Property Management Services</NavLink>
+                <NavLink to="/property-management-process" onClick={() => setOpen(false)} className="py-2">Our Proven Process</NavLink>
                 <NavLink to="/service-areas" onClick={() => setOpen(false)} className="py-2">Areas We Serve</NavLink>
                 <NavLink to="/leasing" onClick={() => setOpen(false)} className="py-2">Leasing Services</NavLink>
                 <NavLink to="/maintenance" onClick={() => setOpen(false)} className="py-2">Maintenance Management</NavLink>
