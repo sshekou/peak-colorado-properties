@@ -1,4 +1,4 @@
-import hero from "@/assets/flatirons-boulder-colorado.avif";
+import hero from "@/assets/boulder-flatirons-hero.jpg";
 import { Button } from "@/components/ui/button";
 import { TestimonialCard } from "@/components/cards/Cards";
 import { ServiceCard } from "@/components/cards/Cards";
