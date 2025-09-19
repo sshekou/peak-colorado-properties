@@ -1,103 +1,31 @@
 import { SEO } from "@/components/SEO";
 import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { Plus } from "lucide-react";
 import propertyManagerProfessional from "@/assets/property-manager-professional.jpg";
-import propertyPreparation from "@/assets/property-preparation.jpg";
-import propertyMarketing from "@/assets/property-marketing.jpg";
-import tenantSupport from "@/assets/tenant-support.jpg";
 
 const PropertyManagementProcess = () => {
-  const [activeStep, setActiveStep] = useState(1);
-  const [expandedItems, setExpandedItems] = useState<number[]>([1]);
+  const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
   const processSteps = [
-    { id: 1, title: "Property Preparation", color: "bg-coral-500" },
-    { id: 2, title: "Property Marketing", color: "bg-slate-200" },
-    { id: 3, title: "Tenant Screening", color: "bg-slate-200" },
-    { id: 4, title: "Lease Signing", color: "bg-slate-200" },
-    { id: 5, title: "Rent Collection", color: "bg-slate-200" },
-    { id: 6, title: "Tenant Support", color: "bg-slate-200" },
-    { id: 7, title: "Property Maintenance", color: "bg-slate-200" },
-    { id: 8, title: "Financial Reporting", color: "bg-slate-200" },
-    { id: 9, title: "Annual Inspection", color: "bg-slate-200" },
-    { id: 10, title: "Lease Renewal", color: "bg-slate-200" },
+    { id: 1, title: "Property Preparation", active: true },
+    { id: 2, title: "Property Marketing", active: false },
+    { id: 3, title: "Rent Leasing", active: false },
+    { id: 4, title: "Rent Collection", active: false },
+    { id: 5, title: "Tenant Support", active: false },
+    { id: 6, title: "Property Maintenance", active: false },
+    { id: 7, title: "Financials Documents", active: false },
+    { id: 8, title: "Annual Inspection", active: false },
+    { id: 9, title: "Lease Renewal", active: false },
+    { id: 10, title: "Move Out", active: false },
   ];
 
-  const stepDetails = {
-    1: {
-      title: "We prepare your property to be move-in ready",
-      description: "The initial step in our established process is getting your property ready to rent. This includes conducting maintenance and performing quality control assurance in our walk throughs. Continue reading the steps below to delve deeper into our process.",
-      image: propertyPreparation,
-      items: [
-        {
-          title: "Initial Property Assessment",
-          details: "Comprehensive evaluation of property condition, identifying needed repairs and improvements to maximize rental potential."
-        },
-        {
-          title: "Maintenance Coordination",
-          details: "Professional coordination of all necessary repairs, upgrades, and maintenance work with our trusted contractor network."
-        },
-        {
-          title: "Deep Cleaning Service",
-          details: "Professional deep cleaning to ensure the property meets our high standards for tenant move-in readiness."
-        },
-        {
-          title: "Safety & Compliance Check",
-          details: "Thorough inspection to ensure all safety features and local housing compliance requirements are met."
-        },
-        {
-          title: "Final Walk-Through",
-          details: "Complete property inspection with detailed documentation and photos for our records and marketing materials."
-        }
-      ]
-    },
-    2: {
-      title: "We market your property for maximum exposure",
-      description: "Our comprehensive marketing strategy ensures your property reaches qualified tenants quickly through multiple channels and professional presentation.",
-      image: propertyMarketing,
-      items: [
-        {
-          title: "Professional Photography",
-          details: "High-quality photos showcasing your property's best features to attract premium tenants."
-        },
-        {
-          title: "Multi-Platform Listing",
-          details: "Listing on major rental platforms including Zillow, Apartments.com, and our website for maximum visibility."
-        },
-        {
-          title: "Competitive Market Analysis",
-          details: "Research-based pricing strategy to ensure optimal rental rates while minimizing vacancy time."
-        },
-        {
-          title: "Virtual Tours",
-          details: "360-degree virtual tours and video walkthroughs to give prospective tenants a comprehensive view."
-        }
-      ]
-    },
-    6: {
-      title: "We provide comprehensive tenant support",
-      description: "Our dedicated tenant support ensures positive relationships and prompt resolution of any issues that arise during the tenancy.",
-      image: tenantSupport,
-      items: [
-        {
-          title: "24/7 Maintenance Requests",
-          details: "Online portal and phone system for tenants to submit maintenance requests at any time."
-        },
-        {
-          title: "Move-in Coordination",
-          details: "Smooth transition process including key handover, utility setup assistance, and property orientation."
-        },
-        {
-          title: "Ongoing Communication",
-          details: "Regular check-ins and open communication channels to address concerns before they become problems."
-        },
-        {
-          title: "Emergency Response",
-          details: "24/7 emergency response system for urgent issues affecting tenant safety or property security."
-        }
-      ]
-    }
-  };
+  const processItems = [
+    "Initial Walk Through",
+    "Communicate Findings with Owner", 
+    "Coordinate Work Needed",
+    "Complete Painting, Repairs, and Cleaning",
+    "Rent Ready Check"
+  ];
 
   const toggleExpanded = (index: number) => {
     setExpandedItems(prev => 
@@ -107,15 +35,6 @@ const PropertyManagementProcess = () => {
     );
   };
 
-  const handleStepClick = (stepId: number) => {
-    setActiveStep(stepId);
-    if (stepDetails[stepId as keyof typeof stepDetails]) {
-      setExpandedItems([1]); // Reset expanded items when switching steps
-    }
-  };
-
-  const currentStepData = stepDetails[activeStep as keyof typeof stepDetails];
-
   return (
     <>
       <SEO 
@@ -124,136 +43,120 @@ const PropertyManagementProcess = () => {
         canonicalPath="/property-management-process"
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-slate-100">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary/5 to-primary/10 py-16">
+        <section className="bg-slate-100 py-16">
           <div className="container">
             <div className="max-w-6xl mx-auto text-center">
-              <h1 className="font-head text-4xl md:text-5xl lg:text-6xl mb-6">
+              <h1 className="font-head text-4xl md:text-5xl lg:text-6xl mb-16 text-gray-800">
                 The Peak Properties Proven Process™
               </h1>
-              <p className="text-xl text-muted-foreground mb-12">
-                Our comprehensive 10-step approach to professional property management
-              </p>
               
               {/* Process Flow */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg mb-12">
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
-                  {processSteps.map((step) => (
+              <div className="flex flex-wrap justify-center gap-2 mb-16">
+                {processSteps.map((step, index) => (
+                  <div key={step.id} className="relative">
                     <button
-                      key={step.id}
-                      onClick={() => handleStepClick(step.id)}
-                      className={`p-4 rounded-lg text-sm font-medium transition-all duration-200 ${
-                        activeStep === step.id
-                          ? 'bg-primary text-primary-foreground transform scale-105'
-                          : step.color + ' text-slate-700 hover:bg-slate-300'
+                      className={`px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
+                        step.active
+                          ? 'bg-coral-500 text-white relative'
+                          : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                       }`}
                     >
                       {step.title}
+                      {step.active && (
+                        <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
+                          <div className="w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-coral-500"></div>
+                        </div>
+                      )}
                     </button>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* Current Step Details */}
-        {currentStepData && (
-          <section className="container py-16">
-            <div className="max-w-6xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
-                <div>
-                  <div className="mb-6">
-                    <span className="text-primary font-semibold text-lg">
-                      Step {activeStep}
-                    </span>
-                    <h2 className="font-head text-3xl md:text-4xl mt-2 mb-6">
-                      {currentStepData.title}
-                    </h2>
-                    <p className="text-lg text-muted-foreground leading-relaxed">
-                      {currentStepData.description}
-                    </p>
-                  </div>
-
-                  {/* Expandable Items */}
-                  <div className="space-y-4">
-                    {currentStepData.items.map((item, index) => (
-                      <div key={index} className="border border-border rounded-lg">
-                        <button
-                          onClick={() => toggleExpanded(index + 1)}
-                          className="w-full flex items-center justify-between p-4 text-left hover:bg-muted/50 transition-colors"
-                        >
-                          <span className="font-medium">
-                            {index + 1}. {item.title}
-                          </span>
-                          {expandedItems.includes(index + 1) ? (
-                            <ChevronDown className="h-5 w-5 text-primary" />
-                          ) : (
-                            <ChevronRight className="h-5 w-5 text-muted-foreground" />
-                          )}
-                        </button>
-                        {expandedItems.includes(index + 1) && (
-                          <div className="px-4 pb-4">
-                            <p className="text-muted-foreground">
-                              {item.details}
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+        {/* Step 1 Details */}
+        <section className="container py-8">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              <div>
+                <div className="mb-8">
+                  <span className="text-gray-600 font-medium text-lg">
+                    Step 1
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-6 leading-tight">
+                    We prepare your property to be move-in <span className="text-coral-500">ready</span>
+                  </h2>
+                  <p className="text-gray-600 text-lg leading-relaxed">
+                    The initial step in our established process is getting your property ready to rent. This includes conducting maintenance and performing quality control assurance in our walk throughs. Continue reading the steps below to delve deeper into our process.
+                  </p>
                 </div>
 
-                <div className="relative">
-                  <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
-                    <img 
-                      src={currentStepData.image} 
-                      alt={`Step ${activeStep}: ${currentStepData.title}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  {/* Decorative elements could be added here */}
+                {/* Expandable Items */}
+                <div className="space-y-3">
+                  {processItems.map((item, index) => (
+                    <div key={index} className="bg-white rounded-lg border border-gray-200 shadow-sm">
+                      <button
+                        onClick={() => toggleExpanded(index + 1)}
+                        className="w-full flex items-center justify-between p-4 text-left hover:bg-gray-50 transition-colors"
+                      >
+                        <span className="font-medium text-gray-800">
+                          {index + 1}. {item}
+                        </span>
+                        <Plus 
+                          className={`h-5 w-5 text-coral-500 transition-transform ${
+                            expandedItems.includes(index + 1) ? 'rotate-45' : ''
+                          }`} 
+                        />
+                      </button>
+                      {expandedItems.includes(index + 1) && (
+                        <div className="px-4 pb-4 border-t border-gray-100">
+                          <p className="text-gray-600 pt-3">
+                            Detailed information about the {item.toLowerCase()} process and what it involves for your property management experience.
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          </section>
-        )}
 
-        {/* Professional Image Section */}
-        <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-16">
-          <div className="container">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h2 className="font-head text-3xl mb-6">
-                    Professional Property Management You Can Trust
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-6">
-                    Our experienced team handles every aspect of property management with precision and care. From initial preparation to ongoing tenant relations, we ensure your investment is protected and profitable.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <a 
-                      href="/owners" 
-                      className="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90"
-                    >
-                      Learn More About Our Services
-                    </a>
-                    <a 
-                      href="/contact" 
-                      className="inline-flex items-center justify-center rounded-md border border-input bg-background px-6 py-3 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground"
-                    >
-                      Get Started Today
-                    </a>
-                  </div>
-                </div>
+              <div className="relative flex justify-center">
+                {/* Circular Image with Background */}
                 <div className="relative">
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-xl">
-                    <img 
-                      src={propertyManagerProfessional} 
-                      alt="Professional property manager representing Peak Properties"
-                      className="w-full h-full object-cover"
-                    />
+                  {/* Large circular background */}
+                  <div className="w-80 h-80 bg-coral-500 rounded-full flex items-center justify-center">
+                    <div className="w-72 h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                      <img 
+                        src={propertyManagerProfessional} 
+                        alt="Professional property manager representing Peak Properties proven process"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Decorative dotted circles and elements */}
+                  <div className="absolute -top-8 -right-8 w-16 h-16 border-2 border-dashed border-gray-400 rounded-full"></div>
+                  <div className="absolute -bottom-8 -left-8 w-12 h-12 border-2 border-dashed border-gray-400 rounded-full"></div>
+                  <div className="absolute top-8 -left-12 w-8 h-8 border-2 border-dashed border-gray-400 rounded-full"></div>
+                  
+                  {/* Small decorative dots */}
+                  <div className="absolute top-12 right-16 w-3 h-3 bg-gray-400 rounded-full"></div>
+                  <div className="absolute bottom-16 right-8 w-2 h-2 bg-gray-400 rounded-full"></div>
+                  <div className="absolute bottom-12 left-12 w-4 h-4 bg-gray-400 rounded-full"></div>
+                  
+                  {/* Icon-like decorative elements */}
+                  <div className="absolute top-20 right-12">
+                    <div className="w-8 h-8 border-2 border-gray-400 rounded-lg flex items-center justify-center">
+                      <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-20 left-8">
+                    <div className="w-6 h-6 border-2 border-gray-400 rounded-full flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -262,7 +165,7 @@ const PropertyManagementProcess = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-primary py-16 text-primary-foreground">
+        <section className="bg-primary py-16 text-primary-foreground mt-16">
           <div className="container">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="font-head text-3xl md:text-4xl mb-6">
