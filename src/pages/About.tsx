@@ -1,6 +1,6 @@
 import { SEO } from "@/components/SEO";
 import boulderFlatirons from "@/assets/about-hero-flatirons.jpg";
-import pearlStreet from "@/assets/pearl-street-mall.jpg";
+import boulderCreekBridge from "@/assets/boulder-creek-bridge.jpg";
 import pearlStreetDowntown from "@/assets/pearl-street-downtown.webp";
 
 const About = () => (
@@ -70,8 +70,8 @@ const About = () => (
           
           <div className="relative">
             <img 
-              src={pearlStreet} 
-              alt="Pearl Street Mall in Boulder Colorado" 
+              src={boulderCreekBridge} 
+              alt="Boulder Creek Bridge in autumn with fall foliage" 
               className="rounded-xl shadow-elevated w-full h-auto"
             />
           </div>
