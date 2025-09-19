@@ -87,36 +87,36 @@ const ApplyingFAQs = () => {
               </div>
               
               {/* Lifestyle Photos */}
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-5xl mx-auto">
-                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={lifestyleMovingCouple} 
                     alt="Happy couple moving into rental apartment with boxes"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={lifestyleCoupleP} 
                     alt="Young couple planning and looking at documents in living room"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={lifestyleFamilyUnpacking} 
                     alt="Family with children unpacking boxes in new rental home"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md">
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={lifestyleCooking} 
                     alt="Young man cooking in modern rental apartment kitchen"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="aspect-[4/3] rounded-lg overflow-hidden shadow-md lg:col-span-1 col-span-2 md:col-span-1">
+                <div className="aspect-[3/2] rounded-lg overflow-hidden shadow-md">
                   <img 
                     src={lifestyleWorkFromHome} 
                     alt="Professional woman working from home on laptop in apartment"
