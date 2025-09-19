@@ -25,8 +25,18 @@ export const Card = ({ children }: { children: ReactNode }) => (
   <div className="rounded-lg border bg-card p-6 shadow-elevated">{children}</div>
 );
 
-export const ServiceCard = ({ title, description, icon }: { title: string; description: string; icon?: ReactNode }) => (
+export const ServiceCard = ({ title, description, icon, image }: { title: string; description: string; icon?: ReactNode; image?: string }) => (
   <Card>
+    {image && (
+      <div className="aspect-video w-full mb-4 overflow-hidden rounded-t-lg">
+        <img 
+          src={image} 
+          alt={`${title} service`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+    )}
     <div className="flex items-start gap-3">
       {icon}
       <div>

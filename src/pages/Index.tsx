@@ -1,4 +1,7 @@
 import hero from "@/assets/boulder-flatirons-hero.jpg";
+import serviceLeasingImage from "@/assets/service-leasing.jpg";
+import serviceManagementImage from "@/assets/service-management.jpg";
+import serviceReportingImage from "@/assets/service-reporting.jpg";
 import { Button } from "@/components/ui/button";
 import { TestimonialCard } from "@/components/cards/Cards";
 import { ServiceCard } from "@/components/cards/Cards";
@@ -53,9 +56,9 @@ const Index = () => {
       <section className="container py-14">
         <h2 className="font-head text-3xl mb-6">Everything owners need—under one roof</h2>
         <div className="grid md:grid-cols-3 gap-5">
-          <ServiceCard title="Leasing" description="High‑impact marketing, showings, and careful tenant screening." />
-          <ServiceCard title="Management" description="Responsive maintenance, resident care, and compliance oversight." />
-          <ServiceCard title="Reporting" description="Clear statements, performance insights, and renewal planning." />
+          <ServiceCard title="Leasing" description="High‑impact marketing, showings, and careful tenant screening." image={serviceLeasingImage} />
+          <ServiceCard title="Management" description="Responsive maintenance, resident care, and compliance oversight." image={serviceManagementImage} />
+          <ServiceCard title="Reporting" description="Clear statements, performance insights, and renewal planning." image={serviceReportingImage} />
         </div>
       </section>
 
