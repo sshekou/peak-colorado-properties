@@ -4,6 +4,7 @@ import { useState } from "react";
 import { LeadCaptureModal } from "@/components/LeadCaptureModal";
 import { CookieNotice } from "@/components/CookieNotice";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { PerformanceMonitor } from "@/components/PerformanceMonitor";
 import logo from "/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png";
 import handshakeImage from "@/assets/handshake.jpg";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
@@ -18,6 +19,7 @@ export const SiteLayout = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <PerformanceMonitor />
       <header className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-background/70 bg-background/90 border-b">
         <div className="container flex h-[95px] items-center justify-between">
           <Link to="/" className="flex items-center gap-2" aria-label="Home">
@@ -59,12 +61,6 @@ export const SiteLayout = () => {
                       </Link>
                       <Link to="/service-areas" className="block text-sm hover:text-primary transition-colors">
                         Areas We Serve
-                      </Link>
-                      <Link to="/leasing" className="block text-sm hover:text-primary transition-colors">
-                        Multi-Family Management
-                      </Link>
-                      <Link to="/maintenance" className="block text-sm hover:text-primary transition-colors">
-                        Military Partnership
                       </Link>
                     </div>
                   </div>
@@ -275,8 +271,6 @@ export const SiteLayout = () => {
                 <NavLink to="/services" onClick={() => setOpen(false)} className="py-2">Property Management Services</NavLink>
                 <NavLink to="/property-management-process" onClick={() => setOpen(false)} className="py-2">Our Proven Process</NavLink>
                 <NavLink to="/service-areas" onClick={() => setOpen(false)} className="py-2">Areas We Serve</NavLink>
-                <NavLink to="/leasing" onClick={() => setOpen(false)} className="py-2">Leasing Services</NavLink>
-                <NavLink to="/maintenance" onClick={() => setOpen(false)} className="py-2">Maintenance Management</NavLink>
               </div>
 
               <div className="pt-2 font-medium">Resources</div>

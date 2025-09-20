@@ -17,17 +17,38 @@ const Index = () => {
     <>
       <SEO
         title="Peak Properties | Boulder Property Management"
-        description="Friendly, data‑driven property management and leasing across Boulder County."
+        description="Friendly, data‑driven property management and leasing across Boulder County. Fast maintenance response, expert tenant screening, and transparent reporting."
         canonicalPath="/"
         type="website"
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'LocalBusiness',
-          name: 'Peak Properties',
-          url: window.location.origin,
-          areaServed: ['Boulder','Longmont','Louisville','Lafayette','Superior','Broomfield','Erie','Niwot','Gunbarrel'],
-          address: { '@type': 'PostalAddress', addressLocality: 'Boulder', addressRegion: 'CO' }
-        }}
+        keywords="Boulder property management, rental property management Colorado, tenant screening Boulder, property leasing Longmont, rental maintenance Boulder County"
+        image={`${window.location.origin}/assets/boulder-flatirons-hero.jpg`}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'LocalBusiness',
+            name: 'Peak Properties',
+            url: window.location.origin,
+            telephone: '(303) 555-PEAK',
+            areaServed: ['Boulder','Longmont','Louisville','Lafayette','Superior','Broomfield','Erie','Niwot','Gunbarrel'],
+            address: { '@type': 'PostalAddress', addressLocality: 'Boulder', addressRegion: 'CO', addressCountry: 'US' },
+            description: 'Professional property management and leasing services across Boulder County',
+            serviceType: ['Property Management', 'Rental Property Management', 'Tenant Screening', 'Property Leasing', 'Maintenance Management'],
+            priceRange: '$$',
+            image: `${window.location.origin}/assets/boulder-flatirons-hero.jpg`,
+            logo: `${window.location.origin}/lovable-uploads/12faef5c-e620-4661-bf01-9a07ede7ee41.png`
+          },
+          {
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Peak Properties',
+            url: window.location.origin,
+            potentialAction: {
+              '@type': 'SearchAction',
+              target: `${window.location.origin}/availability?q={search_term_string}`,
+              'query-input': 'required name=search_term_string'
+            }
+          }
+        ]}
       />
 
       {/* Hero */}
@@ -56,9 +77,21 @@ const Index = () => {
       <section className="container py-14">
         <h2 className="font-head text-3xl mb-6">Everything owners need—under one roof</h2>
         <div className="grid md:grid-cols-3 gap-5">
-          <ServiceCard title="Leasing" description="High‑impact marketing, showings, and careful tenant screening." image={serviceLeasingImage} />
-          <ServiceCard title="Management" description="Responsive maintenance, resident care, and compliance oversight." image={serviceManagementImage} />
-          <ServiceCard title="Reporting" description="Clear statements, performance insights, and renewal planning." image={serviceReportingImage} />
+          <ServiceCard 
+            title="Leasing" 
+            description="High‑impact marketing, showings, and careful tenant screening." 
+            image={serviceLeasingImage} 
+          />
+          <ServiceCard 
+            title="Management" 
+            description="Responsive maintenance, resident care, and compliance oversight." 
+            image={serviceManagementImage} 
+          />
+          <ServiceCard 
+            title="Reporting" 
+            description="Clear statements, performance insights, and renewal planning." 
+            image={serviceReportingImage} 
+          />
         </div>
       </section>
 
