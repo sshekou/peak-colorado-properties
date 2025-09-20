@@ -19,10 +19,10 @@ const teamMembers = [
     description: "David's expertise in Boulder's rental market ensures maximum occupancy and quality tenants. He leverages cutting-edge marketing strategies and thorough screening processes to protect our owners' investments."
   },
   {
-    name: "Marcus Thompson",
+    name: "Mark Thompson",
     role: "Head of Property Management",
     image: propertyManagementImage,
-    description: "Marcus oversees all property operations with a focus on proactive maintenance and exceptional resident experience. His systematic approach keeps properties in top condition while maximizing long-term value."
+    description: "Mark oversees all property operations with a focus on proactive maintenance and exceptional resident experience. His systematic approach keeps properties in top condition while maximizing long-term value."
   },
   {
     name: "James Anderson",
