@@ -1,0 +1,16 @@
+name = "peak-colorado-properties"
+main = "dist/_worker.js"
+compatibility_date = "2024-09-19"
+
+[site]
+bucket = "./dist"
+
+[build]
+command = "npm run build"
+
+[env.production]
+name = "peak-colorado-properties"
+route = { pattern = "your-domain.com/*", zone_id = "" }
+
+[env.staging]
+name = "peak-colorado-properties-staging"
